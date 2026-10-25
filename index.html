@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0f2443">
-<title>Pesquisas Eleitorais 2026 | Painel Presidencial</title>
-<meta name="description" content="Média das pesquisas presidenciais de 2026, institutos, comparação de pesquisas e análise por estado.">
+<meta name="theme-color" content="#0b1f3a">
+<title>Radar Eleitoral 2026 | Pesquisas, tendências e metodologia</title>
+<meta name="description" content="Acompanhe a média das pesquisas presidenciais de 2026, compare institutos, veja tendências por estado e entenda como os números são calculados.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#0f2443;--ink:#14243a;--text:#3c4d61;--soft:#6b7a8c;--line:#e3e8ef;--bg:#f2f4f7;--red:#d7302f;--blue:#1d6fd6;--green:#169456;--chip:#f1f4f8;--active:#eaf1fb;--r:10px}
+:root{--navy:#173f35;--ink:#18201e;--text:#3e4744;--soft:#6d7672;--line:#d9d7cf;--bg:#f4f1e9;--red:#c63f37;--blue:#336ca6;--green:#167552;--chip:#eeece4;--active:#e3ebe6;--r:4px;--paper:#fffdf8;--ochre:#b7791f}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;-webkit-font-smoothing:antialiased;min-width:320px}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;-webkit-font-smoothing:antialiased;min-width:320px}
 button,input,select{font:inherit;color:inherit}
 button{cursor:pointer}
 a{color:var(--blue)}
@@ -359,6 +359,104 @@ body.mini .collapse .i{transform:rotate(180deg)}
  .notice{margin:12px 0}
 }
 @media(max-width:480px){.igrid,.cgrid{grid-template-columns:1fr}.kpi strong{font-size:16px}.kpi .k1{font-size:10px}.cand img{width:76px;height:92px}.pct{font-size:28px}.seg button{padding:7px 11px}.vs strong{font-size:22px}}
+
+/* identidade editorial — menos interface genérica, mais leitura e contexto */
+.hdr{height:64px;padding:0 28px;background:var(--navy);border-bottom:3px solid #d5a44c}
+.logo b{width:38px;height:38px;border-radius:50%;background:#f4e8c9;color:var(--navy);font-family:Newsreader,Georgia,serif;font-size:18px}
+.logo strong{font-family:Newsreader,Georgia,serif;font-size:16px;letter-spacing:.2px}
+.logo small{letter-spacing:1.7px;color:#d4ddd8}
+.topnav button{font-size:13px;letter-spacing:.1px}.topnav button.on{border-bottom-color:#e3bd6f}
+.search input{border-radius:3px;border-color:#507268;background:#214c41}
+.layout{grid-template-columns:224px minmax(0,1fr);min-height:calc(100vh - 64px)}
+.side{top:64px;height:calc(100vh - 64px);background:#f9f7f1;border-right-color:#d3d0c6}
+.nav{border-radius:3px}.nav.on{background:#e4ebe6;box-shadow:inset 4px 0 0 #b7791f}
+.main{max-width:1540px;padding-top:28px}
+.card{background:var(--paper);box-shadow:none;border-color:var(--line)}
+.h2,.phead h1,.hero h1{font-family:Newsreader,Georgia,serif}
+.h2{font-size:20px;letter-spacing:-.15px}
+.sub{line-height:1.55}
+.eyebrow{color:#6f5120;letter-spacing:1.7px}
+.hero{min-height:286px;border-radius:2px;background-position:68% 58%;padding:36px 38px 92px;border:1px solid #c9c7bf}
+.hero:before{background:linear-gradient(90deg,#f4f1e9 0%,#f4f1e9f5 31%,#f4f1e9ba 50%,#f4f1e900 74%)}
+.hero h1{font-size:46px;line-height:.98;max-width:520px;color:#173f35;margin:16px 0 14px}
+.hero p{font-size:16px;max-width:410px;color:#36423e}
+.src{border-radius:2px;background:#fffdf8;padding:8px 12px}
+.upd{border-radius:2px;background:#173f35ed;border-left:3px solid #d5a44c}
+.cands{margin:-66px 18px 18px;border-radius:2px;padding:0;gap:0;border:0;box-shadow:0 8px 26px #27322e1c;overflow:hidden}
+.cand{border-radius:0;border:0;padding:16px 24px 16px 16px;background:var(--paper)}
+.cand+.cand{border-left:1px solid var(--line)}
+.cand img{border-radius:2px;filter:saturate(.88) contrast(1.02)}
+.cand .nm{font-family:Newsreader,Georgia,serif;font-size:22px}.pct{font-family:Newsreader,Georgia,serif;font-weight:700;font-size:42px}
+.bar,.cbar,.prog{border-radius:0}.bar i,.cbar i,.prog i{border-radius:0}
+.seg{border-radius:2px}.seg button.on{background:var(--navy)}
+.btn,.sel,.itile,.icard,.fcfacts div,.mv,.livevs>div,.vs>div{border-radius:3px}
+.kpis{gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--paper)}
+.kpi{border:0;border-right:1px solid var(--line);border-radius:0}.kpi:last-child{border-right:0}
+.kpi .ic{border-radius:50%;background:#e6ece7;color:var(--navy)}
+.fact{align-items:baseline}.fact b{font-family:Newsreader,Georgia,serif;font-size:15px}
+.table th{background:#efede6}.foot{border-top:2px solid var(--navy);padding:20px 0 8px}
+
+.reader-strip{display:grid;grid-template-columns:minmax(210px,.7fr) repeat(3,minmax(0,1fr));border:1px solid var(--line);background:var(--paper);margin-bottom:18px}
+.reader-intro{padding:18px 20px;background:var(--navy);color:#fff}
+.reader-intro .eyebrow{color:#e5c481}.reader-intro h2{font:600 24px/1.05 Newsreader,Georgia,serif;margin:5px 0 7px}.reader-intro p{font-size:12px;line-height:1.45;color:#d5dfda;margin:0}
+.reader-point{padding:18px 20px;border-left:1px solid var(--line)}
+.reader-point small{display:block;color:var(--soft);font-size:10.5px;text-transform:uppercase;letter-spacing:1px;font-weight:700}
+.reader-point strong{display:block;font:600 21px/1.15 Newsreader,Georgia,serif;margin:6px 0 4px;color:var(--ink)}
+.reader-point span{font-size:12px;color:var(--text)}
+.voter-tools{margin:18px 0 16px;padding:22px 0 0;border-top:2px solid var(--ink)}
+.voter-tools-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:12px}
+.voter-tools-head h2{font:600 25px/1 Newsreader,Georgia,serif;margin:0}.voter-tools-head p{margin:0;color:var(--soft);font-size:12.5px}
+.tool-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.tool-link{display:flex;align-items:flex-start;gap:12px;text-align:left;border:1px solid var(--line);border-top:3px solid var(--navy);background:var(--paper);padding:15px 16px;min-height:92px;color:var(--ink)}
+.tool-link:hover{background:#f8f6ef;border-top-color:var(--ochre)}
+.tool-link .i{width:22px;height:22px;color:var(--navy);margin-top:1px}.tool-link b{display:block;font:600 17px/1.15 Newsreader,Georgia,serif;margin-bottom:5px}.tool-link span{font-size:11.5px;color:var(--soft);line-height:1.4}
+
+@media(max-width:1060px){.reader-strip{grid-template-columns:1fr 1fr}.reader-intro{grid-row:span 2}.reader-point:last-child{border-top:1px solid var(--line)}.tool-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:860px){
+ .hdr{height:56px;padding:0 14px;border-bottom-width:2px}.main{padding-top:0}.hero{padding:28px 18px 68px}.hero:before{background:linear-gradient(90deg,#173f35ed 0%,#173f35c9 52%,#173f3544 100%)}.hero .eyebrow{color:#ecd59f}.hero h1{font-size:32px;line-height:1.02;max-width:290px;color:#fff}.hero p{display:block;color:#eef3f0;font-size:13px;max-width:275px}.src{font-size:11px}
+ .cands{margin:-44px 0 12px;grid-template-columns:1fr 1fr;gap:0;overflow:visible;box-shadow:none;background:transparent;border:0}
+ .cand{display:block;padding:10px;border:1px solid var(--line);min-width:0}.cand+.cand{border-left:0;margin-left:7px}.cand img{width:100%;height:96px;object-position:50% 18%;margin-bottom:8px}.cand .nm{font-size:15px;min-height:34px}.cand .lbl{font-size:9px}.pct{font-size:30px}.cand .sub{font-size:10px}.bar{margin-top:7px}
+ .reader-strip{grid-template-columns:1fr;margin:0 0 12px}.reader-intro{grid-row:auto}.reader-point{border-left:0;border-top:1px solid var(--line);padding:13px 16px;display:grid;grid-template-columns:1fr auto;column-gap:10px;align-items:center}.reader-point small{grid-column:1}.reader-point strong{grid-column:2;grid-row:1/3;margin:0}.reader-point span{grid-column:1}
+ .kpis{border:1px solid var(--line);gap:0}.kpi{border-right:1px solid var(--line)}.kpi:last-child{border-right:0}
+ .voter-tools{margin-top:12px}.voter-tools-head{display:block}.voter-tools-head p{margin-top:6px}.tool-grid{grid-template-columns:1fr 1fr;gap:7px}.tool-link{padding:12px;min-height:90px}.tool-link b{font-size:15px}
+}
+@media(max-width:480px){.tool-grid{grid-template-columns:1fr}.tool-link{min-height:0}.reader-intro h2{font-size:21px}.hero h1{font-size:29px}.cand img{height:84px}.cand .nm{font-size:14px}.pct{font-size:27px}}
+
+/* direção newsroom: interface neutra, densa e orientada a dados */
+:root{--navy:#0b1f3a;--ink:#162033;--text:#475467;--soft:#667085;--line:#d8dee8;--bg:#f5f7fa;--red:#d92d20;--blue:#175cd3;--green:#067647;--chip:#eef2f6;--active:#edf3ff;--r:6px;--paper:#fff;--ochre:#f05a28}
+body{background:var(--bg);font-family:"Source Sans 3",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.45}
+.hdr{height:64px;padding:0 24px;background:#fff;color:var(--ink);border:0;border-bottom:1px solid var(--line);box-shadow:0 1px 3px #1018280a}
+.logo{color:var(--ink)}.logo b{width:40px;height:32px;border-radius:4px;background:var(--navy);color:#fff;font:800 16px/1 "Source Sans 3",sans-serif;letter-spacing:-.3px}.logo strong{font:800 15px/1 "Source Sans 3",sans-serif;letter-spacing:.1px}.logo small{color:var(--soft);font-size:9px;letter-spacing:1.1px;margin-top:3px}
+.topnav{margin-left:28px}.topnav button{color:#475467;font-weight:600;border:0;padding:0 12px}.topnav button:hover{color:var(--ink);background:#f7f8fa}.topnav button.on{color:var(--navy);border:0;box-shadow:inset 0 -3px 0 var(--ochre)}
+.search input{border-radius:5px;border:1px solid var(--line);background:#f8fafc;color:var(--ink)}.search input::placeholder{color:#98a2b3}.search input:focus{background:#fff;border-color:#84adff}.search>.i{color:#667085}.updated{color:var(--soft)}.updated b{color:var(--ink)}
+.layout{grid-template-columns:220px minmax(0,1fr);min-height:calc(100vh - 64px)}
+.side{top:64px;height:calc(100vh - 64px);background:#fff;border-right:1px solid var(--line);padding-top:18px}.nav{border-radius:5px;color:#475467}.nav:hover{background:#f7f8fa}.nav.on{background:var(--active);color:#1849a9;box-shadow:inset 3px 0 0 #175cd3}.group{color:#344054}.count{background:#f2f4f7}.fbox input{border-radius:5px}
+.main{max-width:1500px;padding:28px clamp(18px,2.4vw,38px) 48px}
+.card{background:#fff;border-color:var(--line);border-radius:6px;box-shadow:0 1px 2px #1018280a}
+.h2,.phead h1,.hero h1,.cand .nm,.pct,.fact b,.reader-intro h2,.reader-point strong,.voter-tools-head h2,.tool-link b{font-family:"Source Sans 3",system-ui,sans-serif}
+.h2{font-size:19px;font-weight:700;letter-spacing:-.15px}.eyebrow{color:#475467;font-size:11px;letter-spacing:1.25px}.sub{color:var(--soft)}
+.hero{min-height:0;background:#fff!important;border:1px solid var(--line);border-radius:6px;padding:28px 30px 30px;margin:0;overflow:visible}
+.hero:before{display:none}.hero h1{font-size:38px;line-height:1.08;max-width:760px;color:var(--ink);margin:8px 0 8px;font-weight:800;letter-spacing:-1px}.hero p{font-size:15px;max-width:700px;color:var(--text);margin:0 0 18px}.src{border:0;border-radius:0;background:none;padding:0;box-shadow:none;color:var(--soft);font-size:12px}.src .i{color:#667085}.upd{top:24px;right:28px;border:0;border-radius:5px;background:#f2f4f7;color:var(--text);padding:9px 12px}.upd b{color:var(--ink)}.upd .i{width:18px;height:18px;color:#667085}
+.cands{margin:12px 0 14px;border:1px solid var(--line);border-radius:6px;box-shadow:none;overflow:hidden;background:#fff;padding:0;gap:0}
+.cand{min-height:142px;border:0;border-radius:0;background:#fff;padding:16px 24px 16px 16px;display:flex;gap:18px;align-items:center}.cand+.cand{border-left:1px solid var(--line)}.cand img{display:block;width:94px;height:112px;object-fit:cover;object-position:50% 18%;border-radius:5px;filter:none}.cand .info{width:100%}.cand .nm{font-size:18px;font-weight:700;margin:4px 0 0}.pct{font-size:42px;font-weight:800;line-height:1;margin:8px 0 4px;letter-spacing:-1.2px}.cand:nth-child(2){text-align:left}.cand:nth-child(2) .bar i{margin-left:0}.cand .sub{font-size:11.5px}.lbl{font-size:10px;letter-spacing:1px}.bar{height:5px;margin-top:10px;background:#eef1f5}
+.reader-strip{display:grid;grid-template-columns:1.15fr repeat(3,1fr);border:1px solid var(--line);border-radius:6px;background:#fff;margin-bottom:14px;overflow:hidden}
+.reader-intro{padding:17px 20px;background:#f8fafc;color:var(--ink);border-right:1px solid var(--line)}.reader-intro .eyebrow{color:#175cd3}.reader-intro h2{font-size:18px;line-height:1.15;font-weight:700;margin:4px 0}.reader-intro p{color:var(--soft);font-size:11.5px}.reader-point{padding:17px 18px;border-left:0;border-right:1px solid var(--line)}.reader-point:last-child{border-right:0}.reader-point small{font-size:10px;color:#667085;letter-spacing:.7px}.reader-point strong{font-size:19px;font-weight:700;margin:5px 0 2px}.reader-point span{font-size:11.5px;color:var(--soft)}
+.kpis{gap:12px;border:0;background:transparent}.kpi{border:1px solid var(--line);border-radius:6px;padding:16px}.kpi:last-child{border-right:1px solid var(--line)}.kpi .ic{width:42px;height:42px;border-radius:6px;background:#f2f4f7;color:#344054}.kpi .ic .i{width:22px;height:22px}.kpi strong{font-size:22px}
+.seg{border-radius:5px}.seg button{padding:7px 12px}.seg button.on{background:var(--navy)}.btn,.sel{border-radius:5px}.itile,.icard,.mv,.fcfacts div,.livevs>div,.vs>div{border-radius:6px}.fcgrid{gap:30px}.chance strong{font-family:"Source Sans 3",sans-serif;font-size:44px}.fact b{font-size:14px;font-weight:700}.table th{background:#f8fafc;color:#667085}.table td{color:#475467}.foot{border-top:1px solid var(--line);padding-top:18px}
+.voter-tools{border-top:1px solid var(--line);padding-top:18px}.voter-tools-head h2{font-size:21px;font-weight:700}.tool-grid{gap:12px}.tool-link{border:1px solid var(--line);border-top:1px solid var(--line);border-radius:6px;background:#fff;padding:16px;min-height:88px;box-shadow:0 1px 2px #1018280a}.tool-link:hover{border-color:#98a2b3;background:#fff;box-shadow:0 3px 8px #10182812}.tool-link .i{color:#175cd3}.tool-link b{font-size:15px;font-weight:700}.tool-link span{font-size:11.5px}
+.livebox{border-left:3px solid #d92d20}.pill,.chip{border-radius:4px}
+.ufmap.real-map{display:block;max-width:500px;margin:18px auto 0;aspect-ratio:auto}.ufmap.real-map svg{display:block;width:100%;height:auto;overflow:visible}.map-state{cursor:pointer;outline:none}.map-state path{transition:filter .15s,opacity .15s,stroke-width .15s;stroke:#fff;stroke-width:1.2}.map-state:hover path,.map-state:focus path{filter:brightness(.92);stroke:#101828;stroke-width:2}.map-state.selected path{stroke:#101828;stroke-width:3;filter:drop-shadow(0 1px 1px #10182855)}.map-state text{font:700 12px "Source Sans 3",sans-serif;pointer-events:none}.map-source{font-size:10.5px;color:var(--soft);text-align:center;margin-top:8px}
+@media(min-width:861px){.side .scroll>.nav,.side .scroll>.sep{display:none}.side .group{margin-top:2px}.side .scroll:before{content:"INSTITUTOS";display:block;padding:2px 12px 10px;color:#98a2b3;font-size:10px;font-weight:700;letter-spacing:1.2px}}
+@media(max-width:1060px){.reader-strip{grid-template-columns:1fr 1fr}.reader-intro{grid-row:auto;grid-column:1/-1;border-right:0;border-bottom:1px solid var(--line)}.reader-point{border-top:0}.reader-point:nth-child(3){border-left:1px solid var(--line)}.reader-point:last-child{grid-column:1/-1;border-top:1px solid var(--line)}}
+@media(max-width:860px){
+ .hdr{height:56px;padding:0 14px;background:#fff;border-bottom:1px solid var(--line)}.logo{color:var(--ink)}.burger{color:var(--ink)}.layout{display:block}.side{top:56px}.main{padding:12px 12px 92px}.hero{padding:22px 18px}.hero:before{display:none}.hero .eyebrow{color:#475467}.hero h1{font-size:30px;line-height:1.08;max-width:none;color:var(--ink)}.hero p{color:var(--text);max-width:none;font-size:13px}.src{font-size:10.5px}.upd{display:none}
+ .cands{margin:8px 0 12px;grid-template-columns:1fr 1fr}.cand{display:block;min-height:0;padding:10px;border:0}.cand+.cand{margin:0;border-left:1px solid var(--line)}.cand img{display:block;width:100%;height:96px;margin-bottom:9px;border-radius:4px}.cand .nm{font-size:14px;min-height:32px}.pct{font-size:32px}.cand .sub{font-size:9.5px}
+ .ufmap.real-map{max-width:420px;margin-top:14px}
+ .reader-strip{grid-template-columns:1fr;margin-bottom:12px}.reader-intro{grid-column:auto;padding:14px 16px}.reader-point{border-right:0;border-top:1px solid var(--line)!important;padding:12px 16px}.reader-point:nth-child(3){border-left:0}.reader-point:last-child{grid-column:auto}.reader-point strong{font-size:17px}
+ .kpis{gap:8px;border:0}.kpi{border:1px solid var(--line)}.kpi:last-child{border-right:1px solid var(--line)}
+ .tool-grid{grid-template-columns:1fr 1fr}.tool-link{min-height:84px}
+}
+@media(max-width:480px){.hero h1{font-size:27px}.pct{font-size:30px}.tool-grid{grid-template-columns:1fr}.tool-link{min-height:0}}
 </style>
 </head>
 <body>
@@ -389,7 +487,7 @@ body.mini .collapse .i{transform:rotate(180deg)}
 </svg>
 
 <header class="hdr">
- <button class="logo" data-go="inicio" aria-label="Pesquisas Eleitorais 2026, início"><b>26</b><span><strong>PESQUISAS ELEITORAIS</strong><small>BRASIL · 2026</small></span></button>
+ <button class="logo" data-go="inicio" aria-label="Radar Eleitoral 2026, início"><b>R26</b><span><strong>RADAR ELEITORAL</strong><small>PESQUISAS · BRASIL</small></span></button>
  <nav class="topnav" aria-label="Principal">
   <button data-go="inicio">Visão geral</button><button data-go="previsao">Previsão</button><button data-go="apuracao">Apuração</button><button data-go="institutos">Institutos</button><button data-go="comparar">Comparar</button><button data-go="estados">Estados</button><button data-go="metodologia">Metodologia</button>
  </nav>
@@ -426,9 +524,9 @@ body.mini .collapse .i{transform:rotate(180deg)}
   <section class="screen" id="s-inicio">
    <section class="card pad mb livebox" id="liveHome" hidden></section>
    <div class="hero">
-    <div class="eyebrow">Eleições presidenciais · 2026</div>
-    <h1>Projeção da disputa presidencial</h1>
-    <p>Acompanhamento das pesquisas nacionais e evolução dos candidatos</p>
+    <div class="eyebrow">Eleições 2026 · Presidência da República</div>
+    <h1>Pesquisas presidenciais 2026</h1>
+    <p>Média ponderada, evolução da disputa e comparação entre institutos. Os números representam a fotografia das pesquisas disponíveis, não uma previsão do resultado.</p>
     <span class="src"><svg class="i"><use href="#db"/></svg>Dados do TSE, PollingData e Poder360</span>
     <div class="upd"><svg class="i"><use href="#cal"/></svg><div>Última atualização<b id="updHero">—</b></div></div>
    </div>
@@ -436,6 +534,12 @@ body.mini .collapse .i{transform:rotate(180deg)}
     <article class="cand"><img src="img/lula.jpg" alt="Luiz Inácio Lula da Silva" width="118" height="128"><div class="info"><div class="lbl">Lula · PT</div><div class="nm">Luiz Inácio Lula da Silva</div><div class="pct red" id="pL">—</div><div class="sub">Média de votos válidos (2º turno)</div><div class="bar"><i class="bg-red" id="bL"></i></div></div></article>
     <article class="cand"><img src="img/flavio.jpg" alt="Flávio Bolsonaro" width="118" height="128"><div class="info"><div class="lbl">Flávio Bolsonaro · PL</div><div class="nm">Flávio Bolsonaro</div><div class="pct blue" id="pF">—</div><div class="sub">Média de votos válidos (2º turno)</div><div class="bar"><i class="bg-blue" id="bF"></i></div></div></article>
    </div>
+   <section class="reader-strip" aria-labelledby="leitura-rapida">
+    <div class="reader-intro"><div class="eyebrow">Resumo atualizado</div><h2 id="leitura-rapida">Cenário nacional</h2><p>Principais indicadores da média de 2º turno.</p></div>
+    <div class="reader-point"><small>Vantagem na média</small><strong id="rLead">—</strong><span id="rLeadSub">Calculando a diferença</span></div>
+    <div class="reader-point"><small>Pesquisas consideradas</small><strong id="rPolls">—</strong><span>uma por instituto na janela atual</span></div>
+    <div class="reader-point"><small>Atualização dos dados</small><strong id="rUpdated">—</strong><span>confira a data antes de interpretar</span></div>
+   </section>
    <section class="card pad mb" id="fcCard">
     <div class="row"><div><div class="eyebrow">Previsão · 2º turno</div><h2 class="h2" style="font-size:20px;margin-top:4px">Quem deve vencer o 2º turno?</h2><div class="sub" id="fcSub">Calculando a previsão com as pesquisas nacionais e estaduais...</div></div>
      <div class="seg" id="fcMode" role="group" aria-label="Modelo"><button data-v="0">Só pesquisas</button><button data-v="1">Ajustado</button><button data-v="2">Repete erro do 1º turno</button></div></div>
@@ -489,6 +593,15 @@ body.mini .collapse .i{transform:rotate(180deg)}
    <section class="card pad mb">
     <div class="row"><div><h2 class="h2">Últimas pesquisas</h2><div class="sub">2º turno · votos válidos · resultados nacionais mais recentes</div></div><button class="btn" data-go="comparar">Comparar pesquisas<svg class="i"><use href="#right"/></svg></button></div>
     <div class="feed" id="feed"></div>
+   </section>
+   <section class="voter-tools" aria-labelledby="ferramentas-eleitor">
+    <div class="voter-tools-head"><div><div class="eyebrow">Explore os dados</div><h2 id="ferramentas-eleitor">Ferramentas de análise</h2></div><p>Compare levantamentos, consulte recortes estaduais e audite a metodologia.</p></div>
+    <div class="tool-grid">
+     <button class="tool-link" data-go="comparar"><svg class="i"><use href="#swap"/></svg><span><b>Comparar pesquisas</b><span>Coloque institutos e períodos lado a lado.</span></span></button>
+     <button class="tool-link" data-go="estados"><svg class="i"><use href="#pin"/></svg><span><b>Ver meu estado</b><span>Entenda a disputa e a disponibilidade de dados locais.</span></span></button>
+     <button class="tool-link" data-go="institutos"><svg class="i"><use href="#building"/></svg><span><b>Checar institutos</b><span>Amostra, margem de erro, histórico e registros.</span></span></button>
+     <button class="tool-link" data-go="metodologia"><svg class="i"><use href="#info"/></svg><span><b>Entender a média</b><span>Veja pesos, exclusões, limites e fontes.</span></span></button>
+    </div>
    </section>
    <section class="card pad">
     <div class="row"><div><h2 class="h2">Institutos de pesquisa</h2><div class="sub">Acompanhe o histórico, amostras, cenários e metodologia</div></div><button class="btn" data-go="institutos">Ver todos os institutos<svg class="i"><use href="#right"/></svg></button></div>
@@ -633,7 +746,7 @@ body.mini .collapse .i{transform:rotate(180deg)}
    </section>
   </section>
 
-  <footer class="foot"><span>Pesquisas Eleitorais 2026 · Painel de análise independente</span><span>Dados: TSE, PollingData e Poder360 · Fotos: Ricardo Stuckert/PR, Agência Senado e Fbaraglia (Congresso, domínio público)</span></footer>
+  <footer class="foot"><span><b>Radar Eleitoral 2026</b> · Leitura independente de pesquisas públicas</span><span>Dados: TSE, PollingData e Poder360 · Fotos: Ricardo Stuckert/PR e Agência Senado · Mapa: Lucas Bassetti (MIT)</span></footer>
  </main>
 </div>
 
@@ -808,8 +921,11 @@ function renderHome(){
  if(a&&b){$('pL').textContent=fmt(a.value)+'%';$('pF').textContent=fmt(b.value)+'%';$('bL').style.width=a.value+'%';$('bF').style.width=b.value+'%';
   const diff=b.value-a.value,lead=Math.abs(diff)<.05?'Empate':diff>0?F:L;
   $('k3').textContent=fmt(Math.abs(diff))+' pp';$('k3s').textContent=lead==='Empate'?'Empate na média':`${lead} à frente`;
+  $('rLead').textContent=lead==='Empate'?'Empate':lead;
+  $('rLeadSub').textContent=lead==='Empate'?'diferença inferior a 0,1 ponto':`${fmt(Math.abs(diff))} pontos percentuais de vantagem`;
   $('fLead').textContent=lead;$('fDiff').textContent=fmt(Math.abs(diff))+' pontos percentuais';
-  const n=Math.max(a.n,b.n),prev=at(l,addDays(d,-7));$('k1').textContent=$('fN').textContent=int(n);delta('d1',prev?n-prev.n:NaN)}
+  const n=Math.max(a.n,b.n),prev=at(l,addDays(d,-7));$('k1').textContent=$('fN').textContent=$('rPolls').textContent=int(n);delta('d1',prev?n-prev.n:NaN)}
+ $('rUpdated').textContent=dshort(d);
  const regs=new Set(D.polls.map(p=>p.reg)),first=new Map();D.polls.forEach(p=>{if(!first.has(p.reg)||p.date<first.get(p.reg))first.set(p.reg,p.date)});
  $('k2').textContent=int(regs.size);delta('d2',[...first.values()].filter(x=>x>addDays(d,-7)).length);
  segSet('homeTurn',S.homeTurn);segSet('homePeriod',S.homePeriod);
@@ -889,6 +1005,13 @@ function renderCompare(){
 const UFS={AC:'Acre',AL:'Alagoas',AM:'Amazonas',AP:'Amapá',BA:'Bahia',CE:'Ceará',DF:'Distrito Federal',ES:'Espírito Santo',GO:'Goiás',MA:'Maranhão',MG:'Minas Gerais',MS:'Mato Grosso do Sul',MT:'Mato Grosso',PA:'Pará',PB:'Paraíba',PE:'Pernambuco',PI:'Piauí',PR:'Paraná',RJ:'Rio de Janeiro',RN:'Rio Grande do Norte',RO:'Rondônia',RR:'Roraima',RS:'Rio Grande do Sul',SC:'Santa Catarina',SE:'Sergipe',SP:'São Paulo',TO:'Tocantins'};
 const nomeUF=u=>UFS[u]||(u==='ZZ'?'Exterior':u);
 const POS={RR:[1,0],AP:[3,0],AM:[1,1],PA:[2,1],MA:[3,1],CE:[4,1],RN:[5,1],AC:[0,2],RO:[1,2],MT:[2,2],TO:[3,2],PI:[4,2],PE:[5,2],PB:[6,2],MS:[2,3],GO:[3,3],DF:[4,3],BA:[5,3],AL:[6,3],SP:[3,4],MG:[4,4],ES:[5,4],SE:[6,4],PR:[3,5],RJ:[4,5],SC:[3,6],RS:[3,7]};
+const UF_NOME=Object.fromEntries(Object.entries(UFS).map(([u,n])=>[norm(n),u]));let MAPA_SVG=null;
+async function mapaBrasil(el,dados={},selecionado=null,clicavel=true){
+ try{MAPA_SVG=MAPA_SVG||await fetch('img/brazil-states.svg').then(r=>{if(!r.ok)throw new Error('mapa '+r.status);return r.text()});if(!el.isConnected)return;el.classList.add('real-map');el.innerHTML=MAPA_SVG;const svg=el.querySelector('svg');
+  for(const a of svg.querySelectorAll('a.estado')){const u=UF_NOME[norm(a.getAttribute('name')||'')];if(!u)continue;const d=dados[u]||{bg:'#e4e7ec',dark:false,title:`${UFS[u]}: sem dados`};a.removeAttribute('href');a.removeAttributeNS('http://www.w3.org/1999/xlink','href');a.classList.add('map-state');a.classList.toggle('selected',u===selecionado);a.setAttribute('aria-label',d.title||UFS[u]);a.setAttribute('role',clicavel?'button':'img');if(clicavel){a.dataset.uf=u;a.setAttribute('tabindex','0');a.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go('estados/'+u)}})}for(const p of a.querySelectorAll('path'))p.style.fill=d.bg;for(const t of a.querySelectorAll('text'))t.setAttribute('fill',d.dark?'#fff':'#162033');const title=document.createElementNS('http://www.w3.org/2000/svg','title');title.textContent=d.title||UFS[u];a.prepend(title)}
+  el.insertAdjacentHTML('beforeend',`<div class="map-source">Mapa vetorial por UF${clicavel?' · toque em um estado para abrir os detalhes':''}</div>`);
+ }catch(e){el.classList.remove('real-map');el.innerHTML='<div class="empty">Não foi possível carregar o mapa.</div>'}
+}
 let ufLoading=null;
 async function loadUF(){if(D.ufPolls)return;ufLoading=ufLoading||Promise.all([fetchAll('resUF'),fetchAll('cenUF')]).then(([r,c])=>{D.ufPolls=groupPolls(principal(r,c))});await ufLoading}
 function ufSummary(uf,t){const ps=D.ufPolls.filter(p=>p.uf===uf&&p.turno===t);if(!ps.length)return null;const lastD=ps.at(-1).date,lo=addDays(lastD,-30),latest=new Map();ps.forEach(p=>{if(p.date>=lo)latest.set(p.inst,p)});const sel=[...latest.values()],avg=c=>{const v=sel.map(p=>p.vals[c]).filter(Number.isFinite);return v.length?v.reduce((a,b)=>a+b,0)/v.length:NaN};return{ps,lastD,sel,l:avg(L),f:avg(F)}}
@@ -897,9 +1020,9 @@ async function renderStates(uf){
  segSet('ufTurn',S.ufTurn);if(uf&&UFS[uf])S.uf=uf;
  if(!D.ready)return;
  try{await loadUF()}catch(e){$('ufDetail').innerHTML='<div class="sub">Não foi possível carregar os dados dos estados.</div>';return}
- const sums={};let cells='';
- for(const [u,[c,r]] of Object.entries(POS)){const s=sums[u]=ufSummary(u,S.ufTurn),col=ufColor(s);cells+=`<button class="uf${col?'':' none'}${u===S.uf?' on':''}" style="grid-column:${c+1};grid-row:${r+1};${col?`background:${col.bg};color:${col.dark?'#fff':'#14243a'}`:''}" data-uf="${u}" aria-label="${UFS[u]}">${u}<small>${col?(col.d>0?'F ':'L ')+'+'+fmt(Math.abs(col.d)):'—'}</small></button>`}
- $('ufMap').innerHTML=cells;
+ const sums={},mapa={};
+ for(const u of Object.keys(POS)){const s=sums[u]=ufSummary(u,S.ufTurn),col=ufColor(s);mapa[u]={bg:col?.bg||'#e4e7ec',dark:!!col?.dark,title:`${UFS[u]}: ${col?(col.d>0?'Flávio':'Lula')+' +'+fmt(Math.abs(col.d))+' pp':'sem pesquisa neste recorte'}`}}
+ await mapaBrasil($('ufMap'),mapa,S.uf,true);
  const s=sums[S.uf],off=D.oficial.filter(r=>r.abrangencia===S.uf&&+r.nr_turno===1),oL=off.find(r=>cand(r.nome_pesquisa)===L),oF=off.find(r=>cand(r.nome_pesquisa)===F);
  let h=`<div class="row"><div><div class="eyebrow">${S.ufTurn}º turno</div><h2 class="h2" style="font-size:22px;margin-top:4px">${UFS[S.uf]}</h2><div class="sub">${s?`${s.ps.length} cenário(s) · última pesquisa em ${dshort(s.lastD)}`:'Nenhuma pesquisa presidencial neste estado e turno'}</div></div></div>`;
  if(s)h+=`<div class="vs"><div><div class="lbl">Lula · PT</div><strong class="red">${fmt(s.l)}%</strong><div class="sub">média · ${s.sel.length} instituto(s)</div></div><div><div class="lbl">Flávio Bolsonaro · PL</div><strong class="blue">${fmt(s.f)}%</strong><div class="sub">média · ${s.sel.length} instituto(s)</div></div></div>`;
@@ -965,8 +1088,8 @@ async function renderForecast(){
 async function renderPrevisao(){
  segSet('pvMode',S.fcMode);if(!D.ready)return;try{await prepModelo()}catch(e){$('pvSub').textContent='Não foi possível calcular a previsão agora.';return}
  const m=modelo(S.fcMode);$('pvF').textContent=pct0(m.pF);$('pvL').textContent=pct0(1-m.pF);$('pvMed').textContent=fmt(m.med)+'%';$('pv80').textContent=`${fmt(m.q10)}–${fmt(m.q90)}%`;histograma($('pvHist'),m);
- let cells='';for(const [u,[c,r]] of Object.entries(POS)){const e=m.E.find(x=>x.uf===u);if(!e)continue;const pf=e.p,cor=corChance(pf),esc2=Math.abs(pf-.5)>=.15;cells+=`<button class="uf" style="grid-column:${c+1};grid-row:${r+1};background:${cor};color:${esc2?'#fff':'#14243a'}" data-uf="${u}" title="${UFS[u]}: Flávio ${fmt(e.m)}% · chance ${pct0(pf)}">${u}<small>${pf>=.5?'F':'L'} ${pct0(Math.max(pf,1-pf))}</small></button>`}
- $('pvMap').innerHTML=cells;
+ const mapa={};for(const u of Object.keys(POS)){const e=m.E.find(x=>x.uf===u);if(!e)continue;const pf=e.p;mapa[u]={bg:corChance(pf),dark:Math.abs(pf-.5)>=.15,title:`${UFS[u]}: Flávio ${fmt(e.m)}% · chance de vitória ${pct0(pf)}`}}
+ await mapaBrasil($('pvMap'),mapa,null,true);
  const tot=m.E.reduce((s,e)=>s+e.V,0);
  const dec=m.E.filter(e=>e.p>.03&&e.p<.97).map(e=>({e,sc:e.V/tot*e.p*(1-e.p)})).sort((a,b)=>b.sc-a.sc).slice(0,10);
  $('pvDec').innerHTML=(dec.length?'':'<tr><td colspan="5" class="note">Nenhum estado com disputa aberta neste modelo.</td></tr>')+dec.map(({e})=>`<tr><td>${nomeUF(e.uf)}</td><td class="n">${fmt(e.m)}%</td><td class="n ${e.p>=.5?'blue':'red'}">${pct0(e.p)}</td><td class="n">${e.a?e.a.n:'—'}</td><td class="n">${fmt(e.r1)}%</td></tr>`).join('');
@@ -1000,8 +1123,8 @@ function renderLive(){const b=LIVE.br,box=$('liveHome');
   $('apMain').innerHTML=`<div class="row"><h2 class="h2">Brasil</h2>${pill}</div>${vs}${prog}<div class="fcfacts" style="grid-template-columns:repeat(4,minmax(0,1fr))"><div><small>Diferença</small><b>${b.pst>0?int(Math.abs(dif))+' votos':'—'}</b></div><div><small>Brancos</small><b>${fmt(b.pvb,2)}%</b></div><div><small>Nulos</small><b>${fmt(b.pvn,2)}%</b></div><div><small>Abstenção</small><b>${fmt(b.pa,2)}%</b></div></div>`}
  else if(LIVE.err)$('apMain').innerHTML=`<div class="row"><h2 class="h2">Brasil</h2>${pill}</div><p class="sub">Não conseguimos falar com o TSE agora. Tentando de novo a cada minuto.</p>`;
  $('apPill').className='pill '+st[0];$('apPill').innerHTML=`<i></i>${st[1]}`;$('apSub').textContent=b?`Fonte: divulgação oficial do TSE · ${b.hora?'totalização de '+b.hora:''}`:'Conectando ao TSE...';
- let cells='';for(const [u,[c,r]] of Object.entries(POS)){const lv=LIVE.uf[u],f=lv?.cs[F]?.vap||0,l=lv?.cs[L]?.vap||0,on=lv&&f+l>0;cells+=`<button class="uf${on?'':' none'}" style="grid-column:${c+1};grid-row:${r+1};${on?`background:${f>l?'#1d6fd6':'#d7302f'};color:#fff`:''}" title="${UFS[u]}">${u}<small>${lv?fmt(lv.pst,0)+'%':'—'}</small></button>`}
- $('apMap').innerHTML=cells;$('apUfSub').textContent=LIVE.ufAt?`% de seções apuradas em cada estado · atualizado às ${new Date(LIVE.ufAt).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}`:'Carregando os estados...';
+ const mapa={};for(const u of Object.keys(POS)){const lv=LIVE.uf[u],f=lv?.cs[F]?.vap||0,l=lv?.cs[L]?.vap||0,on=lv&&f+l>0;mapa[u]={bg:on?(f>l?'#175cd3':'#d92d20'):'#e4e7ec',dark:on,title:`${UFS[u]}: ${lv?fmt(lv.pst,0)+'% apurado':'aguardando dados'}`}}
+ mapaBrasil($('apMap'),mapa,null,false);$('apUfSub').textContent=LIVE.ufAt?`% de seções apuradas em cada estado · atualizado às ${new Date(LIVE.ufAt).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}`:'Carregando os estados...';
  const pj=projecao();if(pj)$('apProj').innerHTML=`<h2 class="h2">Projeção com o que falta apurar</h2><div class="sub">Votos já contados em cada estado + previsão do modelo para o restante (${fmt((1-pj.fr)*100,1)}% dos votos ainda a contar)</div><div class="livevs"><div><div class="lbl">Chance de Flávio</div><strong class="blue">${pct0(pj.pF)}</strong></div><div><div class="lbl">Chance de Lula</div><strong class="red">${pct0(1-pj.pF)}</strong></div></div><div class="fcsent" style="margin-top:10px">Resultado projetado: <b class="blue">Flávio ${fmt(pj.med)}%</b> · <b class="red">Lula ${fmt(100-pj.med)}%</b> dos válidos. A incerteza cai conforme a apuração avança.</div>`;
  else if(D.sim)$('apProj').innerHTML=`<h2 class="h2">Projeção com o que falta apurar</h2><div class="sub">Começa quando os primeiros votos forem contados. Até lá, vale a previsão: <b class="blue">Flávio ${pct0(modelo(1).pF)}</b> · <b class="red">Lula ${pct0(1-modelo(1).pF)}</b>.</div>`;
  if(ROTA==='inicio'&&D.sim&&b&&b.pst>0)renderForecast()}
@@ -1026,7 +1149,7 @@ function route(){
  if(r==='apuracao'){renderLive();if(!LIVE.ufAt)atualizaUFs();if(D.ready)prepModelo().then(renderLive).catch(()=>{})}
  ROTA=r;
  const titles={previsao:'Previsão do 2º turno',apuracao:'Apuração ao vivo',inicio:'Painel Presidencial',institutos:S.inst||'Institutos',comparar:'Comparar pesquisas',estados:'Estados',metodologia:'Metodologia'};
- document.title=`Pesquisas Eleitorais 2026 | ${titles[r]}`;
+ document.title=`Radar Eleitoral 2026 | ${titles[r]}`;
 }
 const go=h=>{if(location.hash==='#'+h)route();else location.hash=h;window.scrollTo({top:0})};
 function renderSidebar(){
@@ -1051,6 +1174,7 @@ function pick(i){const h=hits[i];if(!h)return;$('qres').classList.remove('show')
 document.addEventListener('click',e=>{
  const hit=e.target.closest('[data-hit]');if(hit){pick(+hit.dataset.hit);return}
  if(!e.target.closest('.search'))$('qres').classList.remove('show');
+ const uf=e.target.closest('[data-uf]');if(uf){e.preventDefault();go('estados/'+uf.dataset.uf);return}
  const b=e.target.closest('button');if(!b)return;
  if(b.dataset.go)go(b.dataset.go);
  if(b.dataset.inst)go('institutos/'+b.dataset.inst);

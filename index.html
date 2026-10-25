@@ -896,7 +896,7 @@ body{font-size:15px;line-height:1.55}
    </section>
   </section>
 
-  <footer class="foot"><span><b>Radareleitoral.pro</b> · Leitura independente de pesquisas públicas</span><span>Dados: TSE, PollingData e Poder360 · Fotos: Ricardo Stuckert/PR e Agência Senado · Mapa: Lucas Bassetti (MIT)</span></footer>
+  <footer class="foot"><span><b>Radareleitoral.pro</b> · Leitura independente de pesquisas públicas</span><span id="visitas" hidden></span><span>Dados: TSE, PollingData e Poder360 · Fotos: Ricardo Stuckert/PR e Agência Senado · Mapa: Lucas Bassetti (MIT)</span></footer>
  </main>
 </div>
 
@@ -1418,6 +1418,9 @@ window.addEventListener('hashchange',route);
 let rz,lastW=innerWidth;window.addEventListener('resize',()=>{if(innerWidth===lastW)return;lastW=innerWidth;clearTimeout(rz);rz=setTimeout(route,150)});
 
 // ---------- início
+function contarVisita(){const el=$('visitas');if(!el)return;const dia=new Date().toLocaleDateString('en-CA',{timeZone:'America/Sao_Paulo'});let ja=false;try{ja=localStorage.getItem('re-visita')===dia}catch(e){}
+ fetch('https://abacus.jasoncameron.dev/'+(ja?'get':'hit')+'/radareleitoral.pro/visitas').then(r=>r.json()).then(d=>{const n=+d.value;if(!Number.isFinite(n))return;try{if(!ja)localStorage.setItem('re-visita',dia)}catch(e){}el.hidden=false;el.textContent=n.toLocaleString('pt-BR')+(n===1?' visita':' visitas')}).catch(()=>{})}
+contarVisita();
 route();renderSidebar();atualizaBR();
 (async()=>{try{const keys=['resultados','cenarios','pesquisas','institutos','oficial'],res=await Promise.all(keys.map(fetchAll));keys.forEach((k,i)=>D[k]=res[i]);build();D.ready=true}catch(e){console.error(e);const n=$('notice');n.textContent='Não foi possível carregar os dados agora. Verifique a conexão e recarregue a página.';n.classList.add('show')}renderSidebar();route()})();
 })();

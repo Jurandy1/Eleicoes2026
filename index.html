@@ -523,6 +523,20 @@ body{background:var(--bg);font-family:"Source Sans 3",system-ui,-apple-system,"S
 .voter-tools{border-top:1px solid var(--line);padding-top:18px}.voter-tools-head h2{font-size:21px;font-weight:700}.tool-grid{gap:12px}.tool-link{border:1px solid var(--line);border-top:1px solid var(--line);border-radius:6px;background:#fff;padding:16px;min-height:88px;box-shadow:0 1px 2px #1018280a}.tool-link:hover{border-color:#98a2b3;background:#fff;box-shadow:0 3px 8px #10182812}.tool-link .i{color:#175cd3}.tool-link b{font-size:15px;font-weight:700}.tool-link span{font-size:11.5px}
 .livebox{border-left:3px solid #d92d20}.pill,.chip{border-radius:4px}
 .ufmap.real-map{display:block;max-width:500px;margin:18px auto 0;aspect-ratio:auto}.ufmap.real-map svg{display:block;width:100%;height:auto;overflow:visible}.map-state{cursor:pointer;outline:none}.map-state path{transition:filter .15s,opacity .15s,stroke-width .15s;stroke:#fff;stroke-width:1.2}.map-state:hover path,.map-state:focus path{filter:brightness(.92);stroke:#101828;stroke-width:2}.map-state.selected path{stroke:#101828;stroke-width:3;filter:drop-shadow(0 1px 1px #10182855)}.map-state text{font:700 12px "Source Sans 3",sans-serif;pointer-events:none}.map-source{font-size:10.5px;color:var(--soft);text-align:center;margin-top:8px}
+.ap-pop{position:fixed;inset:0;z-index:80;display:grid;place-items:end center}
+.ap-pop[hidden]{display:none}
+.ap-pop-bg{position:absolute;inset:0;border:0;background:#10182866;cursor:pointer}
+.ap-pop-card{position:relative;width:100%;max-height:min(86vh,640px);overflow:auto;background:#fff;border-radius:16px 16px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom));box-shadow:0 16px 50px #10182833}
+.ap-pop-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.ap-pop-x{flex:none;width:40px;height:40px;border:0;border-radius:10px;background:#f2f4f7;color:var(--ink);font-size:22px;line-height:1;cursor:pointer}
+.ap-pop-tbl{width:100%;border-collapse:collapse;margin-top:14px;font-size:14px}
+.ap-pop-tbl th{font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--soft);text-align:right;padding:0 8px 8px}
+.ap-pop-tbl th:first-child,.ap-pop-tbl td:first-child{text-align:left}
+.ap-pop-tbl td{padding:10px 8px;border-top:1px solid var(--line);text-align:right;vertical-align:top}
+.ap-pop-tbl td b{display:block;font-size:16px;color:var(--ink)}
+.ap-pop-tbl td span{display:block;margin-top:2px;font-size:12px;color:var(--soft)}
+.ap-pop-nota{margin:12px 0 0;font-size:13px;line-height:1.45;color:var(--text)}
+@media(min-width:700px){.ap-pop{place-items:center;padding:16px}.ap-pop-card{width:min(460px,100%);border-radius:16px;padding:18px 18px 20px}}
 @media(min-width:861px){.side .scroll>.nav,.side .scroll>.sep{display:none}.side .group{margin-top:2px}.side .scroll:before{content:"INSTITUTOS";display:block;padding:2px 12px 10px;color:#98a2b3;font-size:10px;font-weight:700;letter-spacing:1.2px}}
 @media(max-width:1060px){.reader-strip{grid-template-columns:1fr 1fr}.reader-intro{grid-row:auto;grid-column:1/-1;border-right:0;border-bottom:1px solid var(--line)}.reader-point{border-top:0}.reader-point:nth-child(3){border-left:1px solid var(--line)}.reader-point:last-child{grid-column:1/-1;border-top:1px solid var(--line)}}
 @media(max-width:860px){
@@ -1106,6 +1120,17 @@ body{background:var(--bg);font-family:Inter,"Source Sans 3",system-ui,-apple-sys
   <button class="nav collapse" id="collapse"><svg class="i"><use href="#dleft"/></svg><span class="txt">Recolher menu</span></button>
  </aside>
  <div class="scrim" id="scrim"></div>
+ <div class="ap-pop" id="apPop" hidden>
+  <button class="ap-pop-bg" id="apPopBg" type="button" aria-label="Fechar"></button>
+  <div class="ap-pop-card" role="dialog" aria-modal="true" aria-labelledby="apPopTit">
+   <div class="ap-pop-top"><div><div class="eyebrow" id="apPopSig">UF</div><h2 class="h2" id="apPopTit">Estado</h2><div class="sub" id="apPopSub"></div></div><button class="ap-pop-x" id="apPopX" type="button" aria-label="Fechar">×</button></div>
+   <table class="ap-pop-tbl"><thead><tr><th>Candidato</th><th>1º turno</th><th>Agora</th></tr></thead><tbody>
+    <tr><td class="red">Lula</td><td id="apPopL1"></td><td id="apPopL2"></td></tr>
+    <tr><td class="blue">Flávio</td><td id="apPopF1"></td><td id="apPopF2"></td></tr>
+   </tbody></table>
+   <p class="ap-pop-nota" id="apPopNota"></p>
+  </div>
+ </div>
 
  <main class="main" id="main">
   <div class="notice" id="notice" role="status"></div>
@@ -1816,10 +1841,10 @@ const UFS={AC:'Acre',AL:'Alagoas',AM:'Amazonas',AP:'Amapá',BA:'Bahia',CE:'Cear�
 const nomeUF=u=>UFS[u]||(u==='ZZ'?'Exterior':u);
 const POS={RR:[1,0],AP:[3,0],AM:[1,1],PA:[2,1],MA:[3,1],CE:[4,1],RN:[5,1],AC:[0,2],RO:[1,2],MT:[2,2],TO:[3,2],PI:[4,2],PE:[5,2],PB:[6,2],MS:[2,3],GO:[3,3],DF:[4,3],BA:[5,3],AL:[6,3],SP:[3,4],MG:[4,4],ES:[5,4],SE:[6,4],PR:[3,5],RJ:[4,5],SC:[3,6],RS:[3,7]};
 const UF_NOME=Object.fromEntries(Object.entries(UFS).map(([u,n])=>[norm(n),u]));let MAPA_SVG=null;
-async function mapaBrasil(el,dados={},selecionado=null,clicavel=true){
- try{MAPA_SVG=MAPA_SVG||await fetch('img/brazil-states.svg').then(r=>{if(!r.ok)throw new Error('mapa '+r.status);return r.text()});if(!el.isConnected)return;el.classList.add('real-map');el.innerHTML=MAPA_SVG;const svg=el.querySelector('svg');
-  for(const a of svg.querySelectorAll('a.estado')){const u=UF_NOME[norm(a.getAttribute('name')||'')];if(!u)continue;const d=dados[u]||{bg:'#e4e7ec',dark:false,title:`${UFS[u]}: sem dados`};a.removeAttribute('href');a.removeAttributeNS('http://www.w3.org/1999/xlink','href');a.classList.add('map-state');a.classList.toggle('selected',u===selecionado);a.setAttribute('aria-label',d.title||UFS[u]);a.setAttribute('role',clicavel?'button':'img');if(clicavel){a.dataset.uf=u;a.setAttribute('tabindex','0');a.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go('estados/'+u)}})}for(const p of a.querySelectorAll('path'))p.style.fill=d.bg;for(const t of a.querySelectorAll('text'))t.setAttribute('fill',d.dark?'#fff':'#162033');const title=document.createElementNS('http://www.w3.org/2000/svg','title');title.textContent=d.title||UFS[u];a.prepend(title)}
-  el.insertAdjacentHTML('beforeend',`<div class="map-source">${clicavel?'Toque em um estado para abrir os detalhes. ':''}Mapa por unidade da federação.</div>`);
+async function mapaBrasil(el,dados={},selecionado=null,clicavel=true,destino){
+ try{MAPA_SVG=MAPA_SVG||await fetch('img/brazil-states.svg').then(r=>{if(!r.ok)throw new Error('mapa '+r.status);return r.text()});if(!el.isConnected)return;el.classList.add('real-map');el.innerHTML=MAPA_SVG;const svg=el.querySelector('svg'),abre=destino==='apuracao';
+  for(const a of svg.querySelectorAll('a.estado')){const u=UF_NOME[norm(a.getAttribute('name')||'')];if(!u)continue;const d=dados[u]||{bg:'#e4e7ec',dark:false,title:`${UFS[u]}: sem dados`};a.removeAttribute('href');a.removeAttributeNS('http://www.w3.org/1999/xlink','href');a.classList.add('map-state');a.classList.toggle('selected',u===selecionado);a.setAttribute('aria-label',d.title||UFS[u]);a.setAttribute('role',clicavel||abre?'button':'img');if(clicavel){a.dataset.uf=u;a.setAttribute('tabindex','0');a.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go('estados/'+u)}})}if(abre){a.dataset.apuf=u;a.setAttribute('tabindex','0')}for(const p of a.querySelectorAll('path'))p.style.fill=d.bg;for(const t of a.querySelectorAll('text'))t.setAttribute('fill',d.dark?'#fff':'#162033');const title=document.createElementNS('http://www.w3.org/2000/svg','title');title.textContent=d.title||UFS[u];a.prepend(title)}
+  el.insertAdjacentHTML('beforeend',`<div class="map-source">${abre?'Toque em um estado para ver os votos de agora e do 1º turno. ':clicavel?'Toque em um estado para abrir os detalhes. ':''}Mapa por unidade da federação.</div>`);
  }catch(e){el.classList.remove('real-map');el.innerHTML='<div class="empty">Não foi possível carregar o mapa.</div>'}
 }
 let ufLoading=null;
@@ -2027,8 +2052,17 @@ function fraseVotoUF(x){const tom=x.rel<=-0.25?'bem abaixo':x.rel<0?'abaixo':x.r
 function htmlVotos(all){const n=Math.min(2,all.length),i=(LIVE.votoIdx||0)%all.length,pick=[];for(let k=0;k<n;k++)pick.push(all[(i+k)%all.length]);return pick.map(x=>`<li>${fraseVotoUF(x)}</li>`).join('')}
 function blocoVotos(){const all=leituraVotosUF();if(!all.length)return D.oficial?`<p class="ap-votos-espera">Os votos por estado entram quando a diferença para o 1º turno ficar clara.</p>`:'';if(!LIVE.votoRot)LIVE.votoRot=Date.now();return `<ul class="ap-votos" id="apVotos">${htmlVotos(all)}</ul>`}
 function caixaPrevisao(b){const f=(b?.cs?.[F]?.vap||0)+(b?.cs?.[L]?.vap||0);if(!f)return '';const e=leituraAlinhamento(b),votos=blocoVotos();if(!e)return votos?`<div class="ap-check">${votos}</div>`:`<p class="ap-check">A média das pesquisas entra junto com a apuração.</p>`;return `<div class="ap-check ${e.st}"><p>${textoAlinhamento(e)}</p>${votos}</div>`}
+let apUfAberto='';
+function fechaUfAp(){apUfAberto='';const box=$('apPop');if(box)box.hidden=true;document.body.classList.remove('ap-pop-on')}
+function preencheUfAp(uf){const o={l:0,f:0,lp:NaN,fp:NaN};for(const r of D.oficial||[]){if(+r.nr_turno!==1||r.abrangencia!==uf)continue;const n=cand(r.nome_pesquisa||''),v=num(r.votos),p=num(r.pct_validos);if(n===L){if(Number.isFinite(v))o.l+=v;if(Number.isFinite(p))o.lp=p}else if(n===F){if(Number.isFinite(v))o.f+=v;if(Number.isFinite(p))o.fp=p}}
+ const lv=LIVE.uf[uf],f=lv?.cs?.[F]||{},l=lv?.cs?.[L]||{},fv=f.vap||0,ll=l.vap||0,pst=lv?.pst||0,tem=ll+fv>0,pct=p=>Number.isFinite(p)?fmt(p,2)+'%':'—',cel=(v,p,on)=>on?`<b>${int(v)}</b><span>${pct(p)}</span>`:'<b>—</b><span>aguardando</span>';
+ $('apPopSig').textContent=uf;$('apPopTit').textContent=nomeUF(uf);$('apPopSub').textContent=!lv?'Aguardando dados do TSE.':tem?`${fmt(pst,pst<10?1:0)}% das seções apuradas`:'Ainda sem votos neste estado.';
+ $('apPopL1').innerHTML=`<b>${o.l?int(o.l):'—'}</b><span>${pct(o.lp)}</span>`;$('apPopF1').innerHTML=`<b>${o.f?int(o.f):'—'}</b><span>${pct(o.fp)}</span>`;$('apPopL2').innerHTML=cel(ll,num(l.pvap),tem);$('apPopF2').innerHTML=cel(fv,num(f.pvap),tem);
+ const ritmo=tem&&pst>0&&o.l+o.f>0?` Com ${fmt(pst,pst<10?1:0)}% das seções, o ritmo do 1º turno seria cerca de ${int(o.l*pst/100)} votos de Lula e ${int(o.f*pst/100)} de Flávio.`:'';
+ $('apPopNota').textContent=`O percentual é o de votos válidos. O 1º turno é o total daquele dia. Agora é só o que o TSE já contou neste estado.${ritmo}`}
+function abreUfAp(uf){if(!UFS[uf])return;apUfAberto=uf;preencheUfAp(uf);$('apPop').hidden=false;document.body.classList.add('ap-pop-on');$('apPopX')?.focus()}
 function renderLive(){const box=$('liveHome');
- if(!urnasFechadas()){box.hidden=true;if(ROTA==='apuracao'){$('apPill').className='pill wait';$('apPill').innerHTML='<i></i>abre às 17h';$('apSub').textContent='Aguardando os primeiros resultados.';$('apMain').innerHTML='<div class="ap-score-top"><div><div class="eyebrow">Brasil</div><h2 class="h2" style="margin-top:3px">Placar oficial</h2></div><span class="pill wait"><i></i>aguardando</span></div><div class="ap-score-body">'+placarLive(null)+'<p class="sub" style="margin:12px 0 0">Os números aparecem aqui a partir das 17h.</p></div>';$('apProj').innerHTML='<h2 class="h2">Projeção do que falta apurar</h2><div class="sub">Entra junto com os primeiros votos.</div>';const vazio={};for(const u of Object.keys(POS))vazio[u]={bg:'#e4e7ec',dark:false,title:`${UFS[u]}: aguardando o início da apuração`};mapaBrasil($('apMap'),vazio,null,false);$('apUfSub').textContent='Aguardando o início da apuração.';pintaFluxo()}return}
+ if(!urnasFechadas()){box.hidden=true;if(ROTA==='apuracao'){$('apPill').className='pill wait';$('apPill').innerHTML='<i></i>abre às 17h';$('apSub').textContent='Aguardando os primeiros resultados.';$('apMain').innerHTML='<div class="ap-score-top"><div><div class="eyebrow">Brasil</div><h2 class="h2" style="margin-top:3px">Placar oficial</h2></div><span class="pill wait"><i></i>aguardando</span></div><div class="ap-score-body">'+placarLive(null)+'<p class="sub" style="margin:12px 0 0">Os números aparecem aqui a partir das 17h.</p></div>';$('apProj').innerHTML='<h2 class="h2">Projeção do que falta apurar</h2><div class="sub">Entra junto com os primeiros votos.</div>';const vazio={};for(const u of Object.keys(POS))vazio[u]={bg:'#e4e7ec',dark:false,title:`${UFS[u]}: aguardando o início da apuração`};mapaBrasil($('apMap'),vazio,apUfAberto||null,false,'apuracao');$('apUfSub').textContent='Aguardando o início da apuração.';pintaFluxo();if(apUfAberto)preencheUfAp(apUfAberto)}return}
  const b=LIVE.br&&diaApuracao(LIVE.br)>=20261025?LIVE.br:null;
  const st=!b?(LIVE.err?['err','sem conexão com o TSE']:['wait','aguardando apuração']):LIVE.err&&!b.final?['err','sem conexão · últimos números']:b.final?['done','apuração encerrada']:b.pst>0?['on','ao vivo']:['wait','aguardando apuração'];
  const pill=`<span class="pill ${st[0]}"><i></i>${st[1]}</span>`;
@@ -2041,7 +2075,7 @@ function renderLive(){const box=$('liveHome');
  else{box.hidden=false;box.innerHTML=`<div class="row"><div><div class="eyebrow">Resultado oficial · TSE</div><h2 class="h2" style="font-size:20px;margin-top:4px">Apuração do 2º turno</h2></div>${pill}</div><p class="sub" style="margin:12px 0 0">As urnas já fecharam. Os números do TSE aparecem aqui assim que a divulgação do 2º turno começar.</p>`;$('apMain').innerHTML=`<div class="ap-score-top"><div><div class="eyebrow">Brasil</div><h2 class="h2" style="margin-top:3px">Placar oficial</h2></div>${pill}</div><div class="ap-score-body">${placarLive(null)}<p class="sub" style="margin-top:12px">As urnas já fecharam. Os números do TSE aparecem aqui assim que a divulgação do 2º turno começar.</p></div>`}
  $('apPill').className='pill '+st[0];$('apPill').innerHTML=`<i></i>${st[1]}`;$('apSub').textContent=b?(b.hora?`Atualizado ${b.hora}`:'Resultado nacional'):'Conectando ao TSE...';
  if(ROTA==='apuracao'){const L1=leituraPrimeiro(),por=new Map((L1?.estados||[]).map(e=>[e.uf,e]));const mapa={};for(const u of Object.keys(POS)){const lv=LIVE.uf[u],fv=lv?.cs[F]?.vap||0,lvot=lv?.cs[L]?.vap||0,on=lv&&fv+lvot>0,e=por.get(u);mapa[u]={bg:on?(fv>lvot?'#175cd3':'#d92d20'):'#e4e7ec',dark:on,title:`${UFS[u]}: ${lv?fmt(lv.pst,0)+'% apurado':'aguardando dados'}${e?` · 1º turno ${fmt(e.r1)}% Flávio${e.r2==null?'':', agora '+fmt(e.r2)+'%'}`:''}`}}
-  mapaBrasil($('apMap'),mapa,null,false);$('apUfSub').textContent=LIVE.ufAt?`Atualizado às ${new Date(LIVE.ufAt).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}`:'Carregando os estados...';pintaFluxo();
+  mapaBrasil($('apMap'),mapa,apUfAberto||null,false,'apuracao');$('apUfSub').textContent=LIVE.ufAt?`Atualizado às ${new Date(LIVE.ufAt).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}`:'Carregando os estados...';pintaFluxo();if(apUfAberto)preencheUfAp(apUfAberto);
   const pj=projecao();if(pj)$('apProj').innerHTML=`<h2 class="h2">Projeção do que falta apurar</h2><div class="sub">Estimativa para os ${fmt((1-pj.fr)*100,1)}% ainda não contados.</div><div class="livevs"><div><div class="lbl">Chance de Flávio</div><strong class="blue">${pct0(pj.pF)}</strong></div><div><div class="lbl">Chance de Lula</div><strong class="red">${pct0(1-pj.pF)}</strong></div></div><div class="fcsent" style="margin-top:10px">Projetado: <b class="blue">Flávio ${fmt(pj.med)}%</b> e <b class="red">Lula ${fmt(100-pj.med)}%</b>. Faixa de 80% para Flávio: ${fmt(pj.q10)}% a ${fmt(pj.q90)}%.</div>`;
   else if(D.sim&&(D.sim[0]||D.sim[1])){const a=modelo(0),b1=modelo(1),c=modelo(2);$('apProj').innerHTML=`<h2 class="h2">Projeção do que falta apurar</h2><div class="sub">Começa quando os primeiros votos forem contados.</div><div class="facts" style="margin-top:12px"><div class="fact"><span>Só pesquisas</span><b><span class="blue">Flávio ${pct0(a.pF)}</span> · <span class="red">Lula ${pct0(1-a.pF)}</span></b></div><div class="fact"><span>Parte do erro do 1º turno</span><b><span class="blue">Flávio ${pct0(b1.pF)}</span> · <span class="red">Lula ${pct0(1-b1.pF)}</span></b></div><div class="fact"><span>Erro inteiro repetido</span><b><span class="blue">Flávio ${pct0(c.pF)}</span> · <span class="red">Lula ${pct0(1-c.pF)}</span></b></div></div>`}
  pintaPrimeiro()}
@@ -2098,7 +2132,7 @@ function route(opts){
  if(r==='estados')renderStates(arg);
  if(r==='previsao')renderPrevisao();
  // a projeção da apuração precisa do modelo (pesquisas estaduais), mesmo vindo direto para esta página
- if(r==='apuracao'){renderLive();chatIniciar();if(!LIVE.ufAt)atualizaUFs();if(D.ready)prepModelo().then(renderLive).catch(()=>{})}else chatParar();
+ if(r==='apuracao'){renderLive();chatIniciar();if(!LIVE.ufAt)atualizaUFs();if(D.ready)prepModelo().then(renderLive).catch(()=>{})}else{chatParar();if(apUfAberto)fechaUfAp()}
  const titles={previsao:'Previsão do 2º turno',apuracao:'Apuração ao vivo',inicio:'Painel Presidencial',institutos:S.inst||'Institutos',comparar:'Comparar pesquisas',estados:'Estados',metodologia:'Metodologia'};
  document.title=`Radareleitoral.pro | ${titles[r]}`;
 }
@@ -2133,11 +2167,13 @@ function ordenarTabela(table){const tb=table.tBodies[0];if(!tb)return;if(tb.data
  for(const r of dados)tb.appendChild(r);for(const r of notas)tb.appendChild(r);table.querySelectorAll('thead th').forEach((th,i)=>th.setAttribute('aria-sort',i===col?(dir>0?'ascending':'descending'):'none'));queueMicrotask(()=>{tb.dataset.sorting='';if(tb.dataset.resort==='1'){tb.dataset.resort='';ordenarTabela(table)}})}
 function cliqueOrdem(th){const table=th.closest('table');if(!table?.tBodies[0])return;const col=th.cellIndex,mesmo=+table.dataset.sortCol===col,dir=mesmo?-(+table.dataset.sortDir||1):(th.classList.contains('n')?-1:1);table.dataset.sortCol=String(col);table.dataset.sortDir=String(dir);ordenarTabela(table)}
 document.addEventListener('click',e=>{const th=e.target.closest('.table thead th');if(th)cliqueOrdem(th)});
-document.addEventListener('keydown',e=>{const th=e.target.closest?.('.table thead th');if(th&&(e.key==='Enter'||e.key===' ')){e.preventDefault();cliqueOrdem(th)}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&apUfAberto){fechaUfAp();return}const ap=e.target.closest?.('[data-apuf]');if(ap&&(e.key==='Enter'||e.key===' ')){e.preventDefault();abreUfAp(ap.dataset.apuf);return}const th=e.target.closest?.('.table thead th');if(th&&(e.key==='Enter'||e.key===' ')){e.preventDefault();cliqueOrdem(th)}});
 function marcarTh(root){root.querySelectorAll?.('.table thead th').forEach(th=>{th.tabIndex=0;th.title='Clique para ordenar'})}
 new MutationObserver(list=>{for(const m of list){for(const n of m.addedNodes)if(n.nodeType===1)marcarTh(n);const tb=m.target;if(tb.tagName==='TBODY'&&tb.dataset.sorting!=='1'){const table=tb.closest('table');if(table?.dataset.sortCol!=null)ordenarTabela(table)}}}).observe(document.body,{childList:true,subtree:true});
 marcarTh(document);
 document.addEventListener('click',e=>{
+ if(e.target.closest('#apPopX,#apPopBg')){fechaUfAp();return}
+ const ap=e.target.closest('[data-apuf]');if(ap){e.preventDefault();abreUfAp(ap.dataset.apuf);return}
  const hit=e.target.closest('[data-hit]');if(hit){pick(+hit.dataset.hit);return}
  const tr=e.target.closest('tr[data-inst]');if(tr){go('institutos/'+tr.dataset.inst);return}
  if(!e.target.closest('.search')){$('qres').classList.remove('show');$('qresSide').classList.remove('show')}

@@ -784,6 +784,15 @@ body{background:var(--bg);font-family:Inter,"Source Sans 3",system-ui,-apple-sys
 .hm-btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:9px 14px;font:500 12px Inter,sans-serif;color:var(--ink);white-space:nowrap}
 .hm-btn:hover{border-color:#c5cedb}
 #s-inicio~.foot,.foot{margin-top:24px}
+.hm-1t{margin-top:12px;padding:12px 14px;border-radius:10px;background:#fff8ec;border:1px solid #f6dfb5;font-size:12px;line-height:1.55;color:#344054}
+.hm-1t b{color:var(--ink)}
+.hm-1t .hm-link{font-size:12px;padding:0;margin-left:2px}
+.met1t-tab{width:100%;max-width:560px;border-collapse:collapse;margin:10px 0 14px;font-size:14px}
+.met1t-tab th,.met1t-tab td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:right}
+.met1t-tab th:first-child,.met1t-tab td:first-child{text-align:left}
+.met1t-tab th{font-weight:600;color:var(--soft);font-size:12.5px}
+.met1t-tab td+td{white-space:nowrap}
+@media(max-width:860px){.met1t-tab{font-size:12.5px}.met1t-tab th,.met1t-tab td{padding:7px 5px}.met1t-tab th{font-size:11px}}
 /* gráfico de distribuição */
 .hm-distchart svg{display:block;width:100%;height:100%}
 @media(max-width:1280px){.topnav button{padding:0 9px}.search{width:170px}}
@@ -1003,6 +1012,7 @@ body{background:var(--bg);font-family:Inter,"Source Sans 3",system-ui,-apple-sys
       <article class="hm-c nv"><div class="hm-cinfo"><div class="hm-cn">Indecisos / Branco / Nulo</div><div class="hm-pct" id="pN">—</div></div><div class="hm-bar"><i class="bg-gray" id="bN"></i></div><div class="hm-delta" id="dN"></div></article>
      </div>
      <div class="hm-note" id="cenNote"></div>
+     <div class="hm-1t" id="hm1t"></div>
     </section>
 
     <section class="hc hm-ind mb-only">
@@ -1242,6 +1252,8 @@ body{background:var(--bg);font-family:Inter,"Source Sans 3",system-ui,-apple-sys
     <p><b>O que o modelo não considera:</b> diferença de comparecimento entre grupos de eleitores, mudança de opinião depois da última pesquisa, e transferência diferente do voto do 1º turno conforme a região. A repetição do erro do 1º turno continua incerta, e por isso ρ entra no sorteio.</p>
     <h2>Apuração ao vivo</h2>
     <p>Os números vêm direto da divulgação oficial do TSE (resultados.tse.jus.br). O total nacional é atualizado a cada minuto e os estados, a cada dois minutos. A projeção junta os votos já contados em cada estado com a previsão do modelo para o que falta, e mostra uma faixa de 80%. A ordem entre os estados não distorce o total. Dentro de cada estado, a ordem ainda importa, porque capital e interior são apurados em ritmos diferentes. A projeção não mede, município a município, a mudança em relação ao 1º turno. Os votos que faltam usam o peso do eleitorado do 1º turno, não o eleitorado apto vezes um comparecimento previsto. A leitura rápida da mesma página compara a parcela entre os dois no 2º turno com a mesma parcela no 1º turno. Onde a apuração passou de 15%, essa diferença entra na conta do que ainda falta. Isso também não separa capital e interior.</p>
+    <h2>O que aconteceu no 1º turno</h2>
+    <div id="met1t"><p>Carregando a comparação com o resultado do TSE...</p></div>
     <h2>Limitações</h2>
     <p>Pesquisas medem a intenção no período de campo e não preveem o resultado. Os institutos diferem no método e na ponderação, e a média não apaga um erro comum a todos. O mapa dos estados é média de pesquisa. Não é o modelo. A probabilidade de vitória depende da escala histórica e da t de Student descritas acima, não de um desvio tirado só de 2026.</p>
    </section>
@@ -1419,6 +1431,21 @@ function renderFeed(){const t=S.homeTurn,dia=diaDoTurno(t),start=S.homePeriod?ad
  $('feedSub').textContent=`${t}º turno, votos válidos, ${S.homePeriod?`campo nos últimos ${S.homePeriod} dias`:'todo o histórico'}`;
  $('feed').innerHTML=rows.map(p=>`<button class="prow" data-inst="${esc(p.inst)}"><div class="who">${icon(p.inst,36)}<div style="min-width:0"><b>${esc(p.inst)}${leadTag(p)}</b><small>${esc(p.reg)} · campo em ${dshort(p.date)}</small></div></div><div class="res">${split(p)}</div><div class="mt">${int(p.n)} entrevistas<br>margem ${Number.isFinite(p.erro)?'±'+fmt(p.erro)+' pp':'—'}</div>${ic('right')}</button>`).join('')||'<p class="note">Nenhuma pesquisa neste recorte.</p>'}
 
+// 1º turno: média da véspera × urna (TSE), para o leitor ver o tamanho do erro das pesquisas
+function primeiroTurno(){const of=D.oficial&&oficialPorUF().BR,vesp=addDays(ELEICAO1,-1),l=at(D.media1?.get(L)||[],vesp),f=at(D.media1?.get(F)||[],vesp);if(!of||!l||!f||!Number.isFinite(of.f)||!Number.isFinite(of.l))return null;const fsP=f.value/(l.value+f.value)*100;return{dia:l.date,n:l.n,pl:l.value,pf:f.value,ul:of.l,uf:of.f,el:of.l-l.value,ef:of.f-f.value,fsP,fsU:of.fs,eFs:of.fs-fsP,virou:(f.value>l.value)!==(of.f>of.l)}}
+const sinal=v=>(v>0?'+':v<0?'−':'')+fmt(Math.abs(v));
+function renderPrimeiro(){const p=primeiroTurno(),hm=$('hm1t'),mt=$('met1t');
+ if(!p){hm.innerHTML='';return}
+ const lider=v=>v?' e erraram quem estava na frente':'';
+ hm.innerHTML=`<b>E o 1º turno?</b> Na véspera (${dshort(p.dia)}), a média dava <span class="red">Lula ${fmt(p.pl)}%</span> e <span class="blue">Flávio ${fmt(p.pf)}%</span>. Na urna, deu <span class="blue">Flávio ${fmt(p.uf)}%</span> e <span class="red">Lula ${fmt(p.ul)}%</span>. As pesquisas subestimaram o Flávio em ${fmt(p.ef)} p.p.${lider(p.virou)}. A média acima é só das pesquisas e não corrige esse erro. <span id="hm1tH"></span> <button class="hm-link" data-go="metodologia">Entenda o método ›</button>`;
+ mt.innerHTML=`<p>Na véspera do 1º turno (${dshort(p.dia)}), a média deste site, com ${pl(p.n,'instituto','institutos')}, dava Lula na frente. A urna deu o contrário.</p>
+ <table class="met1t-tab"><thead><tr><th>Votos válidos</th><th>Média das pesquisas</th><th>Urna (TSE)</th><th>Diferença</th></tr></thead><tbody>
+ <tr><td class="red">Lula</td><td>${fmt(p.pl)}%</td><td>${fmt(p.ul)}%</td><td>${sinal(p.el)} p.p.</td></tr>
+ <tr><td class="blue">Flávio Bolsonaro</td><td>${fmt(p.pf)}%</td><td>${fmt(p.uf)}%</td><td><b>${sinal(p.ef)} p.p.</b></td></tr>
+ <tr><td>Flávio entre os dois primeiros</td><td>${fmt(p.fsP)}%</td><td>${fmt(p.fsU)}%</td><td>${sinal(p.eFs)} p.p.</td></tr></tbody></table>
+ <p><b>A conta da média não errou.</b> Ela juntou as pesquisas como promete, pesando amostra e recência. O erro veio das próprias pesquisas: quase todos os institutos subestimaram o Flávio ao mesmo tempo. Uma média reduz o erro de cada instituto, mas não corrige um erro que está em todos eles.</p>
+ <p><b>Como isso entra no 2º turno.</b> O percentual principal da página inicial continua sendo só a média das pesquisas, para mostrar o que elas dizem hoje. O erro do 1º turno entra na Previsão, em três hipóteses. "Só pesquisas" não corrige nada. "Erro inteiro" supõe que o desvio de cada instituto no 1º turno volte por completo. "Parte do erro" sorteia quanto desse desvio volta. <span id="met1tH"></span></p>
+ <p><b>Por que não corrigir direto?</b> Não há como saber de antemão se o erro vai se repetir. Ele pode voltar igual, diminuir ou mudar de lado, porque os institutos ajustam os métodos depois de errar. Por isso o site mostra as três leituras lado a lado em vez de escolher uma.</p>`}
 // ---------- visão geral
 // filtro de instituto dos chips (null = todos, '__outros' = fora dos 9 com mais pesquisas) e modo do gráfico
 const HM={inst:null,evoMode:0};
@@ -1505,7 +1532,7 @@ function renderHome(){
  const modo=s=>{const n=norm(String(s??'').split('+')[0]);return n.includes('domicil')?0:/telef|cati|ura|ivr/.test(n)?1:n.includes('fluxo')?2:3},mc=[0,0,0,0];for(const r of regs)mc[modo(r.modo_coleta)]++;
  const parts=[['Presencial domiciliar','#0b2a7a'],['Telefone (CATI/URA)','#1d5fe0'],['Ponto de fluxo','#7aa5f5'],['Online/Outros','#c9daf8']].map(([n,c],i)=>({n,c,v:mc[i]})),pt=regs.length||1;
  rosca($('metDonut'),parts);$('metLeg').innerHTML=parts.map(p=>`<li><i style="background:${p.c}"></i><span>${p.n}</span><span>${Math.round(p.v/pt*100)}%</span></li>`).join('');
- agendarPrevisao();
+ renderPrimeiro();agendarPrevisao();
 }
 // período de campo pelo registro no TSE (início e fim); sem registro, só a data final
 function campo(p){const m=D.meta.get(p.reg),i=m?.inicio_campo,f=m?.fim_campo||p.date;return i&&i!==f?`${i.slice(8,10)}/${i.slice(5,7)} a ${dshort(f)}`:dshort(f)}
@@ -1671,7 +1698,8 @@ async function renderForecast(){
  const mods=[0,1,2].map(i=>modelo(i)),m=mods[0];if(!m)return;segSet('pvMode',S.fcMode);preencheHip('p',mods);
  $('prL').textContent=pct0(1-m.pF);$('prF').textContent=pct0(m.pF);$('prbL').style.width=(1-m.pF)*100+'%';$('prbF').style.width=m.pF*100+'%';
  $('prLs').textContent=`resultado mais provável: ${fmt(100-m.med)}%`;$('prFs').textContent=`resultado mais provável: ${fmt(m.med)}%`;
- const w=m.q90-m.q10;$('tI').textContent=w<4?'Baixa':w<8?'Média':'Alta'}
+ const w=m.q90-m.q10;$('tI').textContent=w<4?'Baixa':w<8?'Média':'Alta';
+ const e=mods[2],h=`Se o erro inteiro se repetir, o modelo da Previsão coloca o Flávio em cerca de ${fmt(e.med)}% dos válidos no 2º turno, contra ${fmt(m.med)}% sem essa correção.`;for(const id of ['hm1tH','met1tH']){const el=$(id);if(el)el.textContent=h}}
 let prevAgendada=false;
 function agendarPrevisao(){if(D.sim&&D.sim[S.fcMode]){renderForecast();return}if(prevAgendada)return;prevAgendada=true;const run=()=>{prevAgendada=false;renderForecast()};if(window.requestIdleCallback)requestIdleCallback(run,{timeout:1200});else setTimeout(run,60)}
 async function renderPrevisao(){
@@ -1761,6 +1789,7 @@ function route(opts){
  if(r==='inicio')renderHome();
  if(r==='institutos')renderInstitutes(S.inst);
  if(r==='comparar')renderCompare();
+ if(r==='metodologia'&&D.ready){renderPrimeiro();agendarPrevisao()}
  if(r==='estados')renderStates(arg);
  if(r==='previsao')renderPrevisao();
  // a projeção da apuração precisa do modelo (pesquisas estaduais), mesmo vindo direto para esta página

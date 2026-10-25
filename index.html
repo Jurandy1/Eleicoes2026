@@ -784,6 +784,17 @@ body{background:var(--bg);font-family:Inter,"Source Sans 3",system-ui,-apple-sys
 .hm-btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:9px 14px;font:500 12px Inter,sans-serif;color:var(--ink);white-space:nowrap}
 .hm-btn:hover{border-color:#c5cedb}
 #s-inicio~.foot,.foot{margin-top:24px}
+.ufctrl{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.ufctrl .hm-sel{min-width:220px}
+.ufctrl .hm-sel select{padding:8px 30px 8px 12px;font-size:13px}
+.ufrec{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px;margin-top:10px}
+.ufrec button{display:flex;flex-direction:column;gap:2px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;background:#fff;padding:9px 11px;font-size:12px;color:var(--soft);text-align:left}
+.ufrec button:hover{border-color:#c5cedb}
+.ufrec button b{font-size:14px;color:var(--ink)}
+.ufrec button.old{background:#f7f8fa}
+.ufrec button.on{border-color:var(--blue);box-shadow:inset 0 0 0 1px var(--blue)}
+.ufnote{margin-top:12px;padding:10px 12px;border-radius:10px;background:#fff8ec;border:1px solid #f6dfb5;font-size:12.5px;color:#344054}
+@media(max-width:860px){.ufctrl{width:100%}.ufctrl .hm-sel{flex:1;min-width:0}.ufctrl .hm-sel select{padding:11px 30px 11px 12px;font-size:14px}}
 .hm-1t{margin-top:12px;padding:12px 14px;border-radius:10px;background:#fff8ec;border:1px solid #f6dfb5;font-size:12px;line-height:1.55;color:#344054}
 .hm-1t b{color:var(--ink)}
 .hm-1t .hm-link{font-size:12px;padding:0;margin-left:2px}
@@ -1207,7 +1218,7 @@ body{background:var(--bg);font-family:Inter,"Source Sans 3",system-ui,-apple-sys
 
   <!-- ESTADOS -->
   <section class="screen" id="s-estados">
-   <div class="phead"><div><div class="eyebrow">Análise regional</div><h1>Análise por estado</h1><div class="sub">Pesquisas presidenciais feitas em cada estado e resultado oficial do 1º turno</div></div><div class="seg" id="ufTurn"><button data-v="1">1º turno</button><button data-v="2">2º turno</button></div></div>
+   <div class="phead"><div><div class="eyebrow">Análise regional</div><h1>Análise por estado</h1><div class="sub">Média nacional, pesquisas presidenciais feitas em cada estado e resultado oficial do 1º turno</div></div><div class="ufctrl"><span class="hm-sel"><select id="ufSel" aria-label="Escolher Brasil ou um estado"><option value="BR">Brasil (todos os estados)</option></select></span><div class="seg" id="ufTurn"><button data-v="1">1º turno</button><button data-v="2">2º turno</button></div></div></div>
    <div class="ufwrap">
     <section class="card pad"><h2 class="h2">Quem lidera em cada estado</h2><div class="sub">Média das pesquisas do estado. Não aplica o movimento nacional. Cor esmaecida: última pesquisa há mais de 21 dias.</div>
      <div class="ufmap" id="ufMap"></div>
@@ -1420,7 +1431,7 @@ function desde(l,f){let last=null,prev=null;const fm=new Map(f.map(p=>[p.date,p.
 const legend=(el,items)=>{el.innerHTML=items.map(s=>`<span><i class="${s.cls||''}" style="${s.cls==='dash'?`border-color:${s.color};color:${s.color}`:`background:${s.color}`}"></i>${esc(s.label||s.name)}</span>`).join('')};
 
 // ---------- estado da interface
-const S={fcMode:0,homeTurn:2,homePeriod:90,instTurn:2,instPeriod:0,ufTurn:2,uf:'SP',inst:null};
+const S={fcMode:0,homeTurn:2,homePeriod:90,instTurn:2,instPeriod:0,ufTurn:2,uf:'BR',inst:null};
 const segSet=(id,v)=>$(id).querySelectorAll('button').forEach(b=>b.classList.toggle('on',+b.dataset.v===v));
 const tile=s=>`<button class="itile" data-inst="${esc(s.name)}"><div class="wm">${logo(s.name)}</div><div class="meta"><b>${esc(s.name)}</b>Última: ${dshort(s.last.date)}<br>${s.last.turno}º turno</div>${ic('right')}</button>`;
 
@@ -1622,17 +1633,37 @@ function ufSummary(uf,t){const ps=D.ufPolls.filter(p=>p.uf===uf&&p.turno===t);if
 function esmaecer(hex){const n=parseInt(hex.slice(1),16),mix=(c,t)=>Math.round(c*.4+t*.6),r=mix(n>>16&255,228),g=mix(n>>8&255,231),b=mix(n&255,236);return '#'+[r,g,b].map(x=>x.toString(16).padStart(2,'0')).join('')}
 function ufColor(s){if(!s||!Number.isFinite(s.l)||!Number.isFinite(s.f))return null;const d=s.f-s.l,a=Math.abs(d);const R=['#f3b7b6','#e5706e','#c62828'],B=['#b5cdf0','#6098e0','#1554b5'],k=a<2?0:a<6?1:2;const ref=D.lastDate||s.lastD,stale=!!ref&&s.lastD<addDays(ref,-21);let bg=(d>0?B:R)[k];if(stale)bg=esmaecer(bg);return{bg,dark:!stale&&k>0,d,stale}}
 async function renderStates(uf){
- segSet('ufTurn',S.ufTurn);if(uf&&UFS[uf])S.uf=uf;
+ segSet('ufTurn',S.ufTurn);if(uf==='BR'||uf&&UFS[uf])S.uf=uf;
+ const sel=$('ufSel');if(sel.options.length<2)sel.innerHTML='<option value="BR">Brasil (todos os estados)</option>'+Object.entries(UFS).sort((x,y)=>x[1].localeCompare(y[1],'pt')).map(([k,n])=>`<option value="${k}">${n}</option>`).join('');sel.value=S.uf;
  if(!D.ready)return;
  try{await loadUF()}catch(e){$('ufDetail').innerHTML='<div class="sub">Não foi possível carregar os dados dos estados.</div>';return}
- const sums={},mapa={};
- for(const u of Object.keys(POS)){const s=sums[u]=ufSummary(u,S.ufTurn),col=ufColor(s);mapa[u]={bg:col?.bg||'#e4e7ec',dark:!!col?.dark,title:`${UFS[u]}: ${col?(col.d>0?'Flávio':'Lula')+' +'+fmt(Math.abs(col.d))+' pp, pesquisa de '+dshort(s.lastD)+(col.stale?', dado antigo':''):'sem pesquisa neste recorte'}`}}
- await mapaBrasil($('ufMap'),mapa,S.uf,true);
- const s=sums[S.uf],off=D.oficial.filter(r=>r.abrangencia===S.uf&&+r.nr_turno===1),oL=off.find(r=>cand(r.nome_pesquisa)===L),oF=off.find(r=>cand(r.nome_pesquisa)===F);
- let h=`<div class="row"><div><div class="eyebrow">${S.ufTurn}º turno</div><h2 class="h2" style="font-size:22px;margin-top:4px">${UFS[S.uf]}</h2><div class="sub">${s?`${pl(s.ps.length,'cenário','cenários')}, última pesquisa em ${dshort(s.lastD)}`:'Nenhuma pesquisa presidencial neste estado e turno'}</div></div></div>`;
- if(s)h+=`<div class="vs"><div><div class="lbl">Lula · PT</div><strong class="red">${fmt(s.l)}%</strong><div class="sub">média, ${pl(s.sel.length,'instituto','institutos')}</div></div><div><div class="lbl">Flávio Bolsonaro · PL</div><strong class="blue">${fmt(s.f)}%</strong><div class="sub">média, ${pl(s.sel.length,'instituto','institutos')}</div></div></div>`;
- if(oL||oF)h+=`<div class="facts" style="margin-top:14px"><div class="fact"><span>Urna, 1º turno · Lula</span><b class="red">${fmt(num(oL?.pct_validos))}%</b></div><div class="fact"><span>Urna, 1º turno · Flávio Bolsonaro</span><b class="blue">${fmt(num(oF?.pct_validos))}%</b></div></div>`;
- if(s)h+=`<div class="tw"><table class="table"><thead><tr><th>Instituto</th><th>Campo</th><th class="n">Lula</th><th class="n">Flávio</th><th class="n">Amostra</th></tr></thead><tbody>${s.ps.slice().reverse().slice(0,12).map(p=>`<tr><td><span style="display:inline-flex;align-items:center;gap:8px">${icon(p.inst,18)}${esc(p.inst)}</span></td><td data-l="Campo">${dshort(p.date)}</td><td class="n red" data-l="Lula">${fmt(p.vals[L])}%</td><td class="n blue" data-l="Flávio">${fmt(p.vals[F])}%</td><td class="n" data-l="Amostra">${int(p.n)}</td></tr>`).join('')}</tbody></table></div>`;
+ const t=S.ufTurn,ref=D.lastDate,sums={},mapa={};
+ for(const u of Object.keys(POS)){const s=sums[u]=ufSummary(u,t),col=ufColor(s);mapa[u]={bg:col?.bg||'#e4e7ec',dark:!!col?.dark,title:`${UFS[u]}: ${col?(col.d>0?'Flávio':'Lula')+' +'+fmt(Math.abs(col.d))+' pp, pesquisa de '+dshort(s.lastD)+(col.stale?', dado antigo':''):'sem pesquisa neste recorte'}`}}
+ await mapaBrasil($('ufMap'),mapa,S.uf==='BR'?null:S.uf,true);
+ const tabela=ps=>`<div class="tw"><table class="table"><thead><tr><th>Instituto</th><th>Campo</th><th class="n">Lula</th><th class="n">Flávio</th><th class="n">Amostra</th></tr></thead><tbody>${ps.map(p=>`<tr><td><span style="display:inline-flex;align-items:center;gap:8px">${icon(p.inst,18)}${esc(p.inst)}</span></td><td data-l="Campo">${dshort(p.date)}</td><td class="n red" data-l="Lula">${fmt(p.vals[L])}%</td><td class="n blue" data-l="Flávio">${fmt(p.vals[F])}%</td><td class="n" data-l="Amostra">${int(p.n)}</td></tr>`).join('')}</tbody></table></div>`;
+ const vs=(l,f,sub)=>`<div class="vs"><div><div class="lbl">Lula · PT</div><strong class="red">${fmt(l)}%</strong><div class="sub">${sub}</div></div><div><div class="lbl">Flávio Bolsonaro · PL</div><strong class="blue">${fmt(f)}%</strong><div class="sub">${sub}</div></div></div>`;
+ const urna=(l,f)=>Number.isFinite(l)||Number.isFinite(f)?`<div class="facts" style="margin-top:14px"><div class="fact"><span>Urna, 1º turno · Lula</span><b class="red">${fmt(l)}%</b></div><div class="fact"><span>Urna, 1º turno · Flávio Bolsonaro</span><b class="blue">${fmt(f)}%</b></div></div>`:'';
+ // estados com pesquisa no turno, da mais recente para a mais antiga
+ const rec=Object.keys(POS).filter(u=>sums[u]).sort((x,y)=>sums[y].lastD.localeCompare(sums[x].lastD)||x.localeCompare(y));
+ const recentes=rec.length?`<h3 class="h3" style="margin-top:20px">Pesquisas estaduais mais recentes</h3><div class="sub">${t}º turno. Fundo cinza: última pesquisa há mais de 21 dias. Clique para ver o estado.</div><div class="ufrec">${rec.map(u=>{const s=sums[u],d=s.f-s.l;return `<button data-uf="${u}" class="${s.lastD<addDays(ref,-21)?'old':''}${u===S.uf?' on':''}" title="${esc(UFS[u])}"><b>${u}</b><span>${dshort(s.lastD)}</span>${Number.isFinite(d)?`<span class="${d>0?'blue':'red'}">${d>0?'Flávio':'Lula'} +${fmt(Math.abs(d))}</span>`:''}</button>`}).join('')}</div>`:'';
+ let h;
+ if(S.uf==='BR'){
+  const dia=diaDoTurno(t),med=mediaEm(t,dia),of=D.oficial?oficialPorUF().BR:null,seen=new Set(),ult=[];
+  for(const p of [...D.polls].reverse()){if(p.turno!==t||seen.has(p.reg)||!Number.isFinite(p.vals[L])||!Number.isFinite(p.vals[F]))continue;seen.add(p.reg);ult.push(p);if(ult.length>=12)break}
+  h=`<div class="row"><div><div class="eyebrow">${t}º turno</div><h2 class="h2" style="font-size:22px;margin-top:4px">Brasil</h2><div class="sub">${med?`Média nacional até ${dshort(dia)}, com ${pl(med.sel.length,'instituto','institutos')}. É a mesma da página inicial.`:'Sem média nacional neste turno.'}</div></div></div>`;
+  if(med)h+=vs(med.avg[L],med.avg[F],'média nacional');
+  h+=urna(of?.l,of?.f);
+  if(ult.length)h+=`<h3 class="h3" style="margin-top:20px">Pesquisas nacionais mais recentes</h3>`+tabela(ult);
+  h+=recentes;
+ }else{
+  const s=sums[S.uf],off=D.oficial.filter(r=>r.abrangencia===S.uf&&+r.nr_turno===1),oL=off.find(r=>cand(r.nome_pesquisa)===L),oF=off.find(r=>cand(r.nome_pesquisa)===F);
+  h=`<div class="row"><div><div class="eyebrow">${t}º turno</div><h2 class="h2" style="font-size:22px;margin-top:4px">${UFS[S.uf]}</h2><div class="sub">${s?`${pl(s.ps.length,'cenário','cenários')}, última pesquisa em ${dshort(s.lastD)}`:'Nenhuma pesquisa presidencial neste estado e turno'}</div></div><button class="btn" data-uf="BR">${ic('left')}Brasil</button></div>`;
+  if(s&&s.lastD<addDays(ref,-21))h+=`<div class="ufnote">A pesquisa mais recente deste estado no ${t}º turno é de ${dshort(s.lastD)}${t===2&&s.lastD<ELEICAO1?', antes do 1º turno':''}. Pode não refletir o momento atual. Para números recentes, veja a média nacional ou os estados com pesquisa nos últimos dias.</div>`;
+  if(s)h+=vs(s.l,s.f,`média, ${pl(s.sel.length,'instituto','institutos')}`);
+  h+=urna(num(oL?.pct_validos),num(oF?.pct_validos));
+  if(s)h+=tabela(s.ps.slice().reverse().slice(0,12));
+  h+=recentes;
+ }
  $('ufDetail').innerHTML=h;
 }
 
@@ -1847,6 +1878,7 @@ document.addEventListener('click',e=>{
  if(b.dataset.uf)go('estados/'+b.dataset.uf);
  const seg=b.closest('.seg, .hipoteses');if(seg&&b.dataset.v!==undefined){const v=+b.dataset.v;if(seg.id==='fcMode'||seg.id==='pvMode'){S.fcMode=v;renderForecast();if(ROTA==='previsao')renderPrevisao()}if(seg.id==='homeTurn'){S.homeTurn=v;renderHome()}if(seg.id==='homePeriod'){S.homePeriod=v;renderHome()}if(seg.id==='instTurn'){S.instTurn=v;renderInstitutes(S.inst)}if(seg.id==='ufTurn'){S.ufTurn=v;renderStates()}}
 });
+$('ufSel').addEventListener('change',e=>go('estados/'+e.target.value));
 $('instPeriod').addEventListener('change',e=>{S.instPeriod=+e.target.value;renderInstitutes(S.inst)});
 ['cA','cB','cT','cP'].forEach(id=>$(id).addEventListener('change',renderCompare));
 $('csvBtn').addEventListener('click',baixarCSV);

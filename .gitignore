@@ -1,0 +1,10 @@
+# chaves: NUNCA no repositorio
+.env
+*.env
+
+# dados brutos e bases locais
+*.zip
+*.db
+base_site/
+base_tse/
+__pycache__/

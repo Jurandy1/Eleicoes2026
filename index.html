@@ -1269,7 +1269,7 @@ body{background:var(--bg);font-family:Inter,"Source Sans 3",system-ui,-apple-sys
    <section class="card pad method">
     <h2>Quais pesquisas entram</h2>
     <p>Só pesquisas <b>registradas no TSE</b> (cada uma tem número de registro, como BR-09540/2026) e com resultado divulgado por candidato. De cada pesquisa usamos um único cenário, o <b>cenário principal</b> (o mais completo). Sem isso, uma pesquisa que testou 7 cenários de 1º turno contaria 7 vezes.</p>
-    <p><b>Controle de qualidade:</b> o cenário entra se a soma dos percentuais de votos válidos publicados para os candidatos ficar entre 97% e 103%. O teste é feito nessa soma, não no questionário completo de candidatos, brancos, nulos e indecisos. Se a fonte já entrega os válidos normalizados, o teste só pega lista incompleta ou soma fora dessa faixa. A lista dos excluídos aparece na página inicial.</p>
+    <p><b>Controle de qualidade:</b> o cenário entra se a soma dos percentuais de votos válidos publicados para os candidatos ficar entre 97% e 103%. O teste é feito nessa soma, não no questionário completo de candidatos, brancos, nulos e indecisos. Se a fonte já entrega os válidos normalizados, o teste só pega lista incompleta ou soma fora dessa faixa. Os cenários aprovados têm os válidos recalculados para somar exatamente 100% antes de entrar na média, porque algumas fontes publicam válidos que somam 101%, o que inflaria os dois candidatos dessas pesquisas.</p>
     <h2>Como a média é calculada</h2>
     <p>Para cada dia, usamos <b>uma pesquisa por instituto</b>: a mais recente com campo encerrado nos últimos <b>14 dias</b>. Assim, um instituto que publica toda semana não pesa mais do que um que publica de 15 em 15 dias.</p>
     <p>Cada pesquisa recebe um peso: <code>peso = √entrevistas × 0,5^(dias desde o campo ÷ 7)</code>.</p>
@@ -1377,6 +1377,8 @@ function build(){
  for(const r of D.pesquisas){const i=byCnpj.get(String(r.cnpj));r.inst=i?inst(i.instituto):null;r.modo_principal=i?.modo_principal}
  // controle de qualidade: só entra na média o cenário com os votos válidos somando ~100%
  D.ok=[];D.excl=[];for(const p of D.polls){const sm=Object.values(p.vals).reduce((a,b)=>a+b,0);(sm>=97&&sm<=103?D.ok:D.excl).push(p);p.soma=sm}
+ // válidos recalculados para somar exatamente 100% em cada cenário aprovado (algumas fontes publicam 101%)
+ for(const p of D.ok)if(Math.abs(p.soma-100)>.01)for(const c in p.vals)p.vals[c]*=100/p.soma;
  D.media2=mediaSeries(2);D.media1=mediaSeries(1);
  D.lastDate=[...D.media2.values()].flat().map(p=>p.date).sort().at(-1)||null;
  $('updTop').textContent=dlong(D.lastDate);

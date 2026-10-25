@@ -945,6 +945,34 @@ body{background:var(--bg);font-family:Inter,"Source Sans 3",system-ui,-apple-sys
  .bnav .i{width:22px;height:22px}
  }
 @media(max-width:400px){.hm-chips:not(.open) button:nth-child(4){display:none}.hm-hero h1{font-size:27px}.hm-pct{font-size:29px}.hm-igrid,.hm-agrid{gap:8px}.hm-ic{padding:10px;gap:9px}.hm-ic .hm-ki{width:34px;height:34px}.hm-li .pp{gap:8px}}
+.apwrap{display:grid;grid-template-columns:minmax(0,1fr) 380px;grid-template-areas:"topo chat" "meio chat" "baixo chat";gap:16px;align-items:start}
+.apwrap>.phead{grid-area:topo;margin-bottom:0}
+.apwrap>#apMain{grid-area:meio}
+.aprest{grid-area:baixo;min-width:0}
+.chat{grid-area:chat;position:sticky;top:80px;height:calc(100vh - 96px);min-height:460px;display:flex;flex-direction:column;padding:0;overflow:hidden}
+.chathead{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line)}
+.chathead .h2{margin:2px 0 0;font-size:18px}
+.chathead .sub{margin:0}
+.chatlog{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:12px;background:#f8fafc}
+.cmsg p{margin:2px 0 0;font-size:14.5px;line-height:1.45;color:var(--ink);overflow-wrap:anywhere;white-space:pre-wrap}
+.cwho{display:flex;justify-content:space-between;gap:8px;font-size:12px}
+.cwho b{font-weight:800}
+.cwho span{color:var(--soft);flex:none}
+.cempty{color:var(--soft);font-size:13.5px;line-height:1.5}
+.chat form{border-top:1px solid var(--line);padding:12px 14px;background:#fff}
+.chat label{display:block;font-size:12px;font-weight:700;color:var(--text);margin-bottom:6px}
+.chat input{width:100%;border:1px solid var(--line);border-radius:6px;padding:10px 12px;background:#fff;min-height:42px}
+.chat input:focus{outline:2px solid #84adff;border-color:#84adff}
+.chat .send{margin-top:8px;width:100%;justify-content:center;background:var(--navy);color:#fff;border-color:var(--navy)}
+.chatrow{display:flex;gap:8px;align-items:center}
+.chatrow .send{margin-top:0;width:auto;padding-inline:16px}
+.chatwho{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12.5px;color:var(--soft);margin-bottom:8px}
+.chatwho button{border:0;background:none;color:#175cd3;font-weight:700;padding:0}
+.chat .note{margin:8px 0 0}
+@media(max-width:1100px){
+ .apwrap{grid-template-columns:1fr;grid-template-areas:"topo" "meio" "chat" "baixo"}
+ .chat{position:static;height:min(72vh,640px)}
+}
 </style>
 </head>
 <body>
@@ -1182,8 +1210,27 @@ body{background:var(--bg);font-family:Inter,"Source Sans 3",system-ui,-apple-sys
 
   <!-- APURAÇÃO -->
   <section class="screen" id="s-apuracao">
+   <div class="apwrap">
    <div class="phead"><div><div class="eyebrow">Resultado oficial · TSE</div><h1>Apuração ao vivo · 2º turno</h1><div class="sub" id="apSub">Conectando ao TSE...</div></div><span class="pill wait" id="apPill"><i></i>conectando</span></div>
    <section class="card pad mb livebox" id="apMain"><div class="sub">Carregando...</div></section>
+   <aside class="card chat" id="chatBox" aria-label="Chat da apuração">
+    <div class="chathead"><div><div class="eyebrow">Conversa</div><h2 class="h2">Chat da apuração</h2></div><span class="sub" id="chatCount"></span></div>
+    <div class="chatlog" id="chatLog" role="log" aria-live="polite" aria-relevant="additions"><div class="cempty">As mensagens aparecem aqui.</div></div>
+    <form id="chatForm">
+     <div id="chatNomeBox">
+      <label for="chatNome">Seu nome</label>
+      <input id="chatNome" maxlength="24" placeholder="Como você quer aparecer" autocomplete="nickname" enterkeyhint="done">
+      <button class="btn send" id="chatEntrar" type="button">Entrar no chat</button>
+      <p class="note">Só o nome. Sem e-mail, sem senha e sem cadastro. Ele fica salvo neste navegador.</p>
+     </div>
+     <div id="chatEscreve" hidden>
+      <div class="chatwho"><span>Você aparece como <b id="chatEu"></b></span><button type="button" id="chatTrocar">Trocar nome</button></div>
+      <div class="chatrow"><input id="chatTexto" maxlength="400" placeholder="Escreva uma mensagem" autocomplete="off" enterkeyhint="send"><button class="btn send" type="submit">Enviar</button></div>
+     </div>
+     <p class="note" id="chatErro" hidden></p>
+    </form>
+   </aside>
+   <div class="aprest">
    <div class="pvgrid">
     <section class="card pad" id="apProj"><h2 class="h2">Projeção com o que falta apurar</h2><div class="sub">Disponível quando a apuração começar</div></section>
     <section class="card pad"><h2 class="h2">Apuração nos estados</h2><div class="sub" id="apUfSub">Atualiza a cada 2 minutos</div><div class="ufmap" id="apMap"></div>
@@ -1195,6 +1242,8 @@ body{background:var(--bg);font-family:Inter,"Source Sans 3",system-ui,-apple-sys
     <div id="ap1br" class="facts"></div>
     <div class="tw"><table class="table"><thead><tr><th>Estado</th><th class="n">Apurado</th><th class="n">Flávio no 2º</th><th class="n">Flávio no 1º</th><th class="n">Diferença</th></tr></thead><tbody id="ap1tab"><tr><td colspan="5" class="note">Entra às 17h, junto com os votos.</td></tr></tbody></table></div>
    </section>
+   </div>
+   </div>
   </section>
 
   <!-- INSTITUTOS -->
@@ -1319,8 +1368,8 @@ body{background:var(--bg);font-family:Inter,"Source Sans 3",system-ui,-apple-sys
 
 <script>
 (()=>{'use strict';
-// Supabase: so leitura. A chave publishable e publica por design (as tabelas
-// so tem policy de SELECT); a chave secreta nunca vai para o site.
+// Supabase: leitura das pesquisas. O chat da apuração também grava, só com nome e texto.
+// A chave publishable é pública por design. A chave secreta nunca vai para o site.
 const SB_URL='https://jlmhmdudgalrqnqyqyee.supabase.co',SB_KEY='sb_publishable_ykLyqi5lVdNz0CHEdgoFAw_mRwOKifd';
 const RES='registro,uf_recorte,turno,cenario_id,instituto,data_campo,entrevistas,erro_pp,candidato,voto_valido,voto_total,fonte';
 const Q={
@@ -1898,7 +1947,30 @@ function renderLive(){const box=$('liveHome');
  pintaPrimeiro()}
  if(ROTA==='inicio'&&D.sim&&b&&b.pst>0)renderForecast()}
 setInterval(()=>{if(document.visibilityState!=='visible')return;const now=Date.now();if(now>=LIVE.next)atualizaBR();if(ROTA==='apuracao'&&now>=ABRE_URNA&&now-LIVE.ufAt>=120000)atualizaUFs();document.querySelectorAll('[data-tick]').forEach(el=>el.textContent=tempo())},1000);
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&Date.now()>=LIVE.next)atualizaBR()});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&Date.now()>=LIVE.next)atualizaBR();if(document.visibilityState==='visible'&&ROTA==='apuracao')chatLer()});
+
+// ---------- chat da apuração (nome local, sem cadastro; consulta a cada 4s)
+let chatTimer=0,chatUltimo=0,chatNome='',chatEspera=0,chatPronto=false;
+const CHAT_CORES=['#173f35','#175cd3','#b7791f','#067647','#7c4ddb','#c2417a','#0891b2','#475569'];
+function chatCor(nome){let h=0;for(const c of nome)h=(h*31+c.charCodeAt(0))>>>0;return CHAT_CORES[h%CHAT_CORES.length]}
+function chatLimpa(s,max){return String(s??'').replace(/[\u0000-\u001f]/g,'').replace(/[ \t\f\v]+/g,' ').trim().slice(0,max)}
+function chatAviso(t){const el=$('chatErro');if(!el)return;el.hidden=!t;el.textContent=t||''}
+function chatMostrarNome(){const tem=chatNome.length>=2;const box=$('chatNomeBox'),escR=$('chatEscreve');if(!box||!escR)return;box.hidden=tem;escR.hidden=!tem;if(tem)$('chatEu').textContent=chatNome}
+function chatPinta(rows,reset){const log=$('chatLog');if(!log)return;const perto=log.scrollHeight-log.scrollTop-log.clientHeight<90;if(reset)log.innerHTML='';
+ for(const m of rows){if(!m||log.querySelector(`[data-id="${m.id}"]`))continue;const d=document.createElement('div');d.className='cmsg';d.dataset.id=String(m.id);const hora=new Date(m.criado_em).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',timeZone:'America/Sao_Paulo'});d.innerHTML=`<div class="cwho"><b style="color:${chatCor(String(m.nome||''))}">${esc(m.nome)}</b><span>${hora}</span></div><p></p>`;d.querySelector('p').textContent=String(m.texto||'');log.appendChild(d);chatUltimo=Math.max(chatUltimo,+m.id||0)}
+ const n=log.querySelectorAll('.cmsg').length;const vazio=log.querySelector('.cempty');if(!n){if(!vazio)log.innerHTML='<div class="cempty">Nenhuma mensagem ainda. A conversa aparece aqui.</div>'}else if(vazio)vazio.remove();
+ $('chatCount').textContent=n?`${n} ${n===1?'mensagem':'mensagens'}`:'';
+ if(perto||reset)log.scrollTop=log.scrollHeight}
+async function chatLer(){if(ROTA!=='apuracao')return;const q=chatPronto?`select=id,nome,texto,criado_em&order=id.asc&id=gt.${chatUltimo}&limit=80`:'select=id,nome,texto,criado_em&order=id.desc&limit=80';
+ try{const r=await fetch(`${SB_URL}/rest/v1/chat_apuracao?${q}`,{headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY}});if(!r.ok){const t=await r.text();if(/PGRST205|chat_apuracao/.test(t))chatAviso('O chat ainda não está ligado no banco.');return}let rows=await r.json();if(!Array.isArray(rows))return;if(!chatPronto){rows=rows.reverse();chatPinta(rows,true);chatPronto=true}else chatPinta(rows,false)}catch(e){}}
+function chatIniciar(){try{chatNome=chatLimpa(localStorage.getItem('re-chat-nome')||'',24)}catch(e){chatNome=''}if(chatNome.length<2)chatNome='';chatMostrarNome();chatAviso('');if(!chatTimer){chatLer();chatTimer=setInterval(chatLer,4000)}}
+function chatParar(){if(chatTimer){clearInterval(chatTimer);chatTimer=0}}
+function chatGuardarNome(){const n=chatLimpa($('chatNome').value,24);if(n.length<2){chatAviso('O nome precisa de pelo menos 2 letras.');return}chatNome=n;try{localStorage.setItem('re-chat-nome',n)}catch(e){}chatAviso('');chatMostrarNome();$('chatTexto')?.focus()}
+async function chatEnviar(ev){ev.preventDefault();if(chatNome.length<2){chatGuardarNome();return}const texto=chatLimpa($('chatTexto').value,400);if(!texto)return;const agora=Date.now();if(agora-chatEspera<4000){chatAviso('Espere alguns segundos para enviar de novo.');return}chatEspera=agora;$('chatTexto').value='';
+ try{const r=await fetch(`${SB_URL}/rest/v1/chat_apuracao`,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=representation'},body:JSON.stringify({nome:chatNome,texto})});if(!r.ok){chatEspera=0;chatAviso('Não foi possível enviar agora. Tente de novo.');return}chatAviso('');const rows=await r.json();if(Array.isArray(rows))chatPinta(rows,false)}catch(e){chatEspera=0;chatAviso('Não foi possível enviar agora. Tente de novo.')}}
+$('chatForm')?.addEventListener('submit',chatEnviar);
+$('chatEntrar')?.addEventListener('click',chatGuardarNome);
+$('chatTrocar')?.addEventListener('click',()=>{chatNome='';try{localStorage.removeItem('re-chat-nome')}catch(e){}chatMostrarNome();chatAviso('');$('chatNome')?.focus()});
 
 // ---------- navegação
 const ROUTES=['inicio','previsao','apuracao','institutos','comparar','estados','metodologia'];let ROTA='inicio';
@@ -1916,7 +1988,7 @@ function route(opts){
  if(r==='estados')renderStates(arg);
  if(r==='previsao')renderPrevisao();
  // a projeção da apuração precisa do modelo (pesquisas estaduais), mesmo vindo direto para esta página
- if(r==='apuracao'){renderLive();if(!LIVE.ufAt)atualizaUFs();if(D.ready)prepModelo().then(renderLive).catch(()=>{})}
+ if(r==='apuracao'){renderLive();chatIniciar();if(!LIVE.ufAt)atualizaUFs();if(D.ready)prepModelo().then(renderLive).catch(()=>{})}else chatParar();
  const titles={previsao:'Previsão do 2º turno',apuracao:'Apuração ao vivo',inicio:'Painel Presidencial',institutos:S.inst||'Institutos',comparar:'Comparar pesquisas',estados:'Estados',metodologia:'Metodologia'};
  document.title=`Radareleitoral.pro | ${titles[r]}`;
 }

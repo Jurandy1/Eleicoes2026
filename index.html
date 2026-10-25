@@ -194,6 +194,37 @@ body.mini .collapse .i{transform:rotate(180deg)}
 .lead{font-size:10.5px;font-weight:700;border-radius:4px;padding:2px 6px;margin-left:6px;vertical-align:1px}
 .lead.l{background:#fdecec;color:var(--red)}.lead.f{background:#e8f0fc;color:var(--blue)}.lead.e{background:#f1f4f8;color:var(--soft)}
 
+/* previsão */
+.fcgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:24px;align-items:center;margin-top:16px}
+.chance{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.chance strong{display:block;font-size:46px;font-weight:800;letter-spacing:-1.2px;line-height:1;font-variant-numeric:tabular-nums}
+.chance .r{text-align:right}
+.cbar{display:flex;height:16px;border-radius:8px;overflow:hidden;gap:3px;margin:12px 0 10px;background:#edf0f4}
+.cbar i{display:block;height:100%;transition:width .6s}
+.fcsent{font-size:14px;color:var(--text);line-height:1.5}
+.fcfacts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:14px}
+.fcfacts div{border:1px solid var(--line);border-radius:8px;padding:9px 11px;background:#fbfcfd}
+.fcfacts b{display:block;font-size:15px;color:var(--ink);font-variant-numeric:tabular-nums}
+.fcfacts small{font-size:11px;color:var(--soft)}
+.chart.hist{height:210px;margin-top:0}
+.fcwarn{margin-top:12px;font-size:12px;color:var(--soft);line-height:1.5}
+.fcwarn b{color:var(--text)}
+.pvgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:16px;margin-bottom:16px;align-items:start}
+/* apuração */
+.pill{display:inline-flex;align-items:center;gap:7px;border-radius:20px;padding:4px 11px;font-size:11.5px;font-weight:700;white-space:nowrap}
+.pill i{width:8px;height:8px;border-radius:50%;background:currentColor}
+.pill.on{background:#fdecec;color:#c62828}.pill.on i{animation:pulse 1.2s infinite}
+.pill.wait{background:#f1f4f8;color:#4a5b70}.pill.done{background:#e7f6ee;color:#11734a}.pill.err{background:#fff4e5;color:#7a4b06}
+@keyframes pulse{50%{opacity:.2}}
+.prog{height:9px;background:#edf0f4;border-radius:5px;overflow:hidden;margin-top:8px}
+.prog i{display:block;height:100%;background:var(--navy);transition:width .6s}
+.livebox{border-left:4px solid var(--red)}
+.livevs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.livevs>div{border:1px solid var(--line);border-radius:8px;padding:12px 14px;min-width:0}
+.livevs strong{display:block;font-size:32px;font-weight:800;letter-spacing:-.6px;font-variant-numeric:tabular-nums;line-height:1.15}
+.livevs .sub b{color:var(--ink)}
+.eleito{display:inline-block;background:#11734a;color:#fff;border-radius:4px;font-size:10.5px;font-weight:800;padding:2px 7px;margin-left:8px;letter-spacing:.5px;vertical-align:3px}
+
 /* evolução */
 .chart.big{height:330px;margin-top:10px}
 .chart.diff{height:128px;margin-top:4px}
@@ -263,6 +294,7 @@ body.mini .collapse .i{transform:rotate(180deg)}
 
 /* responsivo */
 @media(max-width:1200px){.updated{display:none}}
+@media(max-width:1280px){.search{width:190px}.topnav button{padding:0 10px}}
 @media(max-width:1060px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.two,.ufwrap{grid-template-columns:1fr}.topnav{margin-left:10px}.topnav button{padding:0 9px}.search{width:210px}}
 @media(max-width:860px){
  .hdr{height:56px;padding:0 16px}
@@ -305,6 +337,11 @@ body.mini .collapse .i{transform:rotate(180deg)}
  .chart{height:224px}
  .chart.big{height:270px}
  .moves{grid-template-columns:1fr 1fr}
+ .fcgrid,.pvgrid{grid-template-columns:1fr;gap:12px}
+ .chance strong{font-size:36px}
+ .fcfacts{grid-template-columns:1fr 1fr 1fr;gap:6px}
+ .fcfacts b{font-size:13px}
+ .livevs strong{font-size:24px}
  .mv:last-child{grid-column:span 2}
  .mv div:last-child{gap:4px 10px;font-size:12.5px}
  .chart.diff{height:110px}
@@ -333,6 +370,8 @@ body.mini .collapse .i{transform:rotate(180deg)}
  <symbol id="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
  <symbol id="cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 17.5h.01M12 17.5h.01"/></symbol>
  <symbol id="down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+ <symbol id="target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></symbol>
+ <symbol id="live" viewBox="0 0 24 24"><path d="M5 12a7 7 0 0 1 14 0M8.5 12a3.5 3.5 0 0 1 7 0"/><circle cx="12" cy="12" r="1.3"/><path d="M12 13.5V21M8 21h8"/></symbol>
  <symbol id="up" viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></symbol>
  <symbol id="right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
  <symbol id="left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
@@ -352,7 +391,7 @@ body.mini .collapse .i{transform:rotate(180deg)}
 <header class="hdr">
  <button class="logo" data-go="inicio" aria-label="Pesquisas Eleitorais 2026, início"><b>26</b><span><strong>PESQUISAS ELEITORAIS</strong><small>BRASIL · 2026</small></span></button>
  <nav class="topnav" aria-label="Principal">
-  <button data-go="inicio">Visão geral</button><button data-go="institutos">Institutos</button><button data-go="comparar">Comparar pesquisas</button><button data-go="estados">Estados</button><button data-go="metodologia">Metodologia</button>
+  <button data-go="inicio">Visão geral</button><button data-go="previsao">Previsão</button><button data-go="apuracao">Apuração</button><button data-go="institutos">Institutos</button><button data-go="comparar">Comparar</button><button data-go="estados">Estados</button><button data-go="metodologia">Metodologia</button>
  </nav>
  <div class="search" role="search"><svg class="i"><use href="#search"/></svg><input id="q" type="search" placeholder="Buscar instituto, pesquisa..." autocomplete="off" aria-label="Buscar instituto ou número de registro"><div class="results" id="qres" role="listbox"></div></div>
  <div class="updated">Atualizado em<b id="updTop">—</b></div>
@@ -363,6 +402,8 @@ body.mini .collapse .i{transform:rotate(180deg)}
  <aside class="side" id="side" aria-label="Menu">
   <div class="scroll">
    <button class="nav" data-go="inicio"><svg class="i"><use href="#home"/></svg><span class="txt">Visão geral</span></button>
+   <button class="nav" data-go="previsao"><svg class="i"><use href="#target"/></svg><span class="txt">Previsão do 2º turno</span></button>
+   <button class="nav" data-go="apuracao"><svg class="i"><use href="#live"/></svg><span class="txt">Apuração ao vivo</span></button>
    <button class="nav" data-go="comparar"><svg class="i"><use href="#bars"/></svg><span class="txt">Comparar pesquisas</span></button>
    <button class="nav" data-go="estados"><svg class="i"><use href="#map"/></svg><span class="txt">Análise por estado</span></button>
    <div class="sep"></div>
@@ -383,6 +424,7 @@ body.mini .collapse .i{transform:rotate(180deg)}
 
   <!-- VISÃO GERAL -->
   <section class="screen" id="s-inicio">
+   <section class="card pad mb livebox" id="liveHome" hidden></section>
    <div class="hero">
     <div class="eyebrow">Eleições presidenciais · 2026</div>
     <h1>Projeção da disputa presidencial</h1>
@@ -394,6 +436,20 @@ body.mini .collapse .i{transform:rotate(180deg)}
     <article class="cand"><img src="img/lula.jpg" alt="Luiz Inácio Lula da Silva" width="118" height="128"><div class="info"><div class="lbl">Lula · PT</div><div class="nm">Luiz Inácio Lula da Silva</div><div class="pct red" id="pL">—</div><div class="sub">Média de votos válidos (2º turno)</div><div class="bar"><i class="bg-red" id="bL"></i></div></div></article>
     <article class="cand"><img src="img/flavio.jpg" alt="Flávio Bolsonaro" width="118" height="128"><div class="info"><div class="lbl">Flávio Bolsonaro · PL</div><div class="nm">Flávio Bolsonaro</div><div class="pct blue" id="pF">—</div><div class="sub">Média de votos válidos (2º turno)</div><div class="bar"><i class="bg-blue" id="bF"></i></div></div></article>
    </div>
+   <section class="card pad mb" id="fcCard">
+    <div class="row"><div><div class="eyebrow">Previsão · 2º turno</div><h2 class="h2" style="font-size:20px;margin-top:4px">Quem deve vencer o 2º turno?</h2><div class="sub" id="fcSub">Calculando a previsão com as pesquisas nacionais e estaduais...</div></div>
+     <div class="seg" id="fcMode" role="group" aria-label="Modelo"><button data-v="0">Só pesquisas</button><button data-v="1">Ajustado</button><button data-v="2">Repete erro do 1º turno</button></div></div>
+    <div class="fcgrid">
+     <div>
+      <div class="chance"><div><div class="lbl red">Lula · PT</div><strong class="red" id="fcL">—</strong></div><div class="r"><div class="lbl blue">Flávio Bolsonaro · PL</div><strong class="blue" id="fcF">—</strong></div></div>
+      <div class="cbar"><i class="bg-red" id="fcBL" style="width:50%"></i><i class="bg-blue" id="fcBF" style="width:50%"></i></div>
+      <div class="fcsent" id="fcSent">—</div>
+      <div class="fcfacts"><div><small>Resultado mais provável</small><b id="fcMed">—</b></div><div><small>Faixa de 80%</small><b id="fc80">—</b></div><div><small>Faixa de 95%</small><b id="fc95">—</b></div></div>
+     </div>
+     <div><div class="sub" style="margin-bottom:4px">Distribuição de 20.000 eleições simuladas · % de Flávio nos votos válidos</div><div class="chart hist" id="fcHist"></div></div>
+    </div>
+    <div class="fcwarn" id="fcWarn">É uma estimativa feita a partir das pesquisas, não um resultado. <button class="back" data-go="previsao" style="margin:0">Ver o modelo completo ›</button></div>
+   </section>
    <div class="kpis">
     <div class="card kpi"><div class="ic"><svg class="i"><use href="#chart"/></svg></div><div><strong id="k1">—</strong><div class="k1 long">Institutos na média</div><div class="k1 short">Institutos</div><div class="k2">em relação à semana anterior</div></div><span class="delta" id="d1"></span></div>
     <div class="card kpi"><div class="ic"><svg class="i"><use href="#file"/></svg></div><div><strong id="k2">—</strong><div class="k1 long">Pesquisas com resultado</div><div class="k1 short">Pesquisas</div><div class="k2">na base nacional</div></div><span class="delta" id="d2"></span></div>
@@ -419,7 +475,7 @@ body.mini .collapse .i{transform:rotate(180deg)}
       <div class="fact"><span>Mudança em 7 dias</span><b id="fMove">—</b></div>
       <div class="fact"><span>Na frente desde</span><b id="fSince">—</b></div>
       <div class="fact"><span>Período da média</span><b>Janela de 14 dias</b></div>
-      <div class="fact"><span>Probabilidade de vitória</span><b>Não calculada</b></div>
+      <div class="fact"><span>Chance de vitória (modelo)</span><b id="fProb">calculando...</b></div>
      </div>
      <div class="note">Uma vantagem pequena na média não garante vitória. Os resultados são estimativas sujeitas a erro e viés.</div>
     </section>
@@ -438,6 +494,39 @@ body.mini .collapse .i{transform:rotate(180deg)}
     <div class="row"><div><h2 class="h2">Institutos de pesquisa</h2><div class="sub">Acompanhe o histórico, amostras, cenários e metodologia</div></div><button class="btn" data-go="institutos">Ver todos os institutos<svg class="i"><use href="#right"/></svg></button></div>
     <div class="igrid" id="homeTiles"></div>
    </section>
+  </section>
+
+  <!-- PREVISÃO -->
+  <section class="screen" id="s-previsao">
+   <div class="phead"><div><div class="eyebrow">Modelo estatístico</div><h1>Previsão do 2º turno</h1><div class="sub" id="pvSub">Pesquisas nacionais e estaduais, corrigidas pelo erro de cada instituto no 1º turno e simuladas 20.000 vezes</div></div>
+    <div class="seg" id="pvMode" role="group" aria-label="Modelo"><button data-v="0">Só pesquisas</button><button data-v="1">Ajustado</button><button data-v="2">Repete erro do 1º turno</button></div></div>
+   <div class="kpis small">
+    <div class="card kpi"><div class="ic"><svg class="i"><use href="#target"/></svg></div><div><strong class="blue" id="pvF">—</strong><div class="k1">Chance de Flávio Bolsonaro</div></div></div>
+    <div class="card kpi"><div class="ic"><svg class="i"><use href="#target"/></svg></div><div><strong class="red" id="pvL">—</strong><div class="k1">Chance de Lula</div></div></div>
+    <div class="card kpi"><div class="ic"><svg class="i"><use href="#chart"/></svg></div><div><strong id="pvMed">—</strong><div class="k1">Resultado mais provável (Flávio)</div></div></div>
+    <div class="card kpi"><div class="ic"><svg class="i"><use href="#trend"/></svg></div><div><strong id="pv80">—</strong><div class="k1">Faixa de 80% (Flávio)</div></div></div>
+   </div>
+   <section class="card pad mb"><h2 class="h2">Resultados possíveis</h2><div class="sub">Cada barra é a fração das 20.000 eleições simuladas que terminou naquele resultado. Azul: Flávio vence; vermelho: Lula vence.</div><div class="chart hist" id="pvHist" style="height:240px;margin-top:12px"></div></section>
+   <div class="pvgrid">
+    <section class="card pad"><h2 class="h2">Chance em cada estado</h2><div class="sub">Probabilidade de cada candidato vencer no estado. Toque em um estado para ver os números.</div>
+     <div class="ufmap" id="pvMap"></div>
+     <div class="scale"><span><i style="background:#c62828"></i>Lula provável (>85%)</span><span><i style="background:#e5706e"></i>Lula favorito</span><span><i style="background:#f3b7b6"></i>Lula leve</span><span><i style="background:#b5cdf0"></i>Flávio leve</span><span><i style="background:#6098e0"></i>Flávio favorito</span><span><i style="background:#1554b5"></i>Flávio provável (>85%)</span></div></section>
+    <section class="card pad"><h2 class="h2">Estados decisivos</h2><div class="sub">Disputados e com muitos eleitores: onde a eleição se decide</div><div class="tw"><table class="table"><thead><tr><th>Estado</th><th class="n">Flávio previsto</th><th class="n">Chance Flávio</th><th class="n">Pesquisas</th><th class="n">1º turno</th></tr></thead><tbody id="pvDec"></tbody></table></div><div class="note" id="pvUfNote"></div></section>
+   </div>
+   <section class="card pad mb"><h2 class="h2">Os métodos concordam?</h2><div class="sub">O centro da previsão combina a média nacional e a soma dos estados</div><div class="tw"><table class="table"><thead><tr><th>Método</th><th class="n">Flávio</th><th class="n">Lula</th><th>O que é</th></tr></thead><tbody id="pvConc"></tbody></table></div></section>
+   <section class="card pad mb"><h2 class="h2">Viés de cada instituto no 1º turno</h2><div class="sub">Erro das últimas pesquisas de 1º turno (20/09 a 03/10) contra a urna, em pontos da parcela de Flávio entre os dois. Positivo: o instituto subestimou Flávio.</div><div class="tw"><table class="table"><thead><tr><th>Instituto</th><th class="n">Pesquisas comparadas</th><th class="n">Erro médio</th><th class="n">Viés estimado</th><th class="n">Ajuste aplicado (ρ = 0,5)</th><th class="n">Peso de precisão (relativo)</th></tr></thead><tbody id="pvBias"></tbody></table></div></section>
+   <section class="card pad"><h2 class="h2">O método no teste do 1º turno</h2><div class="sub">Quanto a média das pesquisas (sem ajuste) errou na véspera do 1º turno</div><div id="pvBack" class="facts"></div></section>
+  </section>
+
+  <!-- APURAÇÃO -->
+  <section class="screen" id="s-apuracao">
+   <div class="phead"><div><div class="eyebrow">Resultado oficial · TSE</div><h1>Apuração ao vivo · 2º turno</h1><div class="sub" id="apSub">Conectando ao TSE...</div></div><span class="pill wait" id="apPill"><i></i>conectando</span></div>
+   <section class="card pad mb livebox" id="apMain"><div class="sub">Carregando...</div></section>
+   <div class="pvgrid">
+    <section class="card pad" id="apProj"><h2 class="h2">Projeção com o que falta apurar</h2><div class="sub">Disponível quando a apuração começar</div></section>
+    <section class="card pad"><h2 class="h2">Apuração nos estados</h2><div class="sub" id="apUfSub">Atualiza a cada 2 minutos</div><div class="ufmap" id="apMap"></div>
+     <div class="scale"><span><i style="background:#d7302f"></i>Lula na frente</span><span><i style="background:#1d6fd6"></i>Flávio na frente</span><span><i style="background:#dfe4ea"></i>ainda sem votos</span></div></section>
+   </div>
   </section>
 
   <!-- INSTITUTOS -->
@@ -528,6 +617,17 @@ body.mini .collapse .i{transform:rotate(180deg)}
     <p>Pesquisas presidenciais feitas dentro de cada estado. A cor do mapa usa a média da pesquisa mais recente de cada instituto nos 30 dias anteriores à última pesquisa do estado.</p>
     <h2>Fontes</h2>
     <p>Registros e resultados oficiais: <b>TSE</b> (dados abertos). Percentuais por candidato: <b>PollingData</b>, complementado pelo <b>Poder360</b> nos dias mais recentes. Quando a mesma pesquisa aparece nas duas fontes, fica a do PollingData, que traz decimais e voto total. O registro no TSE não é chancela da metodologia ou dos resultados de uma pesquisa.</p>
+    <h2>Previsão do 2º turno</h2>
+    <p>A previsão estima a parcela de Flávio Bolsonaro nos votos válidos (Lula = 100 − Flávio), no Brasil e em cada estado, em cinco etapas:</p>
+    <p><b>1. Viés de cada instituto.</b> Comparamos as últimas pesquisas de 1º turno de cada instituto (nacionais e estaduais, de 20/09 a 03/10) com a urna. O viés estimado é a média desses erros, puxada para a média geral quando o instituto tem poucas pesquisas: <code>viés = (Σerros + 3 × média geral) ÷ (n + 3)</code>. Institutos que erraram menos ganham mais peso: <code>peso × 1 ÷ (1 + (erro quadrático ÷ 2,5)²)</code>.</p>
+    <p><b>2. Média nacional ajustada.</b> É a mesma média da página inicial, com cada pesquisa corrigida por <code>ρ × viés</code> do seu instituto. ρ é quanto do erro do 1º turno se repete no 2º.</p>
+    <p><b>3. Estados.</b> Em cada estado, combinamos as pesquisas estaduais do 2º turno (últimos 30 dias) com um ponto de partida: o resultado do 1º turno no estado mais a mudança nacional desde então. Quanto mais pesquisas, mais elas pesam (<code>n ÷ (n + 2)</code>). Os estados são somados pelo número de votos válidos de cada um no 1º turno.</p>
+    <p><b>4. Centro.</b> Média entre a média nacional e a soma dos estados, cada uma com peso inverso à sua incerteza.</p>
+    <p><b>5. Simulação.</b> Simulamos 20.000 eleições. Cada uma sorteia um erro comum a todo o país (desvio de 2,3 pontos, o erro das pesquisas no Brasil no 1º turno de 2026), um erro próprio de cada estado (desvio de 2,25 pontos, a variação do erro entre os estados no 1º turno) e o ruído entre institutos. No modelo "Ajustado", ρ também é sorteado entre 0 e 1. A chance de vitória é a fração das simulações que cada candidato vence. O sorteio usa semente fixa, para o número não mudar a cada visita.</p>
+    <p><b>Três versões, para comparar:</b> "Só pesquisas" (sem ajuste de viés), "Ajustado" (padrão) e "Repete erro do 1º turno" (ρ = 1).</p>
+    <p><b>O que o modelo não considera:</b> diferença de comparecimento entre grupos de eleitores, mudanças de opinião depois da última pesquisa e o quanto o erro do 1º turno realmente se repete, que é incerto e por isso é sorteado.</p>
+    <h2>Apuração ao vivo</h2>
+    <p>Os números vêm direto da divulgação oficial do TSE (resultados.tse.jus.br) e são atualizados a cada minuto, e os estados a cada dois minutos. A projeção durante a apuração junta os votos já contados em cada estado com a previsão do modelo para a parte que falta. Assim, a ordem em que as regiões são apuradas não distorce o total, porque as primeiras urnas não representam o país.</p>
     <h2>Limitações</h2>
     <p>Pesquisas medem intenção de voto no período de campo, não preveem o resultado. Os institutos diferem em método (presencial, telefone, online) e na forma de ponderar a amostra, e isso gera diferenças sistemáticas entre eles. A média reduz o ruído de cada pesquisa isolada, mas não elimina um erro que seja comum a todos os institutos.</p>
    </section>
@@ -540,8 +640,8 @@ body.mini .collapse .i{transform:rotate(180deg)}
 <nav class="bnav" aria-label="Navegação para celular">
  <button data-go="inicio"><svg class="i"><use href="#home"/></svg>Início</button>
  <button data-go="institutos"><svg class="i"><use href="#building"/></svg>Institutos</button>
- <button data-go="comparar"><svg class="i"><use href="#swap"/></svg>Comparar</button>
- <button data-go="estados"><svg class="i"><use href="#pin"/></svg>Estados</button>
+ <button data-go="previsao"><svg class="i"><use href="#target"/></svg>Previsão</button>
+ <button data-go="apuracao"><svg class="i"><use href="#live"/></svg>Apuração</button>
  <button id="more"><svg class="i"><use href="#grid"/></svg>Mais</button>
 </nav>
 
@@ -556,7 +656,7 @@ const Q={
  cenarios:['cenarios','uf_recorte=eq.BR&cenario_principal=is.true&select=registro,uf_recorte,turno,cenario_id'],
  pesquisas:['pesquisas','p_presidente=is.true&select=registro,cnpj,inicio_campo,fim_campo,divulgacao,modo_coleta,contratante'],
  institutos:['institutos','select=instituto,cnpj,modo_principal'],
- oficial:['resultado_oficial','ds_cargo=eq.Presidente&select=abrangencia,nr_turno,nome_pesquisa,pct_validos'],
+ oficial:['resultado_oficial','ds_cargo=eq.Presidente&select=abrangencia,nr_turno,nome_pesquisa,votos,pct_validos'],
  resUF:['resultados','uf_recorte=neq.BR&select='+RES],
  cenUF:['cenarios','uf_recorte=neq.BR&cenario_principal=is.true&select=registro,uf_recorte,turno,cenario_id'],
 };
@@ -690,7 +790,7 @@ function desde(l,f){let last=null,prev=null;const fm=new Map(f.map(p=>[p.date,p.
 const legend=(el,items)=>{el.innerHTML=items.map(s=>`<span><i class="${s.cls||''}" style="${s.cls==='dash'?`border-color:${s.color};color:${s.color}`:`background:${s.color}`}"></i>${esc(s.label||s.name)}</span>`).join('')};
 
 // ---------- estado da interface
-const S={homeTurn:2,homePeriod:90,instTurn:2,instPeriod:0,ufTurn:2,uf:'SP',inst:null};
+const S={fcMode:1,homeTurn:2,homePeriod:90,instTurn:2,instPeriod:0,ufTurn:2,uf:'SP',inst:null};
 const segSet=(id,v)=>$(id).querySelectorAll('button').forEach(b=>b.classList.toggle('on',+b.dataset.v===v));
 const tile=s=>`<button class="itile" data-inst="${esc(s.name)}"><div class="wm">${logo(s.name)}</div><div class="meta"><b>${esc(s.name)}</b>Última: ${dshort(s.last.date)}<br>${s.last.turno}º turno</div>${ic('right')}</button>`;
 
@@ -729,7 +829,7 @@ function renderHome(){
  if(S.homeTurn===2){$('fMove').innerHTML=`<span class="red">Lula ${seta(ch(lser,7))}</span> · <span class="blue">Flávio ${seta(ch(fser,7))}</span>`;$('fSince').textContent=lead?dshort(lead):'—'}
  $('homeChartSub').textContent=(S.homeTurn===2?'Média nacional · votos válidos · ':'Média nacional · votos válidos · até a véspera da eleição de 04/10 · ')+'linha = média, pontos = pesquisas';
  $('homeTiles').innerHTML=D.insts.slice(0,8).map(tile).join('');
- renderFeed();renderWeights();
+ renderFeed();renderWeights();renderForecast();
 }
 // período de campo pelo registro no TSE (início e fim); sem registro, só a data final
 function campo(p){const m=D.meta.get(p.reg),i=m?.inicio_campo,f=m?.fim_campo||p.date;return i&&i!==f?`${i.slice(8,10)}/${i.slice(5,7)} a ${dshort(f)}`:dshort(f)}
@@ -787,6 +887,7 @@ function renderCompare(){
 
 // ---------- estados
 const UFS={AC:'Acre',AL:'Alagoas',AM:'Amazonas',AP:'Amapá',BA:'Bahia',CE:'Ceará',DF:'Distrito Federal',ES:'Espírito Santo',GO:'Goiás',MA:'Maranhão',MG:'Minas Gerais',MS:'Mato Grosso do Sul',MT:'Mato Grosso',PA:'Pará',PB:'Paraíba',PE:'Pernambuco',PI:'Piauí',PR:'Paraná',RJ:'Rio de Janeiro',RN:'Rio Grande do Norte',RO:'Rondônia',RR:'Roraima',RS:'Rio Grande do Sul',SC:'Santa Catarina',SE:'Sergipe',SP:'São Paulo',TO:'Tocantins'};
+const nomeUF=u=>UFS[u]||(u==='ZZ'?'Exterior':u);
 const POS={RR:[1,0],AP:[3,0],AM:[1,1],PA:[2,1],MA:[3,1],CE:[4,1],RN:[5,1],AC:[0,2],RO:[1,2],MT:[2,2],TO:[3,2],PI:[4,2],PE:[5,2],PB:[6,2],MS:[2,3],GO:[3,3],DF:[4,3],BA:[5,3],AL:[6,3],SP:[3,4],MG:[4,4],ES:[5,4],SE:[6,4],PR:[3,5],RJ:[4,5],SC:[3,6],RS:[3,7]};
 let ufLoading=null;
 async function loadUF(){if(D.ufPolls)return;ufLoading=ufLoading||Promise.all([fetchAll('resUF'),fetchAll('cenUF')]).then(([r,c])=>{D.ufPolls=groupPolls(principal(r,c))});await ufLoading}
@@ -807,8 +908,108 @@ async function renderStates(uf){
  $('ufDetail').innerHTML=h;
 }
 
+// ---------- modelo de previsão (ver Metodologia > "Previsão do 2º turno")
+// Calibrado em 25/10/2026 com o erro real do 1º turno de 2026 (pesquisas de 20/09 a 03/10 x urna):
+// Brasil: pesquisas subestimaram Flávio em 2,3 pp; entre os 27 estados o erro variou com desvio de 2,25 pp.
+const PV={SIG_NAC:2.3,SIG_UF:2.25,K:3,RMSE_REF:2.5,N:20000,SEED:20261025,CAL_INI:'2026-09-20',CAL_FIM:'2026-10-03',JANELA_UF:30,PRIOR_UF:2};
+const MODOS=[{rho:()=>0,prec:false,nome:'Só pesquisas'},{rho:R=>R(),prec:true,nome:'Ajustado'},{rho:()=>1,prec:true,nome:'Repete erro do 1º turno'}];
+const fsh=p=>{const l=p.vals[L],f=p.vals[F];return Number.isFinite(l)&&Number.isFinite(f)&&l+f>0?f/(l+f)*100:NaN};
+const qualidade=ps=>ps.filter(p=>{const sm=Object.values(p.vals).reduce((a,b)=>a+b,0);return sm>=97&&sm<=103});
+function rng(seed){return()=>{seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+// resultado oficial do 1º turno: parcela de Flávio entre os dois e votos válidos, por abrangência
+function oficialPorUF(){const by={};for(const r of D.oficial){if(+r.nr_turno!==1)continue;const o=by[r.abrangencia]||(by[r.abrangencia]={l:NaN,f:NaN,v:0}),n=cand(r.nome_pesquisa||''),v=num(r.votos);if(Number.isFinite(v))o.v+=v;if(n===L)o.l=num(r.pct_validos);if(n===F)o.f=num(r.pct_validos)}for(const o of Object.values(by))o.fs=o.f/(o.l+o.f)*100;return by}
+// camada 1: viés de cada instituto no 1º turno (encolhido para a média geral)
+function viesInstitutos(){const ult=new Map();for(const p of [...D.ok,...D.ufOk])if(p.turno===1&&p.date>=PV.CAL_INI&&p.date<=PV.CAL_FIM)ult.set(p.inst+'|'+p.uf,p);
+ const errs=new Map();for(const p of ult.values()){const r=D.of[p.uf]?.fs,x=fsh(p);if(!Number.isFinite(r)||!Number.isFinite(x))continue;if(!errs.has(p.inst))errs.set(p.inst,[]);errs.get(p.inst).push(r-x)}
+ const all=[...errs.values()].flat(),g=all.reduce((a,b)=>a+b,0)/all.length,g2=all.reduce((a,b)=>a+b*b,0)/all.length,por=new Map();
+ for(const [i,e] of errs){const n=e.length,sm=e.reduce((a,b)=>a+b,0),s2=e.reduce((a,b)=>a+b*b,0);por.set(i,{n,media:sm/n,vies:(sm+PV.K*g)/(n+PV.K),rmse:Math.sqrt((s2+PV.K*g2)/(n+PV.K))})}
+ const padrao={n:0,media:NaN,vies:g,rmse:Math.sqrt(g2)};return{por,g,n:all.length,get:i=>por.get(i)||padrao}}
+const precisao=b=>1/(1+(b.rmse/PV.RMSE_REF)**2);
+// camada 2: média ponderada separada em base + termo de viés (o resultado é linear em ρ)
+function agrega(sel,dia,prec){let sw=0,sw2=0,sb=0,sv=0;const xs=[];for(const p of sel){const x=fsh(p);if(!Number.isFinite(x))continue;const b=D.VIES.get(p.inst);let w=peso(p,dia);if(prec)w*=precisao(b);sw+=w;sw2+=w*w;sb+=w*x;sv+=w*b.vies;xs.push([x,w])}
+ if(!sw)return null;const base=sb/sw,sd=Math.sqrt(xs.reduce((a,[x,w])=>a+w*(x-base)**2,0)/sw),neff=sw*sw/sw2;return{base,vb:sv/sw,n:xs.length,se:sd/Math.sqrt(Math.max(1,neff))}}
+function janelaUF(uf,dia){const lo=addDays(dia,-(PV.JANELA_UF-1)),m=new Map();for(const p of D.ufOk)if(p.uf===uf&&p.turno===2&&p.date>=lo&&p.date<=dia)m.set(p.inst,p);return [...m.values()]}
+// camadas 3 a 5
+function modelo(modo){if(D.sim[modo])return D.sim[modo];const M=MODOS[modo],dia=D.lastDate,R=rng(PV.SEED+modo);
+ const gauss=()=>{let u=0;while(!u)u=R();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*R())};
+ const N=agrega(janela(2,dia),dia,M.prec),r1BR=D.of.BR.fs;
+ const E=Object.entries(D.of).filter(([u,o])=>u!=='BR'&&o.v>0&&Number.isFinite(o.fs)).map(([uf,o])=>{const a=agrega(janelaUF(uf,dia),dia,M.prec);return{uf,r1:o.fs,V:o.v,a,w:a?a.n/(a.n+PV.PRIOR_UF):0}});
+ const tot=E.reduce((s,e)=>s+e.V,0),nat=rho=>N.base+rho*N.vb,est=(e,rho)=>e.w*(e.a?e.a.base+rho*e.a.vb:0)+(1-e.w)*(e.r1+nat(rho)-r1BR),agg=rho=>E.reduce((s,e)=>s+e.V*est(e,rho),0)/tot;
+ const v1=N.se**2+.1,v2=E.reduce((s,e)=>s+(e.V/tot)**2*PV.SIG_UF**2/((e.a?.n||0)+1),0),w1=(1/v1)/(1/v1+1/v2),centro=rho=>w1*nat(rho)+(1-w1)*agg(rho);
+ const res=new Float64Array(PV.N),win=new Float64Array(E.length),med=new Float64Array(E.length);
+ for(let k=0;k<PV.N;k++){const rho=M.rho(R),sh=centro(rho)-agg(rho)+gauss()*N.se+gauss()*PV.SIG_NAC;let t=0;for(let i=0;i<E.length;i++){const x=est(E[i],rho)+sh+gauss()*PV.SIG_UF;t+=E[i].V*x;med[i]+=x;if(x>50)win[i]++}res[k]=t/tot}
+ const ord=Array.from(res).sort((a,b)=>a-b),q=f=>ord[Math.min(PV.N-1,Math.floor(f*PV.N))],rhoM=modo===0?0:modo===2?1:.5;
+ E.forEach((e,i)=>{e.p=win[i]/PV.N;e.m=med[i]/PV.N});
+ return D.sim[modo]={pF:res.reduce((s,x)=>s+(x>50),0)/PV.N,med:q(.5),q10:q(.1),q90:q(.9),q025:q(.025),q975:q(.975),ord,E,N,w1,nat:nat(rhoM),agg:agg(rhoM),centro:centro(rhoM),raw:N.base,est,rhoM}}
+let modelLoading=null;
+async function prepModelo(){if(D.sim)return;modelLoading=modelLoading||(async()=>{await loadUF();D.ufOk=qualidade(D.ufPolls);D.of=oficialPorUF();D.VIES=viesInstitutos();D.sim={}})();await modelLoading}
+const pct0=x=>Math.round(x*100)+'%';
+function chanceTxt(p){const c=Math.round(Math.max(p,1-p)*100),q=p>=.5?'Flávio':'Lula';return c>=99?`${q} venceria em praticamente todas as eleições simuladas.`:`Em 100 eleições com estas pesquisas, <b>${q}</b> venceria em cerca de <b>${c}</b>.`}
+function histograma(el,m){const W=Math.max(280,el.clientWidth||600),H=el.clientHeight||210,PL=8,PR=8,PT=18,PB=24,lo=Math.floor(m.q025*2-2)/2,hi=Math.ceil(m.q975*2+2)/2,bw=.25,nb=Math.round((hi-lo)/bw),cnt=new Array(nb).fill(0);
+ for(const v of m.ord){const i=Math.floor((v-lo)/bw);if(i>=0&&i<nb)cnt[i]++}const mx=Math.max(...cnt),x=v=>PL+(v-lo)/(hi-lo)*(W-PL-PR),y=c=>H-PB-(c/mx)*(H-PT-PB);let g='';
+ cnt.forEach((c,i)=>{const v=lo+i*bw;g+=`<rect x="${x(v)+.5}" y="${y(c)}" width="${Math.max(1,x(v+bw)-x(v)-1)}" height="${H-PB-y(c)}" fill="${v+bw/2>50?'#1d6fd6':'#d7302f'}" fill-opacity=".8"><title>${fmt(v)}–${fmt(v+bw)}%: ${fmt(c/PV.N*100)}% das simulações</title></rect>`});
+ if(50>lo&&50<hi)g+=`<line x1="${x(50)}" x2="${x(50)}" y1="${PT-6}" y2="${H-PB}" stroke="#14243a" stroke-width="1.5"/><text x="${x(50)}" y="${PT-8}" text-anchor="middle" font-size="10.5" font-weight="700" fill="#14243a">50%</text>`;
+ const yb=H-PB+6;g+=`<line x1="${x(m.q10)}" x2="${x(m.q90)}" y1="${yb}" y2="${yb}" stroke="#14243a" stroke-width="3"/><line x1="${x(m.q025)}" x2="${x(m.q975)}" y1="${yb}" y2="${yb}" stroke="#14243a" stroke-opacity=".3" stroke-width="3"/>`;
+ for(let v=Math.ceil(lo);v<=hi;v+=hi-lo>12?2:1)g+=`<text x="${x(v)}" y="${H-4}" text-anchor="middle" font-size="10.5" fill="#8a97a8">${v}%</text>`;
+ el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Distribuição das eleições simuladas">${g}</svg>`}
+function corChance(p){const a=Math.abs(p-.5),k=a<.15?0:a<.35?1:2;return(p>=.5?['#b5cdf0','#6098e0','#1554b5']:['#f3b7b6','#e5706e','#c62828'])[k]}
+async function renderForecast(){
+ if(!D.ready)return;try{await prepModelo()}catch(e){$('fcSub').textContent='Não foi possível calcular a previsão agora.';return}
+ const m=modelo(S.fcMode);segSet('fcMode',S.fcMode);
+ $('fcF').textContent=pct0(m.pF);$('fcL').textContent=pct0(1-m.pF);$('fcBF').style.width=m.pF*100+'%';$('fcBL').style.width=(1-m.pF)*100+'%';
+ $('fcSent').innerHTML=chanceTxt(m.pF);$('fcMed').textContent=`Flávio ${fmt(m.med)}%`;$('fc80').textContent=`${fmt(m.q10)} a ${fmt(m.q90)}%`;$('fc95').textContent=`${fmt(m.q025)} a ${fmt(m.q975)}%`;
+ $('fcSub').textContent=`Modelo "${MODOS[S.fcMode].nome}" · pesquisas até ${dshort(D.lastDate)} · ${m.N.n} institutos nacionais e pesquisas em ${m.E.filter(e=>e.a).length} estados`;
+ $('fProb').innerHTML=`<span class="blue">Flávio ${pct0(modelo(1).pF)}</span> · <span class="red">Lula ${pct0(1-modelo(1).pF)}</span>`;
+ const ap=LIVE.br&&LIVE.br.pst>0;$('fcWarn').innerHTML=(ap?'<b>A apuração já começou:</b> esta previsão usa só as pesquisas (feita na véspera). Para os votos contados, veja a apuração ao vivo. ':'É uma estimativa feita a partir das pesquisas, não um resultado. ')+`<button class="back" data-go="${ap?'apuracao':'previsao'}" style="margin:0">${ap?'Acompanhar a apuração':'Ver o modelo completo'} ›</button>`;
+ histograma($('fcHist'),m)}
+async function renderPrevisao(){
+ segSet('pvMode',S.fcMode);if(!D.ready)return;try{await prepModelo()}catch(e){$('pvSub').textContent='Não foi possível calcular a previsão agora.';return}
+ const m=modelo(S.fcMode);$('pvF').textContent=pct0(m.pF);$('pvL').textContent=pct0(1-m.pF);$('pvMed').textContent=fmt(m.med)+'%';$('pv80').textContent=`${fmt(m.q10)}–${fmt(m.q90)}%`;histograma($('pvHist'),m);
+ let cells='';for(const [u,[c,r]] of Object.entries(POS)){const e=m.E.find(x=>x.uf===u);if(!e)continue;const pf=e.p,cor=corChance(pf),esc2=Math.abs(pf-.5)>=.15;cells+=`<button class="uf" style="grid-column:${c+1};grid-row:${r+1};background:${cor};color:${esc2?'#fff':'#14243a'}" data-uf="${u}" title="${UFS[u]}: Flávio ${fmt(e.m)}% · chance ${pct0(pf)}">${u}<small>${pf>=.5?'F':'L'} ${pct0(Math.max(pf,1-pf))}</small></button>`}
+ $('pvMap').innerHTML=cells;
+ const tot=m.E.reduce((s,e)=>s+e.V,0);
+ const dec=m.E.filter(e=>e.p>.03&&e.p<.97).map(e=>({e,sc:e.V/tot*e.p*(1-e.p)})).sort((a,b)=>b.sc-a.sc).slice(0,10);
+ $('pvDec').innerHTML=(dec.length?'':'<tr><td colspan="5" class="note">Nenhum estado com disputa aberta neste modelo.</td></tr>')+dec.map(({e})=>`<tr><td>${nomeUF(e.uf)}</td><td class="n">${fmt(e.m)}%</td><td class="n ${e.p>=.5?'blue':'red'}">${pct0(e.p)}</td><td class="n">${e.a?e.a.n:'—'}</td><td class="n">${fmt(e.r1)}%</td></tr>`).join('');
+ const UE=m.E.filter(e=>e.uf!=='ZZ');$('pvUfNote').textContent=`Só aparecem estados em que nenhum candidato passa de 97% de chance. Estados sem pesquisa recente usam o resultado do 1º turno mais a mudança nacional; o voto no exterior entra assim. ${UE.filter(e=>e.a).length} de ${UE.length} estados têm pesquisa de 2º turno nos últimos ${PV.JANELA_UF} dias.`;
+ $('pvConc').innerHTML=[['Média das pesquisas (sem ajuste)',m.raw,'A média da página inicial'],['Média nacional ajustada',m.nat,'Corrigida pelo viés dos institutos'],['Soma dos estados',m.agg,'Estados ponderados pelo número de votos'],['Centro da previsão',m.centro,`Combinação: ${pct0(m.w1)} nacional e ${pct0(1-m.w1)} estados`]].map(([a,v,t],i)=>`<tr${i===3?' style="font-weight:700"':''}><td>${a}</td><td class="n blue">${fmt(v)}%</td><td class="n red">${fmt(100-v)}%</td><td>${t}</td></tr>`).join('');
+ const pmax=Math.max(...[...D.VIES.por.values()].map(precisao));$('pvBias').innerHTML=[...D.VIES.por.entries()].sort((a,b)=>b[1].n-a[1].n).map(([i,b])=>`<tr><td><span style="display:inline-flex;align-items:center;gap:8px">${icon(i,20)}${esc(i)}</span></td><td class="n">${b.n}</td><td class="n">${b.media>0?'+':''}${fmt(b.media)}</td><td class="n">${b.vies>0?'+':''}${fmt(b.vies)}</td><td class="n">${b.vies>0?'+':''}${fmt(b.vies*.5)} pp p/ Flávio</td><td class="n">${pct0(precisao(b)/pmax)}</td></tr>`).join('')+`<tr><td colspan="6" class="note" style="white-space:normal">Média geral do erro: ${D.VIES.g>0?'+':''}${fmt(D.VIES.g)} pp em ${D.VIES.n} comparações. Institutos sem pesquisa de 1º turno recebem a média geral.</td></tr>`;
+ const nb=agrega(janela(1,PV.CAL_FIM),PV.CAL_FIM,false),r1=D.of.BR.fs,ufE=Object.entries(D.of).filter(([u])=>u!=='BR').map(([u,o])=>{const sel=[...new Map(D.ufOk.filter(p=>p.uf===u&&p.turno===1&&p.date>=PV.CAL_INI&&p.date<=PV.CAL_FIM).map(p=>[p.inst,p])).values()],a=agrega(sel,PV.CAL_FIM,false);return a?o.fs-a.base:null}).filter(x=>x!==null),rm=Math.sqrt(ufE.reduce((s,x)=>s+x*x,0)/ufE.length);
+ $('pvBack').innerHTML=`<div class="fact"><span>Média nacional das pesquisas na véspera (03/10), parcela de Flávio</span><b>${fmt(nb.base)}%</b></div><div class="fact"><span>Urna no 1º turno, parcela de Flávio entre os dois</span><b>${fmt(r1)}%</b></div><div class="fact"><span>Erro da média nacional</span><b>${fmt(r1-nb.base)} pp a favor de Flávio</b></div><div class="fact"><span>Erro nos estados (${ufE.length} estados com pesquisa)</span><b>médio ${fmt(ufE.reduce((s,x)=>s+x,0)/ufE.length)} pp · quadrático ${fmt(rm)} pp</b></div>`}
+
+// ---------- apuração ao vivo (divulgação oficial do TSE, 2º turno = eleição 6258)
+const TSE='https://resultados.tse.jus.br/oficial/ele2026/6258/dados',LIVE={br:null,uf:{},err:null,next:0,ufAt:0,busy:false,busyUF:false};
+// o TSE só aceita a sigla em minúsculas no endereço (/sp/sp-c0001...)
+async function lerTSE(uf){const u=uf.toLowerCase(),r=await fetch(`${TSE}/${u}/${u}-c0001-e006258-u.json`,{cache:'no-store'});if(!r.ok)throw new Error('TSE '+r.status);const d=await r.json(),cs={};
+ for(const a of d.carg?.[0]?.agr||[])for(const p of a.par||[])for(const c of p.cand||[])cs[cand(c.nmu||c.nm)]={vap:num(c.vap),pvap:num(c.pvap),eleito:/eleito/i.test(c.st||'')&&!/não/i.test(c.st||'')};
+ return{uf,pst:num(d.s?.pst)||0,vv:num(d.v?.vv)||0,pvb:num(d.v?.pvb),pvn:num(d.v?.pvn),pa:num(d.e?.pa),hora:`${d.dg||''} ${d.hg||''}`.trim(),final:d.tf==='s',cs}}
+async function atualizaBR(){if(LIVE.busy)return;LIVE.busy=true;try{LIVE.br=await lerTSE('br');LIVE.err=null}catch(e){LIVE.err=e}LIVE.busy=false;LIVE.next=Date.now()+60000;renderLive()}
+async function atualizaUFs(){if(LIVE.busyUF)return;LIVE.busyUF=true;const ufs=Object.keys(POS),rs=await Promise.allSettled(ufs.map(lerTSE));rs.forEach((r,i)=>{if(r.status==='fulfilled')LIVE.uf[ufs[i]]=r.value});LIVE.busyUF=false;LIVE.ufAt=Date.now();renderLive()}
+// projeção: votos contados em cada estado + previsão do modelo para o que falta apurar
+function projecao(){const m=D.sim&&modelo(1);if(!m)return null;let any=false;const R=rng(PV.SEED+9),gauss=()=>{let u=0;while(!u)u=R();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*R())};
+ const S2=m.E.map(e=>{const lv=LIVE.uf[e.uf],fr=lv?Math.min(1,lv.pst/100):0,f=lv?.cs[F]?.vap||0,l=lv?.cs[L]?.vap||0;if(fr>0)any=true;const resto=fr>0&&fr<1?(f+l)*(1-fr)/fr:fr>=1?0:e.V;return{e,f,l,resto,c:m.est(e,.5)+(m.centro-m.agg)}});
+ if(!any)return null;let wF=0,tF=0,tot=0;const N=4000;for(let k=0;k<N;k++){const sh=gauss()*PV.SIG_NAC;let F2=0,T2=0;for(const s of S2){const x=Math.min(100,Math.max(0,s.c+sh+gauss()*PV.SIG_UF))/100;F2+=s.f+s.resto*x;T2+=s.f+s.l+s.resto}const v=F2/T2*100;tF+=v;if(v>50)wF++}
+ const cont=S2.reduce((s,x)=>s+x.f+x.l,0);tot=cont+S2.reduce((s,x)=>s+x.resto,0);return{pF:wF/N,med:tF/N,fr:cont/tot}}
+function tempo(){const s=Math.max(0,Math.round((LIVE.next-Date.now())/1000));return LIVE.busy?'atualizando...':`próxima atualização em ${s}s`}
+function renderLive(){const b=LIVE.br,box=$('liveHome');
+ const st=!b?(LIVE.err?['err','sem conexão com o TSE']:['wait','conectando']):LIVE.err&&!b.final?['err','sem conexão · últimos números']:b.final?['done','apuração encerrada']:b.pst>0?['on','ao vivo']:['wait','aguardando apuração'];
+ const pill=`<span class="pill ${st[0]}"><i></i>${st[1]}</span>`;
+ if(b){const f=b.cs[F]||{},l=b.cs[L]||{},dif=(f.vap||0)-(l.vap||0);
+  const vs=`<div class="livevs"><div><div class="lbl">Lula · PT${l.eleito?'<span class="eleito">ELEITO</span>':''}</div><strong class="red">${fmt(l.pvap||0,2)}%</strong><div class="sub"><b>${int(l.vap)}</b> votos</div></div><div><div class="lbl">Flávio Bolsonaro · PL${f.eleito?'<span class="eleito">ELEITO</span>':''}</div><strong class="blue">${fmt(f.pvap||0,2)}%</strong><div class="sub"><b>${int(f.vap)}</b> votos</div></div></div>`;
+  const prog=`<div class="row" style="margin-top:14px"><span class="sub"><b style="color:var(--ink)">${fmt(b.pst,2)}%</b> das seções apuradas${b.hora?' · TSE '+esc(b.hora):''}</span><span class="sub" data-tick>${tempo()}</span></div><div class="prog"><i style="width:${b.pst}%"></i></div>`;
+  box.hidden=false;box.innerHTML=`<div class="row"><div><div class="eyebrow">Resultado oficial · TSE</div><h2 class="h2" style="font-size:20px;margin-top:4px">Apuração do 2º turno</h2></div>${pill}</div>${b.pst>0?vs:`<p class="sub" style="margin:12px 0 0">A apuração começa depois que as urnas fecham, às 17h (horário de Brasília). Os números aparecem aqui sozinhos.</p>`}${prog}<div style="margin-top:10px"><button class="btn" data-go="apuracao">Acompanhar a apuração<svg class="i"><use href="#right"/></svg></button></div>`;
+  $('apMain').innerHTML=`<div class="row"><h2 class="h2">Brasil</h2>${pill}</div>${vs}${prog}<div class="fcfacts" style="grid-template-columns:repeat(4,minmax(0,1fr))"><div><small>Diferença</small><b>${b.pst>0?int(Math.abs(dif))+' votos':'—'}</b></div><div><small>Brancos</small><b>${fmt(b.pvb,2)}%</b></div><div><small>Nulos</small><b>${fmt(b.pvn,2)}%</b></div><div><small>Abstenção</small><b>${fmt(b.pa,2)}%</b></div></div>`}
+ else if(LIVE.err)$('apMain').innerHTML=`<div class="row"><h2 class="h2">Brasil</h2>${pill}</div><p class="sub">Não conseguimos falar com o TSE agora. Tentando de novo a cada minuto.</p>`;
+ $('apPill').className='pill '+st[0];$('apPill').innerHTML=`<i></i>${st[1]}`;$('apSub').textContent=b?`Fonte: divulgação oficial do TSE · ${b.hora?'totalização de '+b.hora:''}`:'Conectando ao TSE...';
+ let cells='';for(const [u,[c,r]] of Object.entries(POS)){const lv=LIVE.uf[u],f=lv?.cs[F]?.vap||0,l=lv?.cs[L]?.vap||0,on=lv&&f+l>0;cells+=`<button class="uf${on?'':' none'}" style="grid-column:${c+1};grid-row:${r+1};${on?`background:${f>l?'#1d6fd6':'#d7302f'};color:#fff`:''}" title="${UFS[u]}">${u}<small>${lv?fmt(lv.pst,0)+'%':'—'}</small></button>`}
+ $('apMap').innerHTML=cells;$('apUfSub').textContent=LIVE.ufAt?`% de seções apuradas em cada estado · atualizado às ${new Date(LIVE.ufAt).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}`:'Carregando os estados...';
+ const pj=projecao();if(pj)$('apProj').innerHTML=`<h2 class="h2">Projeção com o que falta apurar</h2><div class="sub">Votos já contados em cada estado + previsão do modelo para o restante (${fmt((1-pj.fr)*100,1)}% dos votos ainda a contar)</div><div class="livevs"><div><div class="lbl">Chance de Flávio</div><strong class="blue">${pct0(pj.pF)}</strong></div><div><div class="lbl">Chance de Lula</div><strong class="red">${pct0(1-pj.pF)}</strong></div></div><div class="fcsent" style="margin-top:10px">Resultado projetado: <b class="blue">Flávio ${fmt(pj.med)}%</b> · <b class="red">Lula ${fmt(100-pj.med)}%</b> dos válidos. A incerteza cai conforme a apuração avança.</div>`;
+ else if(D.sim)$('apProj').innerHTML=`<h2 class="h2">Projeção com o que falta apurar</h2><div class="sub">Começa quando os primeiros votos forem contados. Até lá, vale a previsão: <b class="blue">Flávio ${pct0(modelo(1).pF)}</b> · <b class="red">Lula ${pct0(1-modelo(1).pF)}</b>.</div>`;
+ if(ROTA==='inicio'&&D.sim&&b&&b.pst>0)renderForecast()}
+setInterval(()=>{if(document.visibilityState!=='visible')return;const now=Date.now();if(now>=LIVE.next)atualizaBR();if(ROTA==='apuracao'&&now-LIVE.ufAt>=120000)atualizaUFs();document.querySelectorAll('[data-tick]').forEach(el=>el.textContent=tempo())},1000);
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&Date.now()>=LIVE.next)atualizaBR()});
+
 // ---------- navegação
-const ROUTES=['inicio','institutos','comparar','estados','metodologia'];
+const ROUTES=['inicio','previsao','apuracao','institutos','comparar','estados','metodologia'];let ROTA='inicio';
 function route(){
  const [r0,arg]=decodeURIComponent(location.hash.slice(1)).split('/'),r=ROUTES.includes(r0)?r0:'inicio';
  document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('show',s.id==='s-'+r));
@@ -820,7 +1021,10 @@ function route(){
  if(r==='institutos')renderInstitutes(S.inst);
  if(r==='comparar')renderCompare();
  if(r==='estados')renderStates(arg);
- const titles={inicio:'Painel Presidencial',institutos:S.inst||'Institutos',comparar:'Comparar pesquisas',estados:'Estados',metodologia:'Metodologia'};
+ if(r==='previsao')renderPrevisao();
+ if(r==='apuracao'){renderLive();if(!LIVE.ufAt)atualizaUFs()}
+ ROTA=r;
+ const titles={previsao:'Previsão do 2º turno',apuracao:'Apuração ao vivo',inicio:'Painel Presidencial',institutos:S.inst||'Institutos',comparar:'Comparar pesquisas',estados:'Estados',metodologia:'Metodologia'};
  document.title=`Pesquisas Eleitorais 2026 | ${titles[r]}`;
 }
 const go=h=>{if(location.hash==='#'+h)route();else location.hash=h;window.scrollTo({top:0})};
@@ -850,7 +1054,7 @@ document.addEventListener('click',e=>{
  if(b.dataset.go)go(b.dataset.go);
  if(b.dataset.inst)go('institutos/'+b.dataset.inst);
  if(b.dataset.uf)go('estados/'+b.dataset.uf);
- const seg=b.closest('.seg');if(seg&&b.dataset.v!==undefined){const v=+b.dataset.v;if(seg.id==='homeTurn'){S.homeTurn=v;renderHome()}if(seg.id==='homePeriod'){S.homePeriod=v;renderHome()}if(seg.id==='instTurn'){S.instTurn=v;renderInstitutes(S.inst)}if(seg.id==='ufTurn'){S.ufTurn=v;renderStates()}}
+ const seg=b.closest('.seg');if(seg&&b.dataset.v!==undefined){const v=+b.dataset.v;if(seg.id==='fcMode'||seg.id==='pvMode'){S.fcMode=v;renderForecast();if(ROTA==='previsao')renderPrevisao()}if(seg.id==='homeTurn'){S.homeTurn=v;renderHome()}if(seg.id==='homePeriod'){S.homePeriod=v;renderHome()}if(seg.id==='instTurn'){S.instTurn=v;renderInstitutes(S.inst)}if(seg.id==='ufTurn'){S.ufTurn=v;renderStates()}}
 });
 $('instPeriod').addEventListener('change',e=>{S.instPeriod=+e.target.value;renderInstitutes(S.inst)});
 ['cA','cB','cT'].forEach(id=>$(id).addEventListener('change',renderCompare));
@@ -864,7 +1068,7 @@ window.addEventListener('hashchange',route);
 let rz,lastW=innerWidth;window.addEventListener('resize',()=>{if(innerWidth===lastW)return;lastW=innerWidth;clearTimeout(rz);rz=setTimeout(route,150)});
 
 // ---------- início
-route();renderSidebar();
+route();renderSidebar();atualizaBR();
 (async()=>{try{const keys=['resultados','cenarios','pesquisas','institutos','oficial'],res=await Promise.all(keys.map(fetchAll));keys.forEach((k,i)=>D[k]=res[i]);build();D.ready=true}catch(e){console.error(e);const n=$('notice');n.textContent='Não foi possível carregar os dados agora. Verifique a conexão e recarregue a página.';n.classList.add('show')}renderSidebar();route()})();
 })();
 </script>

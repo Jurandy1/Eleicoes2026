@@ -24,7 +24,7 @@
 <meta name="twitter:image:alt" content="Radareleitoral.pro. Pesquisas presidenciais de 2026, média das pesquisas e apuração oficial do TSE.">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Radareleitoral.pro","url":"https://radareleitoral.pro/","inLanguage":"pt-BR","description":"Média das pesquisas presidenciais de 2026, três hipóteses de chance e a apuração oficial do TSE."}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Sans+3:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--navy:#173f35;--ink:#18201e;--text:#3e4744;--soft:#6d7672;--line:#d9d7cf;--bg:#f4f1e9;--red:#c63f37;--blue:#336ca6;--green:#167552;--chip:#eeece4;--active:#e3ebe6;--r:4px;--paper:#fffdf8;--ochre:#b7791f}
 *{box-sizing:border-box}
@@ -607,6 +607,291 @@ body{font-size:15px;line-height:1.55}
  .cand img{width:78px;height:92px}
  .igrid,.cgrid{grid-template-columns:1fr}
 }
+
+/* painel 2026: casca e visão geral no formato do layout de referência */
+:root{--navy:#0b1f4d;--ink:#0f172a;--text:#475467;--soft:#667085;--line:#e6eaf0;--bg:#f5f7fb;--red:#e5383b;--blue:#1d5fe0;--active:#e8f0fe;--r:12px}
+body{background:var(--bg);font-family:Inter,"Source Sans 3",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:var(--ink)}
+.mb-only{display:none!important}
+.bg-gray{background:#7c8696}
+/* cabeçalho */
+.hdr{height:64px;padding:0 24px;gap:20px;background:#fff;border-bottom:1px solid var(--line);box-shadow:none}
+.logo b{width:38px;height:38px;border-radius:8px;background:var(--navy);color:#fff;font:800 15px/1 Inter,sans-serif;letter-spacing:-.4px}
+.logo strong{font:700 15px/1.2 Inter,sans-serif;color:var(--ink);letter-spacing:-.1px}
+.logo small{font:500 10.5px/1.3 Inter,sans-serif;letter-spacing:0;color:var(--soft);margin-top:2px;text-transform:none}
+.topnav{margin-left:34px;gap:2px;height:64px}
+.topnav button{height:64px;padding:0 12px;font:500 13px Inter,sans-serif;color:#344054;background:none;border:0}
+.topnav button:hover{color:var(--ink);background:none}
+.topnav button.on{color:var(--ink);font-weight:700;box-shadow:inset 0 -2px 0 var(--ink)}
+.search{width:200px}
+.search input{height:36px;border-radius:8px;border:1px solid var(--line);background:#fff;font-size:12px}
+.updated{display:none}
+.hyear{display:flex;align-items:center;gap:6px;height:36px;border:1px solid var(--line);border-radius:8px;padding:0 10px 0 12px;font:500 12.5px Inter,sans-serif;color:var(--ink);background:#fff;flex:none}
+.hyear select{border:0;background:none;appearance:none;-webkit-appearance:none;font:inherit;padding:0 14px 0 0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%230f172a' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right center}
+.hsearch{display:none;background:none;border:0;color:var(--ink);padding:6px}
+.hsearch .i{width:24px;height:24px}
+/* menu lateral */
+.layout{grid-template-columns:200px minmax(0,1fr);min-height:calc(100vh - 64px)}
+.side{top:64px;height:calc(100vh - 64px);background:#fff;border-right:1px solid var(--line);padding:16px 10px 12px}
+.side .scroll:before{display:none!important;content:none}
+.side .scroll>.nav,.side .scroll>.group{display:flex!important}
+.side .scroll>.sep,.side .side-search,.side .collapse{display:none!important}
+.side .nav,.side .group{min-height:34px;padding:7px 10px;margin:1px 0;border-radius:8px;font:500 13px Inter,sans-serif;color:#344054;gap:10px;width:100%}
+.side .nav .i,.side .group .i{width:17px;height:17px;color:#475467}
+.side .nav:hover,.side .group:hover{background:#f5f7fb}
+.side .nav.on{background:var(--active);color:var(--blue);font-weight:600;box-shadow:none}
+.side .nav.on .i{color:var(--blue)}
+.side .group .count{display:none}
+.side .gbody .fbox{display:none}
+.side .ilist{padding:2px 0 6px 18px}
+.side .ilist button{min-height:26px;padding:4px 8px;font:400 12px Inter,sans-serif;color:#344054;gap:9px;border-radius:6px}
+.side .ilist button .lgi,.side .ilist button .bdg{width:15px!important;height:15px!important;border-radius:4px}
+.side .ilist .more{color:var(--soft);font-size:12px}
+.supd{margin:14px 4px 4px;padding:12px;border-radius:10px;background:#f5f7fb;font:400 11px/1.45 Inter,sans-serif;color:var(--soft)}
+.supd b{display:block;font-weight:500;font-size:11.5px;color:var(--ink);margin-top:2px}
+.supd span{display:flex;align-items:center;gap:6px;margin-top:8px;color:#344054}
+.supd span:before{content:"";width:6px;height:6px;border-radius:50%;background:#12b76a}
+/* área principal */
+.main{max-width:1440px;padding:20px 20px 40px}
+#s-inicio .livebox{margin-bottom:16px}
+.hm{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px}
+.hc{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 2px #1018280a;padding:18px;min-width:0}
+.hm h2{margin:0;font:400 15px/1.3 Inter,sans-serif;color:var(--ink);letter-spacing:-.15px}
+.hm h2 b{font-weight:700}
+.hm h2 span{font-weight:400}
+.hm-sub{font-size:11.5px;color:var(--soft);margin-top:3px}
+.hm-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.hm-link{display:inline-flex;align-items:center;gap:5px;border:0;background:none;color:var(--blue);font:500 11.5px Inter,sans-serif;padding:2px 0;white-space:nowrap}
+.hm-link .i{width:13px;height:13px}
+.hm-chev{border:0;background:none;color:#475467;padding:2px;display:inline-flex}
+.hm-chev .i{width:18px;height:18px}
+.hm-note{font-size:11px;color:var(--soft);margin-top:12px}
+.hm-legend{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:11.5px;color:#344054}
+.hm-legend span{display:inline-flex;align-items:center;gap:7px}
+.hm-legend i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.hm-ki{width:38px;height:38px;border-radius:9px;display:grid;place-items:center;flex:none}
+.hm-ki .i{width:20px;height:20px}
+.hm-ki.b{background:#eef4ff;color:var(--blue)}.hm-ki.g{background:#e8f7ee;color:#16a34a}.hm-ki.o{background:#fff3e5;color:#f08c1a}.hm-ki.r{background:#fff0f0;color:var(--red)}.hm-ki.t{background:#e6f7f5;color:#0e9f8e}.hm-ki.s{background:#f2f4f7;color:#475467}.hm-ki.p{background:#f1edff;color:#6d4fe0}
+/* topo */
+.hm-hero{grid-column:1/-1;display:flex;justify-content:space-between;gap:28px;padding:20px 18px}
+.hm-hero-txt{max-width:420px}
+.hm-eyebrow{font:600 12px Inter,sans-serif;letter-spacing:1.1px;text-transform:uppercase;color:#475467}
+.hm-hero h1{margin:4px 0 12px;font:800 30px/1.12 Inter,sans-serif;letter-spacing:-.8px;color:#0b1530}
+.hm-hero p{margin:0;font-size:13px;line-height:1.5;color:#475467}
+.hm-filters{display:flex;flex-direction:column;gap:12px;align-items:flex-end;max-width:400px}
+.hm-fbox{display:grid;grid-template-columns:1fr 1fr;gap:10px;border:1px solid var(--line);border-radius:10px;padding:10px;width:100%}
+.hm-field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.hm-flbl{font:500 10.5px Inter,sans-serif;color:#344054}
+.hm-sel{position:relative;display:flex;align-items:center;border:1px solid var(--line);border-radius:7px;background:#fff;min-width:0}
+.hm-sel .i{position:absolute;left:12px;width:18px;height:18px;color:#475467;pointer-events:none}
+.hm-sel select{width:100%;border:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%230f172a' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 10px center;appearance:none;-webkit-appearance:none;padding:7px 28px 7px 12px;font:400 11.5px Inter,sans-serif;color:var(--ink);border-radius:7px;cursor:pointer}
+.hm-sel.sm select{padding:6px 28px 6px 10px;font-size:11px}
+.hm-chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-start;width:100%}
+.hm-chips button{border:1px solid var(--line);background:#fff;border-radius:6px;padding:5px 11px;font:500 11px Inter,sans-serif;color:#344054;display:inline-flex;align-items:center;gap:6px}
+.hm-chips button:hover{border-color:#c5cedb}
+.hm-chips button.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.hm-chips .lgi,.hm-chips .bdg{width:14px!important;height:14px!important;border-radius:3px}
+.hm-chips .more{display:none}
+/* indicadores */
+.hm-kpis{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.hm-kpi{display:flex;gap:14px;align-items:flex-start;padding:18px}
+.hm-kpi small{display:block;font-size:11.5px;color:#344054}
+.hm-kpi strong{display:block;font:700 22px/1.25 Inter,sans-serif;letter-spacing:-.4px;margin:2px 0}
+.hm-kpi strong.sm{font-size:14px;line-height:1.4;margin:6px 0 4px}
+.hm-kpi span{font-size:11px;color:var(--soft)}
+/* cenário atual */
+.hm-cen{grid-column:1/-1}
+.hm-cgrid{display:grid;grid-template-columns:1fr 1fr .6fr;gap:28px;margin-top:18px;align-items:start}
+.hm-c{display:grid;grid-template-columns:64px 1fr;gap:4px 12px;min-width:0}
+.hm-c img{width:64px;height:72px;object-fit:cover;object-position:50% 20%;border-radius:6px;grid-row:1}
+.hm-cinfo{min-width:0;padding-top:4px}
+.hm-cn{font-size:14px;color:var(--ink)}
+.hm-pct{font:800 32px/1.15 Inter,sans-serif;letter-spacing:-.8px;margin-top:2px;color:var(--ink)}
+.hm-pct.red{color:var(--red)}.hm-pct.blue{color:var(--blue)}
+.hm-bar{grid-column:1/-1;height:14px;border-radius:4px;background:#e9ecf1;overflow:hidden;margin-top:2px}
+.hm-bar i{display:block;height:100%;border-radius:4px;width:0;transition:width .5s}
+.hm-delta{grid-column:1/-1;font-size:11px;color:var(--soft);display:flex;align-items:center;gap:8px;margin-top:6px;min-height:18px}
+.hm-delta b{font-weight:600;display:inline-flex;align-items:center;gap:3px}
+.hm-delta b.up{color:#16a34a}.hm-delta b.dn{color:var(--red)}
+.hm-c.nv{display:block;background:#f7f8fa;border-radius:10px;padding:12px 12px 10px;margin-top:-6px}
+.hm-c.nv .hm-cn{font-size:12px}
+.hm-c.nv .hm-pct{font-size:26px;margin:4px 0 10px}
+.hm-c.nv .hm-bar{height:12px;background:#e3e7ed}
+.hm-c.nv .hm-delta{display:block;line-height:1.5}
+/* evolução e distribuição */
+.hm-evo{grid-column:span 7}
+.hm-dist{grid-column:span 5}
+.hm-ctrls{display:flex;gap:8px;flex-wrap:wrap}
+.hm-evo .hm-head{flex-wrap:wrap}
+.hm-evo .hm-legend{margin:16px 0 4px}
+.hm-evochart{height:240px;position:relative}
+.hm-distchart{height:220px;position:relative;margin:10px 0 12px}
+.hm-dist .hm-legend{justify-content:center;gap:6px 22px}
+.hm-seg{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:14px 0 6px}
+.hm-seg button{border:0;background:#fff;padding:8px 4px;font:500 12px Inter,sans-serif;color:#344054}
+.hm-seg button+button{border-left:1px solid var(--line)}
+.hm-seg button.on{background:var(--navy);color:#fff}
+/* estatísticas */
+.hm-stats{grid-column:1/-1;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.hm-st{padding:16px}
+.hm-st small{display:flex;align-items:center;gap:8px;font-size:11.5px;color:#344054}
+.hm-st small i{width:8px;height:8px;border-radius:50%}
+.hm-st strong{display:block;font:700 19px/1.3 Inter,sans-serif;margin:4px 0 0;letter-spacing:-.3px}
+.hm-st span{font-size:11px;color:var(--soft)}
+/* tabelas */
+.hm-last{grid-column:span 7}
+.hm-perf{grid-column:span 5}
+.hm-table{width:100%;border-collapse:collapse;margin-top:14px;font-size:11.5px}
+.hm-table th{font:500 10.5px Inter,sans-serif;color:#344054;text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);background:#fafbfc;white-space:nowrap}
+.hm-table td{padding:8px 6px;border-bottom:1px solid #f0f2f5;white-space:nowrap;color:#1d2939}
+.hm-table .n{text-align:right}
+.hm-table tbody tr{cursor:pointer}
+.hm-table tbody tr:hover td{background:#f8fafc}
+.hm-table .go{color:var(--blue);width:20px;text-align:right}
+.hm-table .go .i{width:13px;height:13px}
+.hm-who{display:inline-flex;align-items:center;gap:9px;font-weight:500;color:var(--ink)}
+.hm-who .lgi,.hm-who .bdg{border-radius:4px}
+.hm-ptab td{padding:6px 6px}
+.hm-pv{display:inline-block;width:100%;max-width:74px;min-width:44px}
+.hm-ptab th:last-child{white-space:normal}.hm-ptab td:first-child{max-width:130px;overflow:hidden;text-overflow:ellipsis}
+.hm-pv b{display:block;font-weight:500;font-size:11px}
+.hm-pv i{display:block;height:3px;border-radius:2px;margin-top:3px}
+.red{color:var(--red)}.blue{color:var(--blue)}
+/* barras horizontais e rosca */
+.hm-cens,.hm-ufs,.hm-met{grid-column:span 4}
+.hm-hbars{display:grid;grid-template-columns:auto 1fr auto;gap:12px 14px;align-items:center;margin-top:16px;font-size:11.5px;color:#344054}
+.hm-hbars .bt{height:12px;border-radius:2px;background:transparent;position:relative}
+.hm-hbars .bt i{display:block;height:100%;border-radius:2px;background:var(--navy)}
+.hm-hbars.ufb .bt{background:#eceff4}
+.hm-hbars.ufb .bt i{background:#2f6bed}
+.hm-hbars .v{text-align:right;font-variant-numeric:tabular-nums;min-width:34px}
+.hm-cens .hm-hbars{grid-template-columns:auto 1fr}
+.hm-cens .bt{display:flex;align-items:center;gap:10px;background:none!important}
+.hm-cens .bt i{flex:none}
+.hm-cens .bt span{font-size:11px;color:#344054}
+.hm-donut{display:flex;align-items:center;gap:20px;margin-top:14px}
+.hm-donut>div{width:120px;height:120px;flex:none}
+.hm-donut svg{display:block;width:100%;height:100%}
+.hm-donut ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;flex:1;min-width:0}
+.hm-donut li{display:grid;grid-template-columns:10px 1fr auto;gap:8px;align-items:center;font-size:11px;color:#344054}
+.hm-donut li i{width:10px;height:10px;border-radius:50%}
+/* fonte */
+.hm-src{grid-column:1/-1;display:flex;align-items:center;gap:14px;padding:14px 18px}
+.hm-srci{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;color:var(--blue);flex:none}
+.hm-srci .i{width:22px;height:22px}
+.hm-src div{flex:1;min-width:0}
+.hm-src b{display:block;font-size:12px;font-weight:600}
+.hm-src div span{font-size:10.5px;color:var(--soft)}
+.hm-btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:9px 14px;font:500 12px Inter,sans-serif;color:var(--ink);white-space:nowrap}
+.hm-btn:hover{border-color:#c5cedb}
+#s-inicio~.foot,.foot{margin-top:24px}
+/* gráfico de distribuição */
+.hm-distchart svg{display:block;width:100%;height:100%}
+@media(max-width:1280px){.topnav button{padding:0 9px}.search{width:170px}}
+@media(max-width:1100px) and (min-width:861px){.topnav{display:flex!important;margin-left:16px}.topnav button{padding:0 8px;font-size:12.5px}.hdr .search{display:none}.layout{grid-template-columns:168px minmax(0,1fr)}.main{padding:16px 16px 36px}.hm-hero-txt{max-width:390px}.hm-filters{max-width:380px}.hm-table th,.hm-table td{padding-left:4px;padding-right:4px}.hm-table{font-size:11px}.hm-donut{gap:12px}.hm-donut>div{width:92px;height:92px}.hm-hbars{gap:10px}}
+@media(max-width:1000px){.hm-hero{flex-direction:column}.hm-filters{max-width:none;align-items:stretch}.hm-cgrid{grid-template-columns:1fr 1fr}.hm-c.nv{grid-column:1/-1;margin-top:0}}
+@media(max-width:1100px){.hyear{display:none}}
+@media(max-width:960px){.hm-evo,.hm-dist,.hm-last,.hm-perf{grid-column:1/-1}.hm-cens,.hm-ufs{grid-column:span 6}.hm-met{grid-column:1/-1}.hm-stats{grid-template-columns:repeat(3,minmax(0,1fr))}}
+/* celular */
+@media(max-width:860px){
+ .dk-only{display:none!important}
+ .mb-only{display:revert!important}
+ .hm-seg.mb-only{display:grid!important}.hm-list.mb-only,.hm-legend.mb-only{display:flex!important}.hm-sel .i.mb-only{display:block!important}
+ .hdr{height:60px;padding:0 14px;gap:12px}
+ .burger{display:block;order:-1;margin:0;color:var(--ink);padding:4px}
+ .burger .i{width:26px;height:26px}
+ .logo b{width:36px;height:36px}
+ .logo small.mb-only{display:block!important}.logo small.dk-only{display:none!important}
+ .hdr .search{display:none}
+ .hsearch{display:block;margin-left:auto}
+ .side{top:60px;width:280px;padding:14px 10px 90px;height:auto}
+ .side .side-search{display:block!important;margin-bottom:10px}
+ .side .gbody .fbox{display:flex}
+ body.drawer .scrim{inset:60px 0 0}
+ .main{padding:12px 12px 100px}
+ .hm{display:flex;flex-direction:column;gap:12px}
+ .hc{padding:16px;border-radius:14px}
+ .hm-hero{order:1;flex-direction:column;gap:16px;padding:18px 16px;background:#f9fafc}
+ .hm-hero h1{font-size:30px;line-height:1.08;letter-spacing:-.9px;margin:6px 0 10px}
+ .hm-hero p{font-size:13.5px}
+ .hm-fbox{grid-template-columns:1fr;border:0;padding:0;gap:10px}
+ .hm-flbl{display:none}
+ .hm-sel{border-radius:10px;min-height:46px}
+ .hm-sel select{padding:12px 34px 12px 44px;font-size:14px}
+ .hm-chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+ .hm-chips button{padding:7px 9px;font-size:12px;flex:none;gap:5px}
+ .hm-chips:not(.open) button.x{display:none}
+ .hm-chips .more{display:inline-flex;padding:7px 9px}
+ .hm-chips.open{flex-wrap:wrap}.hm-chips.open .more{display:none}
+ .hm-cen{order:2}.hm-ind{order:3}.hm-evo{order:4}.hm-dist{order:5}.hm-last{order:6}.hm-perf{order:7}.hm-ufs{order:8}.hm-prob{order:9}.hm-trend{order:10}.hm-met{order:11}.hm-cens{order:12}.hm-acts{order:13}.hm-src{order:14}
+ .hm h2{font-size:16.5px}
+ .hm-head{align-items:center}
+ .hm-sub{font-size:13px}
+ .hm-cgrid{display:flex;flex-direction:column;align-items:stretch;gap:10px;margin-top:14px}
+ .hm-c,.hm-c.nv{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff;margin:0}
+ .hm-c img{width:66px;height:68px}
+ .hm-c .hm-cinfo{padding-top:8px}
+ .hm-cn{font-size:15px}
+ .hm-pct{font-size:32px}
+ .hm-c .hm-bar{margin-top:8px}
+ .hm-c.nv .hm-delta{display:flex}
+ .hm-delta{font-size:12px}
+ .hm-igrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+ .hm-ic{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:12px;padding:12px}
+ .hm-ic small{display:block;font-size:11px;color:#344054;white-space:nowrap}
+ .hm-ic .hm-ki{width:34px;height:34px}.hm-ic{gap:10px;min-width:0}.hm-ic>div{min-width:0}
+ .hm-ic strong{display:block;font:700 17px/1.3 Inter,sans-serif}
+ .hm-evochart{height:190px}
+ .hm-distchart{height:180px}
+ .hm-dist .hm-legend{justify-content:flex-start}
+ .hm-list{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+ .hm-li{display:grid;grid-template-columns:34px 1fr auto 18px;align-items:center;gap:10px;border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff;text-align:left;width:100%}
+ .hm-li .lgi,.hm-li .bdg{border-radius:8px}
+ .hm-li b{display:block;font-size:13.5px;font-weight:600;color:var(--ink)}
+ .hm-li small{font-size:11.5px;color:var(--soft)}
+ .hm-li .pp{display:flex;gap:12px;font-size:12px;font-weight:600}
+ .hm-li .pp span{display:flex;flex-direction:column;gap:4px;min-width:32px}
+ .hm-li .pp i{display:block;height:3px;border-radius:2px}
+ .hm-li>.i{width:16px;height:16px;color:var(--blue)}
+ .hm-all{display:flex!important;align-items:center;justify-content:space-between;width:100%;margin-top:10px;border:1px solid var(--line);border-radius:12px;background:#fafbfc;padding:13px 12px;font:500 14px Inter,sans-serif;color:var(--ink)}
+ .hm-table{font-size:13px}
+ .hm-ptab th{background:none;font-size:12px}
+ .hm-ptab td{padding:8px 4px}
+ .hm-pv{min-width:56px}
+ .hm-pv b{font-size:13px}
+ .hm-ufhead{display:flex!important;justify-content:space-between;font-size:12px;color:#344054;margin-top:14px;padding-bottom:6px}
+ .hm-ufs .hm-hbars{margin-top:6px}
+ .hm-hbars{font-size:12.5px;gap:12px 16px}
+ .hm-cens .hm-hbars{grid-template-columns:96px 1fr auto}
+ .hm-cens .bt{background:#eceff4!important;display:block}
+ .hm-cens .bt span{display:none}
+ .hm-cens .bt i{background:#2f6bed}
+ .hm-donut{gap:18px}
+ .hm-donut>div{width:118px;height:118px}
+ .hm-donut li{font-size:12px}
+ .hm-pc{display:grid;grid-template-columns:66px 1fr;gap:14px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:12px}
+ .hm-pc img{width:66px;height:72px;object-fit:cover;object-position:50% 20%;border-radius:6px}
+ .hm-pc small{display:block;font-size:12px;color:var(--soft);margin-top:-2px}
+ .hm-pc .hm-bar{height:10px;margin-top:8px}
+ .hm-tr{display:grid!important;grid-template-columns:40px 1fr 18px;gap:14px;align-items:center;width:100%;border:1px solid var(--line);border-radius:12px;background:#fff;padding:12px;margin-top:10px;text-align:left}
+ .hm-tr small{display:block;font-size:12px;color:#344054}
+ .hm-tr strong{display:block;font:700 17px/1.3 Inter,sans-serif;color:var(--ink)}
+ .hm-tr strong.red{color:var(--red)}.hm-tr strong.blue{color:var(--blue)}
+ .hm-tr>.i{color:#475467}
+ .hm-agrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+ .hm-agrid button{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;background:#fff;padding:12px;text-align:left}
+ .hm-agrid .i{width:22px;height:22px;color:var(--blue);margin-top:2px}
+ .hm-agrid b{display:block;font-size:13px;font-weight:600;color:var(--ink)}
+ .hm-agrid small{display:block;font-size:11px;color:var(--soft);margin-top:2px}
+ .hm-src{background:#f2f5fb;border-color:#e3e9f3;align-items:flex-start}
+ .hm-src b{font-size:14px}
+ .hm-src div span{font-size:12px;line-height:1.5}
+ /* barra inferior escura */
+ .bnav{grid-template-columns:repeat(4,1fr);left:10px;right:10px;bottom:10px;border-radius:16px;background:var(--navy);border:0;padding:8px 4px calc(8px + env(safe-area-inset-bottom));box-shadow:0 8px 24px #0b1f4d40}
+ .bnav button{color:#fff;font:500 11px Inter,sans-serif;gap:5px;min-height:48px}
+ .bnav button.on{color:#fff;font-weight:700}
+ .bnav .i{width:22px;height:22px}
+ }
+@media(max-width:400px){.hm-chips:not(.open) button:nth-child(4){display:none}.hm-hero h1{font-size:27px}.hm-pct{font-size:29px}.hm-igrid,.hm-agrid{gap:8px}.hm-ic{padding:10px;gap:9px}.hm-ic .hm-ki{width:34px;height:34px}.hm-li .pp{gap:8px}}
 </style>
 </head>
 <body>
@@ -633,16 +918,28 @@ body{font-size:15px;line-height:1.55}
  <symbol id="grid" viewBox="0 0 24 24"><circle cx="5" cy="5" r="1.4"/><circle cx="12" cy="5" r="1.4"/><circle cx="19" cy="5" r="1.4"/><circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/><circle cx="5" cy="19" r="1.4"/><circle cx="12" cy="19" r="1.4"/><circle cx="19" cy="19" r="1.4"/></symbol>
  <symbol id="swap" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 1-14 5.3L4 15"/><path d="M4 12a8 8 0 0 1 14-5.3L20 9"/><path d="M20 4v5h-5M4 20v-5h5"/></symbol>
  <symbol id="pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+ <symbol id="clip" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 10h6M9 14h6M9 18h3"/></symbol>
+ <symbol id="users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5a6.5 6.5 0 0 1 3.5 5.5"/></symbol>
+ <symbol id="users2" viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16.5" cy="9.5" r="2.5"/><path d="M2.5 19a5.5 5.5 0 0 1 11 0M13.5 19a4.5 4.5 0 0 1 8-2.8"/></symbol>
+ <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+ <symbol id="aup" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+ <symbol id="adn" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
+ <symbol id="zig" viewBox="0 0 24 24"><path d="m3 17 5-8 4 6 4-7 5 9"/></symbol>
+ <symbol id="scale" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5 11 15l5-6"/></symbol>
+ <symbol id="shield" viewBox="0 0 24 24"><path d="M12 3 4.5 6v6c0 4.4 3.2 7.8 7.5 9 4.3-1.2 7.5-4.6 7.5-9V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+ <symbol id="sliders" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></symbol>
  <symbol id="ext" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
 </svg>
 
 <header class="hdr">
- <button class="logo" data-go="inicio" aria-label="Radareleitoral.pro, início"><b>Re</b><span><strong>Radareleitoral.pro</strong><small>PESQUISAS · BRASIL</small></span></button>
+ <button class="logo" data-go="inicio" aria-label="Radareleitoral.pro, início"><b>Re</b><span><strong>Radareleitoral.pro</strong><small class="dk-only">Dados de fontes públicas</small><small class="mb-only">Pesquisas 2026</small></span></button>
  <nav class="topnav" aria-label="Principal">
-  <button data-go="inicio">Visão geral</button><button data-go="previsao">Previsão</button><button data-go="apuracao">Apuração</button><button data-go="institutos">Institutos</button><button data-go="comparar">Comparar</button><button data-go="estados">Estados</button><button data-go="metodologia">Metodologia</button>
+  <button data-go="inicio">Início</button><button data-go="previsao">Previsão</button><button data-go="apuracao">Apuração</button><button data-go="institutos">Institutos</button><button data-go="comparar">Comparar</button><button data-go="estados">Estados</button><button data-go="metodologia">Metodologia</button>
  </nav>
  <div class="search" role="search"><svg class="i"><use href="#search"/></svg><input id="q" type="search" placeholder="Buscar instituto, pesquisa..." autocomplete="off" aria-label="Buscar instituto ou número de registro"><div class="results" id="qres" role="listbox"></div></div>
  <div class="updated">Atualizado em<b id="updTop">—</b></div>
+ <label class="hyear"><select aria-label="Ano da eleição"><option>2026</option></select></label>
+ <button class="hsearch" id="hsearch" aria-label="Buscar"><svg class="i"><use href="#search"/></svg></button>
  <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false"><svg class="i"><use href="#menu"/></svg></button>
 </header>
 
@@ -651,18 +948,18 @@ body{font-size:15px;line-height:1.55}
   <div class="scroll">
    <div class="search side-search"><svg class="i"><use href="#search"/></svg><input id="qSide" type="search" placeholder="Buscar instituto, estado ou registro" autocomplete="off" aria-label="Buscar no menu"><div class="results" id="qresSide" role="listbox"></div></div>
    <button class="nav" data-go="inicio"><svg class="i"><use href="#home"/></svg><span class="txt">Visão geral</span></button>
-   <button class="nav" data-go="previsao"><svg class="i"><use href="#target"/></svg><span class="txt">Previsão do 2º turno</span></button>
-   <button class="nav" data-go="apuracao"><svg class="i"><use href="#live"/></svg><span class="txt">Apuração ao vivo</span></button>
-   <button class="nav" data-go="comparar"><svg class="i"><use href="#bars"/></svg><span class="txt">Comparar pesquisas</span></button>
-   <button class="nav" data-go="estados"><svg class="i"><use href="#map"/></svg><span class="txt">Análise por estado</span></button>
+   <button class="nav" data-go="previsao"><svg class="i"><use href="#target"/></svg><span class="txt">Previsão</span></button>
+   <button class="nav" data-go="apuracao"><svg class="i"><use href="#live"/></svg><span class="txt">Apuração</span></button>
+   <button class="nav" data-go="comparar"><svg class="i"><use href="#bars"/></svg><span class="txt">Comparar</span></button>
    <div class="sep"></div>
-   <button class="group" id="grpInst" aria-expanded="true"><svg class="i"><use href="#building"/></svg><span class="txt">Institutos de pesquisa</span><span class="count" id="instCount">—</span><svg class="i chev"><use href="#up"/></svg></button>
+   <button class="group" id="grpInst" aria-expanded="true"><svg class="i"><use href="#building"/></svg><span class="txt">Institutos</span><span class="count" id="instCount">—</span><svg class="i chev"><use href="#up"/></svg></button>
    <div class="gbody">
     <div class="fbox"><svg class="i"><use href="#search"/></svg><input id="instFilter" type="search" placeholder="Buscar instituto..." aria-label="Filtrar institutos"></div>
     <div class="ilist" id="ilist"></div>
    </div>
-   <div class="sep"></div>
+   <button class="nav" data-go="estados"><svg class="i"><use href="#map"/></svg><span class="txt">Estados</span></button>
    <button class="nav" data-go="metodologia"><svg class="i"><use href="#info"/></svg><span class="txt">Metodologia</span></button>
+   <div class="supd">Última atualização<b id="supdDate">—</b><span id="supdN">carregando...</span></div>
   </div>
   <button class="nav collapse" id="collapse"><svg class="i"><use href="#dleft"/></svg><span class="txt">Recolher menu</span></button>
  </aside>
@@ -674,90 +971,131 @@ body{font-size:15px;line-height:1.55}
   <!-- VISÃO GERAL -->
   <section class="screen" id="s-inicio">
    <section class="card pad mb livebox" id="liveHome" hidden></section>
-   <div class="hero">
-    <div class="eyebrow">Eleições 2026 · Presidência da República</div>
-    <h1>Pesquisas presidenciais 2026</h1>
-    <p>Os percentuais dos candidatos são a média ponderada das pesquisas disponíveis. Essa média é o número principal. A chance mais abaixo é uma hipótese sobre o erro do 1º turno, não um vencedor anunciado.</p>
-    <div class="fontes" id="fontes" aria-label="Institutos que formam a média"></div>
-    <span class="src"><svg class="i"><use href="#db"/></svg>Dados do TSE, PollingData e Poder360</span>
-    <div class="upd"><svg class="i"><use href="#cal"/></svg><div>Última atualização<b id="updHero">—</b></div></div>
-   </div>
-   <div class="cands" id="cands">
-    <article class="cand"><img src="img/lula.jpg" alt="Luiz Inácio Lula da Silva" width="118" height="128"><div class="info"><div class="lbl">Lula · PT</div><div class="nm">Luiz Inácio Lula da Silva</div><div class="pct red" id="pL">—</div><div class="sub" id="pLsub">Média atual do 2º turno</div><div class="bar"><i class="bg-red" id="bL"></i></div></div></article>
-    <article class="cand"><img src="img/flavio.jpg" alt="Flávio Bolsonaro" width="118" height="128"><div class="info"><div class="lbl">Flávio Bolsonaro · PL</div><div class="nm">Flávio Bolsonaro</div><div class="pct blue" id="pF">—</div><div class="sub" id="pFsub">Média atual do 2º turno</div><div class="bar"><i class="bg-blue" id="bF"></i></div></div></article>
-   </div>
-   <section class="reader-strip" aria-labelledby="leitura-rapida">
-    <div class="reader-intro"><div class="eyebrow">Resumo atualizado</div><h2 id="leitura-rapida">Cenário nacional</h2><p id="rIntro">Principais indicadores da média de 2º turno.</p></div>
-    <div class="reader-point"><small>Vantagem na média</small><strong id="rLead">—</strong><span id="rLeadSub">Calculando a diferença</span></div>
-    <div class="reader-point"><small>Pesquisas consideradas</small><strong id="rPolls">—</strong><span>uma por instituto na janela atual</span></div>
-    <div class="reader-point"><small>Atualização dos dados</small><strong id="rUpdated">—</strong><span>confira a data antes de interpretar</span></div>
-   </section>
-   <section class="card pad mb" id="fcCard">
-    <div class="row"><div><div class="eyebrow">Hipóteses · 2º turno</div><h2 class="h2" style="font-size:20px;margin-top:4px">A média está acima. A chance depende da hipótese.</h2><div class="sub" id="fcSub">Três leituras do mesmo conjunto de pesquisas. Elas só diferem no quanto do erro do 1º turno se supõe que volte a acontecer.</div></div></div>
-    <div class="hipoteses" id="fcMode">
-     <button type="button" data-v="0" class="on"><small>Só pesquisas</small><b>O erro do 1º turno não se repete</b><span class="nums"><span class="red" id="hL0">Lula —</span><span class="blue" id="hF0">Flávio —</span></span></button>
-     <button type="button" data-v="1"><small>Parte do erro</small><b>Hipótese de que uma parte se repete</b><span class="nums"><span class="red" id="hL1">Lula —</span><span class="blue" id="hF1">Flávio —</span></span></button>
-     <button type="button" data-v="2"><small>Erro inteiro</small><b>O desvio do 1º turno volta por completo</b><span class="nums"><span class="red" id="hL2">Lula —</span><span class="blue" id="hF2">Flávio —</span></span></button>
-    </div>
-    <div class="fcsent" id="fcSent">—</div>
-    <div class="fcfacts"><div><small>Resultado mais provável nesta hipótese</small><b id="fcMed">—</b></div><div><small>Faixa de 80%</small><b id="fc80">—</b></div><div><small>Faixa de 95%</small><b id="fc95">—</b></div></div>
-    <div class="sub" style="margin:14px 0 4px">Faixa da hipótese selecionada. Em azul, Flávio fica à frente. Em vermelho, Lula fica à frente.</div>
-    <div class="chart hist" id="fcHist"></div>
-    <div class="fcwarn" id="fcWarn">Nenhuma hipótese é o resultado da eleição. <button class="back" data-go="previsao" style="margin:0">Ver o modelo completo ›</button></div>
-   </section>
-   <div class="kpis">
-    <div class="card kpi"><div class="ic"><svg class="i"><use href="#chart"/></svg></div><div><strong id="k1">—</strong><div class="k1 long">Institutos na média</div><div class="k1 short">Institutos</div><div class="k2">em relação à semana anterior</div></div><span class="delta" id="d1"></span></div>
-    <div class="card kpi"><div class="ic"><svg class="i"><use href="#file"/></svg></div><div><strong id="k2">—</strong><div class="k1 long">Pesquisas com resultado</div><div class="k1 short">Pesquisas</div><div class="k2">na base nacional</div></div><span class="delta" id="d2"></span></div>
-    <div class="card kpi"><div class="ic"><svg class="i"><use href="#trend"/></svg></div><div><strong id="k3">—</strong><div class="k1 long">Vantagem na média</div><div class="k1 short">Vantagem</div><div class="k2" id="k3s">—</div></div></div>
-    <div class="card kpi"><div class="ic"><svg class="i"><use href="#cal"/></svg></div><div><strong>14 dias</strong><div class="k1 long">Período da média</div><div class="k1 short">Período</div><div class="k2">1 pesquisa por instituto</div></div></div>
-   </div>
-   <div class="two">
-    <section class="card pad">
-     <div class="row"><div><h2 class="h2">Evolução das pesquisas</h2><div class="sub" id="homeChartSub">Média nacional · Votos válidos</div></div>
-      <div class="ctrls"><div class="seg" id="homeTurn"><button data-v="1">1º turno</button><button data-v="2">2º turno</button></div>
-       <div class="seg" id="homePeriod" role="group" aria-label="Período"><button data-v="7">7 dias</button><button data-v="30">1 mês</button><button data-v="90">3 meses</button><button data-v="0">Tudo</button></div></div></div>
-     <div class="moves" id="homeMoves"></div>
-     <div class="chart big" id="homeChart"></div>
-     <div class="legend" id="homeLegend"></div>
-     <div class="diffbox"><h3 class="h3">Vantagem na média, dia a dia</h3><div class="sub">Diferença entre Flávio Bolsonaro e Lula, em pontos percentuais. Acima da linha, Flávio está à frente. Abaixo da linha, Lula está à frente.</div><div class="chart diff" id="homeDiff"></div></div>
-    </section>
-    <section class="card pad">
-     <h2 class="h2">Panorama da disputa</h2><div class="sub" id="fTurn">Leitura da média de 2º turno</div>
-     <div class="facts">
-      <div class="fact"><span>Quem lidera?</span><b id="fLead">—</b></div>
-      <div class="fact"><span>Diferença</span><b id="fDiff">—</b></div>
-      <div class="fact"><span>Institutos na última média</span><b id="fN">—</b></div>
-      <div class="fact"><span>Mudança em 7 dias</span><b id="fMove">—</b></div>
-      <div class="fact"><span>Na frente desde</span><b id="fSince">—</b></div>
-      <div class="fact"><span>Período da média</span><b>Janela de 14 dias</b></div>
-      <div class="fact"><span>Chance só com as pesquisas</span><b id="fProb">calculando...</b></div>
+   <div class="hm">
+    <section class="hc hm-hero">
+     <div class="hm-hero-txt">
+      <div class="hm-eyebrow">Eleições 2026</div>
+      <h1>Pesquisas presidenciais 2026</h1>
+      <p>Acompanhe as pesquisas registradas no TSE, com dados consolidados, comparação entre institutos e histórico de evolução. Todos os dados são de fonte pública e podem ser verificados.</p>
      </div>
-     <div class="note">Uma vantagem pequena na média não garante vitória. Os resultados são estimativas sujeitas a erro e viés.</div>
+     <div class="hm-filters">
+      <div class="hm-fbox">
+       <label class="hm-field"><span class="hm-flbl">Selecione o cenário</span><span class="hm-sel"><svg class="i mb-only"><use href="#clip"/></svg><select id="hmTurn" aria-label="Cenário"><option value="2">Presidente – 2º turno</option><option value="1">Presidente – 1º turno</option></select></span></label>
+       <label class="hm-field"><span class="hm-flbl">Período</span><span class="hm-sel"><svg class="i mb-only"><use href="#cal"/></svg><select id="hmPeriod" aria-label="Período"><option value="7">Últimos 7 dias</option><option value="30">Últimos 30 dias</option><option value="90">Últimos 90 dias</option><option value="180">Últimos 6 meses</option><option value="0">Todo o período</option></select></span></label>
+      </div>
+      <div class="hm-chips" id="hmChips" role="group" aria-label="Filtrar por instituto"></div>
+     </div>
+    </section>
+
+    <div class="hm-kpis dk-only">
+     <div class="hc hm-kpi"><span class="hm-ki b"><svg class="i"><use href="#clip"/></svg></span><div><small>Pesquisas</small><strong id="kP">—</strong><span>registradas no TSE</span></div></div>
+     <div class="hc hm-kpi"><span class="hm-ki g"><svg class="i"><use href="#users"/></svg></span><div><small>Institutos</small><strong id="kI">—</strong><span>com pesquisas em 2026</span></div></div>
+     <div class="hc hm-kpi"><span class="hm-ki o"><svg class="i"><use href="#cal"/></svg></span><div><small>Período</small><strong class="sm" id="kPer">—</strong><span>dados disponíveis</span></div></div>
+     <div class="hc hm-kpi"><span class="hm-ki b"><svg class="i"><use href="#users2"/></svg></span><div><small>Amostra média</small><strong id="kA">—</strong><span>entre todas as pesquisas</span></div></div>
+    </div>
+
+    <section class="hc hm-cen" id="cands">
+     <div class="hm-head"><h2><b id="cenTit">Cenário atual – 2º turno</b> <span class="dk-only">(média dos institutos)</span></h2><button class="hm-link dk-only" data-go="previsao">Ver detalhes <svg class="i"><use href="#arrow"/></svg></button><button class="hm-chev mb-only" data-go="previsao" aria-label="Ver detalhes"><svg class="i"><use href="#right"/></svg></button></div>
+     <div class="hm-sub mb-only">Média dos institutos</div>
+     <div class="hm-cgrid">
+      <article class="hm-c"><img src="img/lula.jpg" alt="Lula" width="64" height="72"><div class="hm-cinfo"><div class="hm-cn">Lula (PT)</div><div class="hm-pct red" id="pL">—</div></div><div class="hm-bar"><i class="bg-red" id="bL"></i></div><div class="hm-delta" id="dL"></div></article>
+      <article class="hm-c"><img src="img/flavio.jpg" alt="Flávio Bolsonaro" width="64" height="72"><div class="hm-cinfo"><div class="hm-cn">Flávio Bolsonaro (PL)</div><div class="hm-pct blue" id="pF">—</div></div><div class="hm-bar"><i class="bg-blue" id="bF"></i></div><div class="hm-delta" id="dF"></div></article>
+      <article class="hm-c nv"><div class="hm-cinfo"><div class="hm-cn">Indecisos / Branco / Nulo</div><div class="hm-pct" id="pN">—</div></div><div class="hm-bar"><i class="bg-gray" id="bN"></i></div><div class="hm-delta" id="dN"></div></article>
+     </div>
+     <div class="hm-note" id="cenNote"></div>
+    </section>
+
+    <section class="hc hm-ind mb-only">
+     <div class="hm-head"><h2><b>Indicadores principais</b></h2><button class="hm-chev" data-go="comparar" aria-label="Comparar pesquisas"><svg class="i"><use href="#right"/></svg></button></div>
+     <div class="hm-igrid">
+      <div class="hm-ic"><span class="hm-ki r"><svg class="i"><use href="#zig"/></svg></span><div><small id="iVl">Vantagem</small><strong id="iV">—</strong></div></div>
+      <div class="hm-ic"><span class="hm-ki t"><svg class="i"><use href="#scale"/></svg></span><div><small>Empate técnico</small><strong id="iE">—</strong></div></div>
+      <div class="hm-ic"><span class="hm-ki s"><svg class="i"><use href="#clip"/></svg></span><div><small>Nº de pesquisas</small><strong id="iN">—</strong></div></div>
+      <div class="hm-ic"><span class="hm-ki b"><svg class="i"><use href="#users2"/></svg></span><div><small>Amostra média</small><strong id="iA">—</strong></div></div>
+     </div>
+    </section>
+
+    <section class="hc hm-evo">
+     <div class="hm-head"><div><h2><b>Evolução das intenções de voto</b></h2><div class="hm-sub" id="evoSub">Média dos principais institutos – 2º turno</div></div>
+      <div class="hm-ctrls dk-only"><span class="hm-sel sm"><select id="evoPeriod" aria-label="Período do gráfico"><option value="7">Últimos 7 dias</option><option value="30">Últimos 30 dias</option><option value="90">Últimos 90 dias</option><option value="180">Últimos 6 meses</option><option value="0">Todo o período</option></select></span><span class="hm-sel sm"><select id="evoMode" aria-label="O que mostrar"><option value="0">Média dos institutos</option><option value="1">Média e pesquisas</option></select></span></div></div>
+     <div class="hm-seg mb-only" id="evoSeg" role="group" aria-label="Período"><button data-p="30">30 dias</button><button data-p="90">90 dias</button><button data-p="180">6 meses</button><button data-p="0">Tudo</button></div>
+     <div class="hm-legend dk-only" id="evoLegTop"></div>
+     <div class="chart hm-evochart" id="homeChart"></div>
+     <div class="hm-legend mb-only" id="evoLegBot"></div>
+    </section>
+
+    <section class="hc hm-dist">
+     <h2><b>Distribuição das pesquisas</b></h2><div class="hm-sub">Por data de campo</div>
+     <div class="chart hm-distchart" id="distChart"></div>
+     <div class="hm-legend"><span><i style="background:var(--red)"></i>Lula na frente</span><span><i style="background:#cfd5de"></i>Empate técnico</span><span><i style="background:var(--blue)"></i>Flávio na frente</span></div>
+    </section>
+
+    <div class="hm-stats dk-only">
+     <div class="hc hm-st"><small><i style="background:var(--red)"></i>Lula na frente</small><strong id="sL">—</strong><span>das pesquisas</span></div>
+     <div class="hc hm-st"><small><i style="background:var(--blue)"></i>Flávio na frente</small><strong id="sF">—</strong><span>das pesquisas</span></div>
+     <div class="hc hm-st"><small><i style="background:#98a2b3"></i>Empate técnico</small><strong id="sE">—</strong><span>das pesquisas</span></div>
+     <div class="hc hm-st"><small>Maior vantagem (Lula)</small><strong id="sML">—</strong><span id="sMLs">—</span></div>
+     <div class="hc hm-st"><small>Maior vantagem (Flávio)</small><strong id="sMF">—</strong><span id="sMFs">—</span></div>
+    </div>
+
+    <section class="hc hm-last">
+     <div class="hm-head"><h2><b>Últimas pesquisas publicadas</b></h2><button class="hm-link dk-only" data-go="comparar">Ver todas <svg class="i"><use href="#arrow"/></svg></button></div>
+     <div class="tw dk-only"><table class="hm-table"><thead><tr><th>Data campo</th><th>Instituto</th><th class="n">Amostra</th><th class="n">Lula</th><th class="n">Flávio</th><th class="n">Indecisos</th><th class="n">Margem</th><th></th></tr></thead><tbody id="lastTab"></tbody></table></div>
+     <div class="hm-list mb-only" id="lastList"></div>
+     <button class="hm-all mb-only" data-go="comparar">Ver todas as pesquisas<svg class="i"><use href="#right"/></svg></button>
+    </section>
+
+    <section class="hc hm-perf">
+     <div class="hm-head"><h2><b>Desempenho por instituto</b> <span>(média)</span></h2><button class="hm-link dk-only" data-go="institutos">Ver todos <svg class="i"><use href="#arrow"/></svg></button><button class="hm-chev mb-only" data-go="institutos" aria-label="Ver todos os institutos"><svg class="i"><use href="#right"/></svg></button></div>
+     <table class="hm-table hm-ptab"><thead><tr><th>Instituto</th><th>Lula</th><th>Flávio</th><th class="n"><span class="dk-only">Nº de pesquisas</span><span class="mb-only">Nº</span></th></tr></thead><tbody id="perfTab"></tbody></table>
+    </section>
+
+    <section class="hc hm-cens">
+     <div class="hm-head"><h2><b>Cenários pesquisados</b></h2><button class="hm-chev mb-only" data-go="comparar" aria-label="Comparar cenários"><svg class="i"><use href="#right"/></svg></button></div>
+     <div class="hm-hbars" id="censBars"></div>
+    </section>
+
+    <section class="hc hm-ufs">
+     <div class="hm-head"><h2><b>Pesquisas por estado</b></h2><button class="hm-link" data-go="estados">Ver todas <svg class="i"><use href="#right"/></svg></button></div>
+     <div class="hm-ufhead mb-only"><span>Estado</span><span>Nº de pesquisas</span></div>
+     <div class="hm-hbars ufb" id="ufBars"></div>
+    </section>
+
+    <section class="hc hm-met">
+     <div class="hm-head"><h2><b>Metodologia das pesquisas</b></h2><button class="hm-chev mb-only" data-go="metodologia" aria-label="Ver metodologia"><svg class="i"><use href="#right"/></svg></button></div>
+     <div class="hm-donut"><div id="metDonut"></div><ul id="metLeg"></ul></div>
+    </section>
+
+    <section class="hc hm-prob mb-only">
+     <div class="hm-head"><h2><b>Probabilidade de vitória</b> <span>(modelo)</span></h2><button class="hm-chev" data-go="previsao" aria-label="Sobre o modelo"><svg class="i"><use href="#info"/></svg></button></div>
+     <div class="hm-pc"><img src="img/lula.jpg" alt="Lula" width="64" height="72"><div><div class="hm-cn">Lula (PT)</div><div class="hm-pct red" id="prL">—</div><small id="prLs">calculando...</small><div class="hm-bar"><i class="bg-red" id="prbL"></i></div></div></div>
+     <div class="hm-pc"><img src="img/flavio.jpg" alt="Flávio Bolsonaro" width="64" height="72"><div><div class="hm-cn">Flávio Bolsonaro (PL)</div><div class="hm-pct blue" id="prF">—</div><small id="prFs">calculando...</small><div class="hm-bar"><i class="bg-blue" id="prbF"></i></div></div></div>
+     <div class="hm-note">Hipótese "só pesquisas": supõe que o erro do 1º turno não se repete. Não é o resultado da eleição.</div>
+    </section>
+
+    <section class="hc hm-trend mb-only">
+     <h2><b>Margem e tendência</b></h2>
+     <button class="hm-tr" data-go="previsao"><span class="hm-ki r"><svg class="i"><use href="#zig"/></svg></span><span><small id="tVl">Vantagem</small><strong id="tV">—</strong></span><svg class="i"><use href="#right"/></svg></button>
+     <button class="hm-tr" data-go="previsao"><span class="hm-ki p"><svg class="i"><use href="#chart"/></svg></span><span><small>Tendência</small><strong id="tT">—</strong></span><svg class="i"><use href="#right"/></svg></button>
+     <button class="hm-tr" data-go="previsao"><span class="hm-ki g"><svg class="i"><use href="#shield"/></svg></span><span><small>Incerteza</small><strong id="tI">—</strong></span><svg class="i"><use href="#right"/></svg></button>
+    </section>
+
+    <section class="hc hm-acts mb-only">
+     <h2><b>Ações rápidas</b></h2>
+     <div class="hm-agrid">
+      <button data-go="comparar"><svg class="i"><use href="#swap"/></svg><span><b>Comparar pesquisas</b><small>Veja lado a lado</small></span></button>
+      <button data-go="institutos"><svg class="i"><use href="#building"/></svg><span><b>Checar institutos</b><small>Histórico e desempenho</small></span></button>
+      <button data-go="apuracao"><svg class="i"><use href="#live"/></svg><span><b>Apuração ao vivo</b><small>Votos contados pelo TSE</small></span></button>
+      <button id="csvBtn" type="button"><svg class="i"><use href="#db"/></svg><span><b>Base de dados</b><small>Baixar a média em CSV</small></span></button>
+     </div>
+    </section>
+
+    <section class="hc hm-src">
+     <span class="hm-srci"><svg class="i"><use href="#info"/></svg></span>
+     <div><b>Dados de fonte pública</b><span>Todas as pesquisas são registradas no TSE e podem ser consultadas na íntegra. Este painel apenas organiza e facilita a visualização das informações.</span></div>
+     <button class="hm-btn dk-only" data-go="metodologia">Ver metodologia</button><button class="hm-chev mb-only" data-go="metodologia" aria-label="Ver metodologia"><svg class="i"><use href="#right"/></svg></button>
     </section>
    </div>
-   <section class="card pad mb">
-    <div class="row"><div><h2 class="h2">Pesquisas que formam a média</h2><div class="sub" id="wSub">—</div></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="csvBtn" type="button">Baixar dados</button><button class="btn" data-go="metodologia">Como calculamos<svg class="i"><use href="#right"/></svg></button></div></div>
-    <div class="tw"><table class="table wtab"><thead><tr><th>Instituto</th><th>Período de campo</th><th>Divulgação</th><th class="n">Amostra</th><th class="n">Lula</th><th class="n">Flávio</th><th class="n">Peso na média</th></tr></thead><tbody id="wTab"></tbody></table></div>
-    <div class="wsum" id="wSum"></div>
-    <details class="excl" id="wExcl"></details>
-   </section>
-   <section class="card pad mb">
-    <div class="row"><div><h2 class="h2">Últimas pesquisas</h2><div class="sub" id="feedSub">2º turno, votos válidos, resultados nacionais mais recentes</div></div><button class="btn" data-go="comparar">Comparar pesquisas<svg class="i"><use href="#right"/></svg></button></div>
-    <div class="feed" id="feed"></div>
-   </section>
-   <section class="voter-tools" aria-labelledby="ferramentas-eleitor">
-    <div class="voter-tools-head"><div><div class="eyebrow">Explore os dados</div><h2 id="ferramentas-eleitor">Ferramentas de análise</h2></div><p>Compare levantamentos, consulte o recorte do seu estado e confira a metodologia.</p></div>
-    <div class="tool-grid">
-     <button class="tool-link" data-go="comparar"><svg class="i"><use href="#swap"/></svg><span><b>Comparar pesquisas</b><span>Coloque dois institutos lado a lado, no mesmo turno.</span></span></button>
-     <button class="tool-link" data-go="estados"><svg class="i"><use href="#pin"/></svg><span><b>Ver meu estado</b><span>Entenda a disputa e a disponibilidade de dados locais.</span></span></button>
-     <button class="tool-link" data-go="institutos"><svg class="i"><use href="#building"/></svg><span><b>Checar institutos</b><span>Amostra, margem de erro, histórico e registros.</span></span></button>
-     <button class="tool-link" data-go="metodologia"><svg class="i"><use href="#info"/></svg><span><b>Entender a média</b><span>Veja pesos, exclusões, limites e fontes.</span></span></button>
-    </div>
-   </section>
-   <section class="card pad">
-    <div class="row"><div><h2 class="h2">Institutos de pesquisa</h2><div class="sub">Acompanhe o histórico, amostras, cenários e metodologia</div></div><button class="btn" data-go="institutos">Ver todos os institutos<svg class="i"><use href="#right"/></svg></button></div>
-    <div class="igrid" id="homeTiles"></div>
-   </section>
   </section>
 
   <!-- PREVISÃO -->
@@ -914,11 +1252,10 @@ body{font-size:15px;line-height:1.55}
 </div>
 
 <nav class="bnav" aria-label="Navegação para celular">
- <button data-go="inicio"><svg class="i"><use href="#home"/></svg>Início</button>
+ <button data-go="comparar"><svg class="i"><use href="#bars"/></svg>Comparar</button>
  <button data-go="institutos"><svg class="i"><use href="#building"/></svg>Institutos</button>
- <button data-go="previsao"><svg class="i"><use href="#target"/></svg>Previsão</button>
  <button data-go="apuracao"><svg class="i"><use href="#live"/></svg>Apuração</button>
- <button id="more"><svg class="i"><use href="#grid"/></svg>Mais</button>
+ <button id="more"><svg class="i"><use href="#sliders"/></svg>Mais filtros</button>
 </nav>
 
 <script>
@@ -930,8 +1267,10 @@ const RES='registro,uf_recorte,turno,cenario_id,instituto,data_campo,entrevistas
 const Q={
  resultados:['resultados','uf_recorte=eq.BR&select='+RES],
  cenarios:['cenarios','uf_recorte=eq.BR&cenario_principal=is.true&select=registro,uf_recorte,turno,cenario_id'],
- pesquisas:['pesquisas','p_presidente=is.true&select=registro,cnpj,inicio_campo,fim_campo,divulgacao,modo_coleta,contratante'],
+ pesquisas:['pesquisas','p_presidente=is.true&select=registro,uf,entrevistas,tem_resultado,cnpj,inicio_campo,fim_campo,divulgacao,modo_coleta,contratante'],
  institutos:['institutos','select=instituto,cnpj,modo_principal'],
+ todas:['pesquisas','select=uf,cnpj,entrevistas,modo_coleta,inicio_campo,fim_campo'],
+ cenAll:['cenarios','uf_recorte=eq.BR&select=turno,cenario'],
  oficial:['resultado_oficial','ds_cargo=eq.Presidente&select=abrangencia,nr_turno,nome_pesquisa,votos,pct_validos'],
  resUF:['resultados','uf_recorte=neq.BR&select='+RES],
  cenUF:['cenarios','uf_recorte=neq.BR&cenario_principal=is.true&select=registro,uf_recorte,turno,cenario_id'],
@@ -955,7 +1294,7 @@ const cand=s=>{const n=norm(s);if(n.startsWith('lula'))return 'Lula';if(n.starts
 const ALIAS={mda:'MDA Pesquisas',gerp:'GERP',realtime:'Real Time Big Data'};
 const inst=s=>ALIAS[norm(s)]||String(s??'').trim();
 const quant=(a,q)=>{const s=[...a].sort((x,y)=>x-y),p=(s.length-1)*q,i=Math.floor(p);return s[i]+(s[Math.min(i+1,s.length-1)]-s[i])*(p-i)};
-const L='Lula',F='Flávio Bolsonaro',COL={[L]:'#d7302f',[F]:'#1d6fd6'},EXTRA=['#0f9b6c','#e08a00','#7c4ddb','#64748b','#c2417a','#0891b2'];
+const L='Lula',F='Flávio Bolsonaro',COL={[L]:'#e5383b',[F]:'#1d5fe0'},EXTRA=['#0f9b6c','#e08a00','#7c4ddb','#64748b','#c2417a','#0891b2'];
 const ELEICAO1='2026-10-04';
 const ic=(id,cls='i')=>`<svg class="${cls}"><use href="#${id}"/></svg>`;
 
@@ -1081,49 +1420,89 @@ function renderFeed(){const t=S.homeTurn,dia=diaDoTurno(t),start=S.homePeriod?ad
  $('feed').innerHTML=rows.map(p=>`<button class="prow" data-inst="${esc(p.inst)}"><div class="who">${icon(p.inst,36)}<div style="min-width:0"><b>${esc(p.inst)}${leadTag(p)}</b><small>${esc(p.reg)} · campo em ${dshort(p.date)}</small></div></div><div class="res">${split(p)}</div><div class="mt">${int(p.n)} entrevistas<br>margem ${Number.isFinite(p.erro)?'±'+fmt(p.erro)+' pp':'—'}</div>${ic('right')}</button>`).join('')||'<p class="note">Nenhuma pesquisa neste recorte.</p>'}
 
 // ---------- visão geral
+// filtro de instituto dos chips (null = todos, '__outros' = fora dos 9 com mais pesquisas) e modo do gráfico
+const HM={inst:null,evoMode:0};
+const MES3m=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+const pp=v=>Number.isFinite(v)?fmt(v)+' p.p.':'—';
+const pv=v=>!Number.isFinite(v)?'—':(Math.abs(v-Math.round(v))<.05?fmt(v,0):fmt(v))+'%';
+const totOuVal=(p,c)=>Number.isFinite(p.tot[c])?p.tot[c]:p.vals[c];
+// mesma regra do leadTag: empate técnico quando a diferença nos votos totais cabe em duas margens de erro
+function lado(p){const l=totOuVal(p,L),f=totOuVal(p,F);if(!Number.isFinite(l)||!Number.isFinite(f))return null;const d=f-l;return Number.isFinite(p.erro)&&Math.abs(d)<=2*p.erro?'e':d>0?'f':'l'}
+function hmTop(t){const c=new Map();for(const p of D.polls)if(p.turno===t)c.set(p.inst,(c.get(p.inst)||0)+1);return [...c.entries()].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],'pt')).map(x=>x[0])}
+function hmPolls(t,start,end){const top=hmTop(t).slice(0,9);return D.polls.filter(p=>p.turno===t&&p.date>=start&&p.date<=end&&Number.isFinite(p.vals[L])&&Number.isFinite(p.vals[F])&&(!HM.inst||(HM.inst==='__outros'?!top.includes(p.inst):p.inst===HM.inst)))}
+function campoCurto(p){const m=D.meta.get(p.reg),i=m?.inicio_campo,f=m?.fim_campo||p.date,mm=d=>MES3m[+d.slice(5,7)-1];if(!i||i===f)return `${+f.slice(8,10)}/${mm(f)}`;return i.slice(5,7)===f.slice(5,7)?`${+i.slice(8,10)}–${+f.slice(8,10)}/${mm(f)}`:`${+i.slice(8,10)}/${mm(i)}–${+f.slice(8,10)}/${mm(f)}`}
+function deltaSemana(id,v){const el=$(id);if(!Number.isFinite(v)){el.innerHTML='';return}const up=v>=.05,dn=v<=-.05;el.innerHTML=`<b class="${up?'up':dn?'dn':''}">${up?ic('aup'):dn?ic('adn'):''}${up?'+':dn?'−':''}${fmt(Math.abs(v))} p.p.</b><span>em relação à semana anterior</span>`}
+function distrib(el,ps,start,end){
+ const W=Math.max(260,el.clientWidth||420),H=el.clientHeight||210,PL=30,PR=6,PT=8,PB=24;
+ if(!ps.length){el.innerHTML='<div class="empty">Sem pesquisas neste recorte.</div>';return}
+ const span=Math.max(1,ndias(start,end)+1),bin=Math.max(1,Math.ceil(span/40)),nb=Math.ceil(span/bin),bins=Array.from({length:nb},()=>({l:0,e:0,f:0}));
+ for(const p of ps){const s=lado(p);if(!s)continue;bins[Math.min(nb-1,Math.max(0,Math.floor(ndias(start,p.date)/bin)))][s]++}
+ const mx=Math.max(1,...bins.map(b=>b.l+b.e+b.f)),step=mx<=8?2:mx<=20?5:mx<=50?10:20,top=Math.ceil(mx/step)*step,bw=(W-PL-PR)/nb,y=v=>PT+(1-v/top)*(H-PT-PB);
+ let g='';for(let v=0;v<=top;v+=step)g+=`<line x1="${PL}" x2="${W-PR}" y1="${y(v)}" y2="${y(v)}" stroke="#eef1f5"/><text x="${PL-7}" y="${y(v)+3.5}" text-anchor="end" font-size="10" fill="#8a97a8">${v}</text>`;
+ bins.forEach((b,i)=>{let base=0;const x=PL+i*bw+bw*.12,w=Math.max(1,bw*.76),d0=addDays(start,i*bin);for(const [k,c] of [['l','#e5383b'],['e','#cfd5de'],['f','#1d5fe0']]){if(!b[k])continue;g+=`<rect x="${x.toFixed(1)}" y="${y(base+b[k]).toFixed(1)}" width="${w.toFixed(1)}" height="${(y(base)-y(base+b[k])).toFixed(1)}" fill="${c}"><title>${bin>1?`${dshort(d0)} a ${dshort(addDays(d0,bin-1))}`:dshort(d0)}: ${b.l} com Lula na frente, ${b.e} em empate técnico, ${b.f} com Flávio na frente</title></rect>`;base+=b[k]}});
+ g+=`<line x1="${PL}" x2="${W-PR}" y1="${y(0)}" y2="${y(0)}" stroke="#d5dce5"/>`;
+ for(const [d,t] of marcasX(start,end,W)){const xx=PL+(ndias(start,d)+.5*bin)/span*(W-PL-PR),fim=xx>W-PR-16;g+=`<text x="${(fim?W-PR:xx).toFixed(1)}" y="${H-7}" text-anchor="${fim?'end':'middle'}" font-size="10" fill="#8a97a8">${t}</text>`}
+ el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Pesquisas por data de campo, separadas por quem estava na frente">${g}</svg>`}
+function rosca(el,parts){const tot=parts.reduce((a,b)=>a+b.v,0)||1,R=38,C=2*Math.PI*R;let off=0,g='';for(const p of parts){const len=p.v/tot*C;if(len>0)g+=`<circle cx="60" cy="60" r="${R}" fill="none" stroke="${p.c}" stroke-width="24" stroke-dasharray="${len.toFixed(2)} ${(C-len).toFixed(2)}" stroke-dashoffset="${(-off).toFixed(2)}" transform="rotate(-90 60 60)"><title>${esc(p.n)}: ${Math.round(p.v/tot*100)}%</title></circle>`;off+=len}el.innerHTML=`<svg viewBox="0 0 120 120" role="img" aria-label="Modo de coleta das pesquisas">${g}</svg>`}
 function renderHome(){
  if(!D.ready)return;
- const t=S.homeTurn,dia=diaDoTurno(t),med=mediaEm(t,dia),d=D.lastDate;
- $('updHero').textContent=dlong(d);
- const sub=`${t===2?'Média atual do 2º turno':'Média do 1º turno'}${dia?', até '+dshort(dia):''}`;$('pLsub').textContent=sub;$('pFsub').textContent=sub;
- if(med&&Number.isFinite(med.avg[L])&&Number.isFinite(med.avg[F])){const a=med.avg[L],b=med.avg[F],diff=b-a,lead=Math.abs(diff)<.05?'Empate':diff>0?F:L,prev=mediaEm(t,addDays(dia,-7));
+ const t=S.homeTurn,dia=diaDoTurno(t),per=S.homePeriod,start=per?addDays(dia,-per):'0000';
+ $('hmTurn').value=String(t);$('hmPeriod').value=String(per);$('evoPeriod').value=String(per);$('evoMode').value=String(HM.evoMode);
+ $('evoSeg').querySelectorAll('button').forEach(b=>b.classList.toggle('on',+b.dataset.p===per));
+ const top=hmTop(t).slice(0,9);if(HM.inst&&HM.inst!=='__outros'&&!top.includes(HM.inst))HM.inst=null;
+ const chips=$('hmChips'),aberto=chips.classList.contains('open');
+ chips.innerHTML=[[null,'Todos'],...top.map(n=>[n,n]),['__outros','Outros']].map(([v,lbl],i)=>`<button type="button" data-hi="${esc(v??'')}" class="${(HM.inst??'')===(v??'')?'on':''}${i>3?' x':''}">${v&&v!=='__outros'?icon(v,14):''}${esc(lbl)}</button>`).join('')+'<button type="button" class="more" data-himore aria-label="Mostrar todos os institutos">+</button>';
+ chips.classList.toggle('open',aberto);
+ // registros no TSE, todos os cargos (chegam depois da carga principal; até lá, só os de Presidente)
+ const regs=D.todas||D.pesquisas,ns=regs.map(r=>num(r.entrevistas)).filter(n=>n>0),ini=regs.map(r=>r.inicio_campo).filter(Boolean).sort(),fim=regs.map(r=>r.fim_campo).filter(Boolean).sort(),mes=d=>d?`${MES3m[+d.slice(5,7)-1]}/${d.slice(0,4)}`:'—';
+ $('kP').textContent=int(regs.length);$('kI').textContent=int(new Set(regs.map(r=>r.cnpj)).size);$('kPer').textContent=`${mes(ini[0])} – ${mes(fim.at(-1))}`;$('kA').textContent=ns.length?int(ns.reduce((a,b)=>a+b,0)/ns.length):'—';
+ // cenário atual: média ponderada dos votos válidos; indecisos/brancos/nulos pela média dos votos totais
+ $('cenTit').textContent=`Cenário atual – ${t}º turno`;
+ const med=mediaEm(t,dia),prev=mediaEm(t,addDays(dia,-7)),nvDe=m=>{let sw=0,sv=0;for(const {p,w} of m.sel)if(Number.isFinite(p.nv)){sw+=w;sv+=w*p.nv}return sw?sv/sw:NaN};
+ if(med&&Number.isFinite(med.avg[L])&&Number.isFinite(med.avg[F])){const a=med.avg[L],b=med.avg[F],df=b-a,ld=Math.abs(df)<.05?null:df>0?'Flávio':'Lula',nv=nvDe(med);
   $('pL').textContent=fmt(a)+'%';$('pF').textContent=fmt(b)+'%';$('bL').style.width=a+'%';$('bF').style.width=b+'%';
-  $('k3').textContent=fmt(Math.abs(diff))+' pp';$('k3s').textContent=lead==='Empate'?'Empate na média':`${lead} à frente`;
-  $('rLead').textContent=lead==='Empate'?'Empate':lead;
-  $('rLeadSub').textContent=lead==='Empate'?'diferença inferior a 0,1 ponto':`${fmt(Math.abs(diff))} pontos percentuais de vantagem`;
-  $('fLead').textContent=lead;$('fDiff').textContent=fmt(Math.abs(diff))+' pontos percentuais';
-  $('k1').textContent=$('fN').textContent=$('rPolls').textContent=int(med.sel.length);delta('d1',prev?med.sel.length-prev.sel.length:NaN)}
-  $('rUpdated').textContent=dshort(d);
- const fontes=$('fontes');
- if(fontes)fontes.innerHTML=med&&med.sel.length?`<span class="lbl">Institutos nesta média</span>`+med.sel.slice().sort((x,y)=>y.w-x.w).map(({p})=>`<button type="button" data-inst="${esc(p.inst)}">${icon(p.inst,24)}<span>${esc(p.inst)}</span></button>`).join(''):'';
- $('rIntro').textContent=`Principais indicadores da média de ${t}º turno.`;
- const regs=new Set(D.polls.map(p=>p.reg)),first=new Map();D.polls.forEach(p=>{if(!first.has(p.reg)||p.date<first.get(p.reg))first.set(p.reg,p.date)});
- $('k2').textContent=int(regs.size);delta('d2',[...first.values()].filter(x=>x>addDays(d,-7)).length);
- segSet('homeTurn',S.homeTurn);segSet('homePeriod',S.homePeriod);
- const by=S.homeTurn===2?D.media2:D.media1,end=[...by.values()].flat().map(p=>p.date).sort().at(-1);
+  deltaSemana('dL',prev?a-prev.avg[L]:NaN);deltaSemana('dF',prev?b-prev.avg[F]:NaN);
+  $('pN').textContent=Number.isFinite(nv)?fmt(nv)+'%':'—';$('bN').style.width=(Number.isFinite(nv)?Math.min(100,nv*2):0)+'%';deltaSemana('dN',prev?nv-nvDe(prev):NaN);
+  $('cenNote').textContent=`Lula e Flávio: média ponderada dos votos válidos de ${pl(med.sel.length,'instituto','institutos')}, até ${dshort(dia)}. Indecisos, brancos e nulos: média dos votos totais das mesmas pesquisas.`;
+  const er=med.sel.map(x=>x.p.erro).filter(Number.isFinite),erm=er.length?er.reduce((x,y)=>x+y,0)/er.length:NaN,vl=ld?`Vantagem (${ld})`:'Vantagem';
+  $('iVl').textContent=$('tVl').textContent=vl;$('iV').textContent=$('tV').textContent=ld?pp(Math.abs(df)):'Empate';$('tV').className=ld==='Flávio'?'blue':ld==='Lula'?'red':'';
+  $('iE').textContent=Number.isFinite(erm)?(Math.abs(df)<=erm?'Sim':'Não'):'—';
+  const ch=prev?df-(prev.avg[F]-prev.avg[L]):NaN;$('tT').textContent=!Number.isFinite(ch)?'—':Math.abs(ch)<.5?'Estável':ch>0?'Flávio ganha força':'Lula ganha força'}
+ // pesquisas do período (respeitam o filtro de instituto)
+ const ps=hmPolls(t,start,dia),pn=ps.map(p=>p.n).filter(n=>n>0);
+ $('iN').textContent=int(ps.length);$('iA').textContent=pn.length?int(pn.reduce((a,b)=>a+b,0)/pn.length):'—';
+ const cls=ps.map(p=>({p,s:lado(p),d:p.vals[F]-p.vals[L]})).filter(x=>x.s),pc=k=>cls.length?Math.round(cls.filter(x=>x.s===k).length/cls.length*100)+'%':'—';
+ $('sL').textContent=pc('l');$('sF').textContent=pc('f');$('sE').textContent=pc('e');
+ const mL=cls.reduce((m,x)=>!m||x.d<m.d?x:m,null),mF=cls.reduce((m,x)=>!m||x.d>m.d?x:m,null),qd=x=>`${x.p.inst} – ${x.p.date.slice(8,10)}/${x.p.date.slice(5,7)}`;
+ $('sML').textContent=mL&&mL.d<0?pp(-mL.d):'—';$('sMLs').textContent=mL&&mL.d<0?qd(mL):'nenhuma no período';
+ $('sMF').textContent=mF&&mF.d>0?pp(mF.d):'—';$('sMFs').textContent=mF&&mF.d>0?qd(mF):'nenhuma no período';
+ // evolução
+ const by=t===2?D.media2:D.media1,end=[...by.values()].flat().map(p=>p.date).sort().at(-1);
  // 1º turno: os 5 primeiros na média do último dia (quem saiu da disputa não entra)
- let names=S.homeTurn===2?[L,F]:[...by.entries()].filter(([,pts])=>pts.at(-1)?.date===end).map(([n,pts])=>[n,pts.at(-1).value]).sort((x,y)=>y[1]-x[1]).slice(0,5).map(x=>x[0]);
- const start=S.homePeriod&&end?addDays(end,-S.homePeriod):'0000';
- const ser=names.map((n,i)=>({name:n,short:n===F?'Flávio':n,color:COL[n]||EXTRA[i%EXTRA.length],points:(by.get(n)||[]).filter(p=>p.date>=start)}));
- const s0=ser[0]?.points[0]?.date||start,polls=D.ok.filter(p=>p.turno===S.homeTurn&&p.date>=s0&&p.date<=end);
- evolucao($('homeChart'),{ser,polls,start:s0,end,events:[{date:ELEICAO1,label:'1º turno'}]});
- $('homeLegend').innerHTML=ser.map(s=>`<span><i style="background:${s.color}"></i>${esc(s.name)}</span>`).join('')+`<span><span class="dotkey" style="background:#14243a"></span>Pesquisas individuais (cada ponto)</span>`;
- const lser=by.get(L)||[],fser=by.get(F)||[],fm=new Map(fser.map(p=>[p.date,p.value]));
- vantagem($('homeDiff'),{pts:lser.filter(p=>p.date>=s0&&fm.has(p.date)).map(p=>({date:p.date,v:fm.get(p.date)-p.value})),start:s0,end});
- const ch=(pts,k)=>{const a=at(pts,end),b=at(pts,addDays(end,-k));return a&&b?a.value-b.value:NaN},lead=desde(lser,fser),lv=at(lser,end),fv=at(fser,end);
- const rank1=S.homeTurn===1?names.map(n=>{const p=at(by.get(n)||[],end);return p?{n,p,pts:by.get(n)}:null}).filter(Boolean).sort((a,b)=>b.p.value-a.p.value):[];
- const topo=rank1[0],segundo=rank1[1],df1=topo&&segundo?topo.p.value-segundo.p.value:NaN;
- const frente2=lv&&fv?`<span class="${fv.value>lv.value?'blue':'red'}">${fv.value>lv.value?'Flávio':'Lula'} +${fmt(Math.abs(fv.value-lv.value))} pp</span><small>${lead?'desde '+dshort(lead):'durante todo o período'}</small>`:'—';
- const frente1=topo&&segundo?`<span>${esc(topo.n)} +${fmt(Math.abs(df1))} pp</span><small>${Math.abs(df1)<.05?'empate na média':'sobre '+esc(segundo.n)}</small>`:'—';
- $('homeMoves').innerHTML=[[7,'Últimos 7 dias'],[30,'Últimos 30 dias']].map(([k,t])=>`<div class="mv"><div class="lbl">${t}</div><div><span class="red">Lula ${seta(ch(lser,k))}</span><span class="blue">Flávio ${seta(ch(fser,k))}</span></div></div>`).join('')
-  +`<div class="mv"><div class="lbl">Quem está à frente</div><div>${S.homeTurn===1?frente1:frente2}</div></div>`;
- if(S.homeTurn===1&&topo&&segundo){$('fLead').textContent=Math.abs(df1)<.05?'Empate':topo.n;$('fDiff').textContent=Math.abs(df1)<.05?'inferior a 0,1 ponto percentual':fmt(Math.abs(df1))+' pontos percentuais';$('fN').textContent=int(topo.p.n||0);$('k3').textContent=fmt(Math.abs(df1))+' pp';$('k3s').textContent=Math.abs(df1)<.05?'Empate na média':`${topo.n} à frente`;const d1=desde(segundo.pts,topo.pts);$('fSince').textContent=Math.abs(df1)<.05?'empate na média':d1?dshort(d1):'durante todo o período'}
- else if(lv&&fv){const df=fv.value-lv.value;$('fLead').textContent=Math.abs(df)<.05?'Empate':df>0?'Flávio Bolsonaro':'Lula';$('fDiff').textContent=Math.abs(df)<.05?'inferior a 0,1 ponto percentual':fmt(Math.abs(df))+' pontos percentuais';$('fN').textContent=int(Math.max(lv.n||0,fv.n||0));$('fSince').textContent=lead?dshort(lead):'durante todo o período'}
- $('fMove').innerHTML=`<span class="red">Lula ${seta(ch(lser,7))}</span> e <span class="blue">Flávio ${seta(ch(fser,7))}</span>`;
- $('fTurn').textContent=S.homeTurn===2?'Leitura da média de 2º turno, no período do gráfico.':'Leitura da média de 1º turno, no período do gráfico. A chance de vitória abaixo é a do 2º turno.';
- $('homeChartSub').textContent=S.homeTurn===2?'Média nacional de votos válidos. A linha é a média e cada ponto é uma pesquisa.':'Média nacional de votos válidos até a véspera de 04/10. A linha é a média e cada ponto é uma pesquisa.';
- $('homeTiles').innerHTML=D.insts.slice(0,8).map(tile).join('');
- renderFeed();renderWeights();agendarPrevisao();
+ const names=t===2?[L,F]:[...by.entries()].filter(([,pts])=>pts.at(-1)?.date===end).map(([n,pts])=>[n,pts.at(-1).value]).sort((x,y)=>y[1]-x[1]).slice(0,5).map(x=>x[0]);
+ const st=per&&end?addDays(end,-per):'0000',ser=names.map((n,i)=>({name:n,short:n===F?'Flávio':n,color:COL[n]||EXTRA[i%EXTRA.length],points:(by.get(n)||[]).filter(p=>p.date>=st)}));
+ const s0=ser[0]?.points[0]?.date||st;
+ evolucao($('homeChart'),{ser,polls:HM.evoMode||HM.inst?hmPolls(t,s0,end):[],start:s0,end,events:[{date:ELEICAO1,label:'1º turno'}]});
+ $('evoLegTop').innerHTML=$('evoLegBot').innerHTML=ser.map(s=>`<span><i style="background:${s.color}"></i>${esc(s.name===L?'Lula (PT)':s.name===F?'Flávio Bolsonaro (PL)':s.name)}</span>`).join('');
+ $('evoSub').textContent=`Média dos principais institutos – ${t}º turno`;
+ distrib($('distChart'),ps,per?start:(ps[0]?.date||dia),dia);
+ // últimas pesquisas (votos totais, para caber a coluna de indecisos)
+ const seen=new Set(),last=[];for(const p of [...ps].reverse()){if(seen.has(p.reg))continue;seen.add(p.reg);last.push(p);if(last.length>=6)break}
+ $('lastTab').innerHTML=last.map(p=>`<tr data-inst="${esc(p.inst)}"><td>${campoCurto(p)}</td><td><span class="hm-who">${icon(p.inst,18)}${esc(p.inst)}</span></td><td class="n">${int(p.n)}</td><td class="n">${pv(totOuVal(p,L))}</td><td class="n">${pv(totOuVal(p,F))}</td><td class="n">${Number.isFinite(p.nv)?pv(p.nv):'-'}</td><td class="n">${Number.isFinite(p.erro)?'±'+fmt(p.erro):'—'}</td><td class="go">${ic('arrow')}</td></tr>`).join('')||'<tr><td colspan="8" class="hm-note">Nenhuma pesquisa neste recorte.</td></tr>';
+ $('lastList').innerHTML=last.slice(0,5).map(p=>{const l=totOuVal(p,L),f=totOuVal(p,F);return `<button class="hm-li" data-inst="${esc(p.inst)}">${icon(p.inst,34)}<div style="min-width:0"><b>${esc(p.inst)}</b><small>${campoCurto(p)}/${p.date.slice(0,4)} · ${int(p.n)}</small></div><div class="pp"><span class="red">${pv(l)}<i class="bg-red"></i></span><span class="blue">${pv(f)}<i class="bg-blue"></i></span></div>${ic('right')}</button>`}).join('')||'<p class="hm-note">Nenhuma pesquisa neste recorte.</p>';
+ // desempenho por instituto: média simples dos votos válidos no período
+ const pm=new Map();for(const p of ps){let o=pm.get(p.inst);if(!o){o={n:0,l:0,f:0};pm.set(p.inst,o)}o.n++;o.l+=p.vals[L];o.f+=p.vals[F]}
+ $('perfTab').innerHTML=[...pm.entries()].sort((a,b)=>b[1].n-a[1].n||a[0].localeCompare(b[0],'pt')).slice(0,8).map(([n,o])=>{const l=o.l/o.n,f=o.f/o.n;return `<tr data-inst="${esc(n)}"><td><span class="hm-who">${icon(n,18)}${esc(n)}</span></td><td><span class="hm-pv"><b class="red">${pv(l)}</b><i class="bg-red" style="width:${l}%"></i></span></td><td><span class="hm-pv"><b class="blue">${pv(f)}</b><i class="bg-blue" style="width:${f}%"></i></span></td><td class="n">${o.n}</td></tr>`}).join('')||'<tr><td colspan="4" class="hm-note">Nenhuma pesquisa neste recorte.</td></tr>';
+ // cenários e registros
+ const ca=D.cenAll||[],tipo=k=>ca.filter(c=>norm(c.cenario).includes(k)).length,est=tipo('estimul'),esp=tipo('espont'),cens=[['2º turno',ca.filter(c=>+c.turno===2).length],['1º turno',ca.filter(c=>+c.turno===1).length],...(esp?[['Espontânea',esp]]:[]),['Estimulada',est],['Outros cenários',ca.length-est-esp]],cm=Math.max(1,...cens.map(c=>c[1]));
+ $('censBars').innerHTML=cens.map(([n,v])=>`<span>${n}</span><div class="bt"><i style="width:${v/cm*78}%"></i><span>${int(v)}</span></div><span class="v mb-only">${int(v)}</span>`).join('');
+ const uc=new Map();for(const r of regs)if(r.uf&&r.uf!=='BR')uc.set(r.uf,(uc.get(r.uf)||0)+1);const us=[...uc.entries()].sort((a,b)=>b[1]-a[1]),ufs=us.slice(0,5).concat(us.length>5?[['Outros estados',us.slice(5).reduce((a,b)=>a+b[1],0)]]:[]),um=Math.max(1,...ufs.map(u=>u[1]));
+ $('ufBars').innerHTML=ufs.map(([n,v])=>`<span>${esc(n)}</span><div class="bt"><i style="width:${v/um*100}%"></i></div><span class="v">${int(v)}</span>`).join('');
+ // modo de coleta pelo primeiro modo declarado no registro
+ const modo=s=>{const n=norm(String(s??'').split('+')[0]);return n.includes('domicil')?0:/telef|cati|ura|ivr/.test(n)?1:n.includes('fluxo')?2:3},mc=[0,0,0,0];for(const r of regs)mc[modo(r.modo_coleta)]++;
+ const parts=[['Presencial domiciliar','#0b2a7a'],['Telefone (CATI/URA)','#1d5fe0'],['Ponto de fluxo','#7aa5f5'],['Online/Outros','#c9daf8']].map(([n,c],i)=>({n,c,v:mc[i]})),pt=regs.length||1;
+ rosca($('metDonut'),parts);$('metLeg').innerHTML=parts.map(p=>`<li><i style="background:${p.c}"></i><span>${p.n}</span><span>${Math.round(p.v/pt*100)}%</span></li>`).join('');
+ agendarPrevisao();
 }
 // período de campo pelo registro no TSE (início e fim); sem registro, só a data final
 function campo(p){const m=D.meta.get(p.reg),i=m?.inicio_campo,f=m?.fim_campo||p.date;return i&&i!==f?`${i.slice(8,10)}/${i.slice(5,7)} a ${dshort(f)}`:dshort(f)}
@@ -1285,13 +1664,11 @@ function corChance(p){const a=Math.abs(p-.5),k=a<.15?0:a<.35?1:2;return(p>=.5?['
 function preencheHip(prefix,mods){mods.forEach((m,i)=>{const L=$(prefix+'L'+i),F=$(prefix+'F'+i);if(L)L.textContent='Lula '+pct0(1-m.pF);if(F)F.textContent='Flávio '+pct0(m.pF)})}
 const HIP=['Só pesquisas','Parte do erro','Erro inteiro'];
 async function renderForecast(){
- if(!D.ready)return;try{await prepModelo()}catch(e){$('fcSub').textContent='Não foi possível calcular a previsão agora.';return}
- const mods=[0,1,2].map(i=>modelo(i)),m=mods[S.fcMode];if(!m)return;segSet('fcMode',S.fcMode);segSet('pvMode',S.fcMode);preencheHip('h',mods);preencheHip('p',mods);
- $('fcSent').innerHTML=`Na hipótese <b>${HIP[S.fcMode]}</b>, em 100 simulações, <b>${m.pF>=.5?'Flávio':'Lula'}</b> venceria em cerca de <b>${Math.round(Math.max(m.pF,1-m.pF)*100)}</b> delas.`;$('fcMed').textContent=`Flávio ${fmt(m.med)}%`;$('fc80').textContent=`${fmt(m.q10)} a ${fmt(m.q90)}%`;$('fc95').textContent=`${fmt(m.q025)} a ${fmt(m.q975)}%`;
- $('fcSub').textContent=`As três hipóteses usam as mesmas pesquisas, até ${dshort(D.lastDate)}. ${pl(m.N.n,'instituto nacional','institutos nacionais')} e ${pl(m.E.filter(e=>e.a).length,'estado com pesquisa','estados com pesquisa')}. A diferença é só o quanto do erro do 1º turno se supõe que se repita.`;
- const s=mods[0];$('fProb').innerHTML=`<span class="blue">Flávio ${pct0(s.pF)}</span> · <span class="red">Lula ${pct0(1-s.pF)}</span>`;
- const ap=LIVE.br&&LIVE.br.pst>0;$('fcWarn').innerHTML=(ap?'<b>A apuração já começou.</b> Estas hipóteses usam só as pesquisas, feitas antes da urna. Para os votos contados, veja a apuração ao vivo. ':'Nenhuma hipótese é o resultado da eleição. ')+`<button class="back" data-go="${ap?'apuracao':'previsao'}" style="margin:0">${ap?'Acompanhar a apuração':'Ver o modelo completo'} ›</button>`;
- histograma($('fcHist'),m)}
+ if(!D.ready)return;try{await prepModelo()}catch(e){$('prLs').textContent=$('prFs').textContent='indisponível agora';return}
+ const mods=[0,1,2].map(i=>modelo(i)),m=mods[0];if(!m)return;segSet('pvMode',S.fcMode);preencheHip('p',mods);
+ $('prL').textContent=pct0(1-m.pF);$('prF').textContent=pct0(m.pF);$('prbL').style.width=(1-m.pF)*100+'%';$('prbF').style.width=m.pF*100+'%';
+ $('prLs').textContent=`resultado mais provável: ${fmt(100-m.med)}%`;$('prFs').textContent=`resultado mais provável: ${fmt(m.med)}%`;
+ const w=m.q90-m.q10;$('tI').textContent=w<4?'Baixa':w<8?'Média':'Alta'}
 let prevAgendada=false;
 function agendarPrevisao(){if(D.sim&&D.sim[S.fcMode]){renderForecast();return}if(prevAgendada)return;prevAgendada=true;const run=()=>{prevAgendada=false;renderForecast()};if(window.requestIdleCallback)requestIdleCallback(run,{timeout:1200});else setTimeout(run,60)}
 async function renderPrevisao(){
@@ -1371,7 +1748,6 @@ document.addEventListener('visibilitychange',()=>{if(document.visibilityState===
 
 // ---------- navegação
 const ROUTES=['inicio','previsao','apuracao','institutos','comparar','estados','metodologia'];let ROTA='inicio';
-function verCandidatos(){if(ROTA!=='inicio')return;const el=$('cands');if(!el)return;const y=el.getBoundingClientRect().top+window.scrollY-(document.querySelector('.hdr')?.offsetHeight||0)-12;const root=document.documentElement,prev=root.style.scrollBehavior;root.style.scrollBehavior='auto';window.scrollTo(0,Math.max(0,y));root.style.scrollBehavior=prev}
 function route(opts){
  const [r0,arg]=decodeURIComponent(location.hash.slice(1)).split('/'),r=ROUTES.includes(r0)?r0:'inicio';ROTA=r;
  document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('show',s.id==='s-'+r));
@@ -1379,7 +1755,7 @@ function route(opts){
  S.inst=r==='institutos'?arg||null:null;
  document.querySelectorAll('#ilist button').forEach(b=>b.classList.toggle('on',b.dataset.inst===S.inst));
  closeDrawer();
- if(r==='inicio'){renderHome();if(!(opts&&opts.scroll===false))requestAnimationFrame(()=>requestAnimationFrame(()=>{verCandidatos();const y=window.scrollY;if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{if(ROTA==='inicio'&&Math.abs(window.scrollY-y)<48)verCandidatos()})}))}
+ if(r==='inicio')renderHome();
  if(r==='institutos')renderInstitutes(S.inst);
  if(r==='comparar')renderCompare();
  if(r==='estados')renderStates(arg);
@@ -1393,7 +1769,9 @@ const go=h=>{const root=document.documentElement,prev=root.style.scrollBehavior;
 function renderSidebar(){
  const f=norm($('instFilter').value),list=D.ready?D.insts.filter(i=>!f||norm(i.name).includes(f)):[];
  $('instCount').textContent=D.ready?D.insts.length:'—';
- $('ilist').innerHTML=list.length?list.map(i=>`<button data-inst="${esc(i.name)}" class="${i.name===S.inst?'on':''}">${icon(i.name,20)}<span>${esc(i.name)}</span></button>`).join(''):`<div class="none">${D.ready?'Nenhum instituto':'Carregando...'}</div>`;
+ const lim=f||S.sideAll||innerWidth<=860?Infinity:9;
+ $('ilist').innerHTML=list.length?list.slice(0,lim).map(i=>`<button data-inst="${esc(i.name)}" class="${i.name===S.inst?'on':''}">${icon(i.name,20)}<span>${esc(i.name)}</span></button>`).join('')+(list.length>lim?`<button class="more" id="sideMore">Outros institutos (${list.length-lim})</button>`:''):`<div class="none">${D.ready?'Nenhum instituto':'Carregando...'}</div>`;
+ if(D.ready){const d=D.lastDate;$('supdDate').textContent=d?`${+d.slice(8,10)} de ${MES3m[+d.slice(5,7)-1]}. de ${d.slice(0,4)}`:'—';$('supdN').textContent=pl((D.todas||D.pesquisas).length,'pesquisa','pesquisas')}
  const opts=D.ready?D.insts.map(i=>`<option>${esc(i.name)}</option>`).join(''):'';
  for(const [id,def] of [['cA',D.insts?.[0]?.name],['cB','Datafolha']]){const el=$(id),v=el.value;el.innerHTML=opts;el.value=v||def}
 }
@@ -1424,9 +1802,14 @@ new MutationObserver(list=>{for(const m of list){for(const n of m.addedNodes)if(
 marcarTh(document);
 document.addEventListener('click',e=>{
  const hit=e.target.closest('[data-hit]');if(hit){pick(+hit.dataset.hit);return}
+ const tr=e.target.closest('tr[data-inst]');if(tr){go('institutos/'+tr.dataset.inst);return}
  if(!e.target.closest('.search')){$('qres').classList.remove('show');$('qresSide').classList.remove('show')}
  const uf=e.target.closest('[data-uf]');if(uf){e.preventDefault();go('estados/'+uf.dataset.uf);return}
  const b=e.target.closest('button');if(!b)return;
+ if(b.id==='sideMore'){S.sideAll=true;renderSidebar();return}
+ if(b.dataset.hi!==undefined){HM.inst=b.dataset.hi||null;renderHome();return}
+ if(b.dataset.himore!==undefined){$('hmChips').classList.add('open');return}
+ if(b.dataset.p!==undefined&&b.closest('#evoSeg')){S.homePeriod=+b.dataset.p;renderHome();return}
  if(b.dataset.go)go(b.dataset.go);
  if(b.dataset.inst)go('institutos/'+b.dataset.inst);
  if(b.dataset.uf)go('estados/'+b.dataset.uf);
@@ -1435,6 +1818,10 @@ document.addEventListener('click',e=>{
 $('instPeriod').addEventListener('change',e=>{S.instPeriod=+e.target.value;renderInstitutes(S.inst)});
 ['cA','cB','cT','cP'].forEach(id=>$(id).addEventListener('change',renderCompare));
 $('csvBtn').addEventListener('click',baixarCSV);
+$('hmTurn').addEventListener('change',e=>{S.homeTurn=+e.target.value;renderHome()});
+['hmPeriod','evoPeriod'].forEach(id=>$(id).addEventListener('change',e=>{S.homePeriod=+e.target.value;renderHome()}));
+$('evoMode').addEventListener('change',e=>{HM.evoMode=+e.target.value;renderHome()});
+$('hsearch').addEventListener('click',()=>{document.body.classList.add('drawer');$('burger').setAttribute('aria-expanded','true');setTimeout(()=>$('qSide').focus(),260)});
 $('instFilter').addEventListener('input',renderSidebar);
 $('grpInst').addEventListener('click',e=>{const g=e.currentTarget;if(document.body.classList.contains('mini')){document.body.classList.remove('mini');g.setAttribute('aria-expanded','true');return}g.setAttribute('aria-expanded',g.getAttribute('aria-expanded')==='true'?'false':'true')});
 $('collapse').addEventListener('click',()=>{document.body.classList.toggle('mini');setTimeout(route,260)});
@@ -1450,7 +1837,9 @@ function contarVisita(){const el=$('visitas');if(!el)return;const dia=new Date()
  fetch('https://abacus.jasoncameron.dev/'+(ja?'get':'hit')+'/radareleitoral.pro/visitas').then(r=>r.json()).then(d=>{const n=+d.value;if(!Number.isFinite(n))return;try{if(!ja)localStorage.setItem('re-visita',dia)}catch(e){}el.hidden=false;el.textContent=n.toLocaleString('pt-BR')+(n===1?' visita':' visitas')}).catch(()=>{})}
 contarVisita();
 route();renderSidebar();atualizaBR();
-(async()=>{try{const keys=['resultados','cenarios','pesquisas','institutos','oficial'],res=await Promise.all(keys.map(fetchAll));keys.forEach((k,i)=>D[k]=res[i]);build();D.ready=true}catch(e){console.error(e);const n=$('notice');n.textContent='Não foi possível carregar os dados agora. Verifique a conexão e recarregue a página.';n.classList.add('show')}renderSidebar();route()})();
+(async()=>{try{const keys=['resultados','cenarios','pesquisas','institutos','oficial'],res=await Promise.all(keys.map(fetchAll));keys.forEach((k,i)=>D[k]=res[i]);build();D.ready=true;
+  // registros de todos os cargos e todos os cenários nacionais: só a visão geral usa, então chegam depois
+  Promise.all([fetchAll('todas'),fetchAll('cenAll')]).then(([a,c])=>{D.todas=a;D.cenAll=c;renderSidebar();if(ROTA==='inicio')renderHome()}).catch(e=>console.error(e))}catch(e){console.error(e);const n=$('notice');n.textContent='Não foi possível carregar os dados agora. Verifique a conexão e recarregue a página.';n.classList.add('show')}renderSidebar();route()})();
 })();
 </script>
 </body>

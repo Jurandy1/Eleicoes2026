@@ -194,6 +194,18 @@ body.mini .collapse .i{transform:rotate(180deg)}
 .lead{font-size:10.5px;font-weight:700;border-radius:4px;padding:2px 6px;margin-left:6px;vertical-align:1px}
 .lead.l{background:#fdecec;color:var(--red)}.lead.f{background:#e8f0fc;color:var(--blue)}.lead.e{background:#f1f4f8;color:var(--soft)}
 
+/* evolução */
+.chart.big{height:330px;margin-top:10px}
+.chart.diff{height:128px;margin-top:4px}
+.moves{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin-top:14px}
+.mv{border:1px solid var(--line);border-radius:8px;padding:9px 12px;background:#fbfcfd}
+.mv .lbl{font-size:10px;letter-spacing:1px}
+.mv div:last-child{display:flex;gap:12px;flex-wrap:wrap;margin-top:3px;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
+.mv small{font-weight:500;color:var(--soft);font-size:11.5px}
+.diffbox{border-top:1px solid #edf0f4;margin-top:12px;padding-top:12px}
+.h3{font-size:13.5px;font-weight:700;margin:0;color:var(--ink)}
+.dotkey{display:inline-block;width:8px;height:8px;border-radius:50%;opacity:.35;margin-right:2px}
+
 /* pesquisas que formam a média */
 .wtab td .bw{display:flex;align-items:center;gap:8px;justify-content:flex-end}
 .wtab td .bw i{display:block;height:6px;border-radius:4px;background:var(--navy);opacity:.75}
@@ -291,6 +303,11 @@ body.mini .collapse .i{transform:rotate(180deg)}
  .wm{width:84px}
  .lgw img{max-height:30px}
  .chart{height:224px}
+ .chart.big{height:270px}
+ .moves{grid-template-columns:1fr 1fr}
+ .mv:last-child{grid-column:span 2}
+ .mv div:last-child{gap:4px 10px;font-size:12.5px}
+ .chart.diff{height:110px}
  .fields{grid-template-columns:1fr}
  .phead{padding-top:20px;margin-bottom:12px}
  .phead h1{font-size:25px}
@@ -387,9 +404,11 @@ body.mini .collapse .i{transform:rotate(180deg)}
     <section class="card pad">
      <div class="row"><div><h2 class="h2">Evolução das pesquisas</h2><div class="sub" id="homeChartSub">Média nacional · Votos válidos</div></div>
       <div class="ctrls"><div class="seg" id="homeTurn"><button data-v="1">1º turno</button><button data-v="2">2º turno</button></div>
-       <select class="sel" id="homePeriod" aria-label="Período"><option value="30">1 mês</option><option value="90" selected>3 meses</option><option value="180">6 meses</option><option value="0">Tudo</option></select></div></div>
-     <div class="chart" id="homeChart"></div>
+       <div class="seg" id="homePeriod" role="group" aria-label="Período"><button data-v="7">7 dias</button><button data-v="30">1 mês</button><button data-v="90">3 meses</button><button data-v="0">Tudo</button></div></div></div>
+     <div class="moves" id="homeMoves"></div>
+     <div class="chart big" id="homeChart"></div>
      <div class="legend" id="homeLegend"></div>
+     <div class="diffbox"><h3 class="h3">Vantagem na média, dia a dia</h3><div class="sub">Diferença entre Flávio Bolsonaro e Lula em pontos percentuais. Acima da linha, Flávio à frente; abaixo, Lula.</div><div class="chart diff" id="homeDiff"></div></div>
     </section>
     <section class="card pad">
      <h2 class="h2">Panorama da disputa</h2><div class="sub">Leitura dos dados mais recentes</div>
@@ -397,6 +416,8 @@ body.mini .collapse .i{transform:rotate(180deg)}
       <div class="fact"><span>Quem lidera?</span><b id="fLead">—</b></div>
       <div class="fact"><span>Diferença</span><b id="fDiff">—</b></div>
       <div class="fact"><span>Institutos na última média</span><b id="fN">—</b></div>
+      <div class="fact"><span>Mudança em 7 dias</span><b id="fMove">—</b></div>
+      <div class="fact"><span>Na frente desde</span><b id="fSince">—</b></div>
       <div class="fact"><span>Período da média</span><b>Janela de 14 dias</b></div>
       <div class="fact"><span>Probabilidade de vitória</span><b>Não calculada</b></div>
      </div>
@@ -405,7 +426,7 @@ body.mini .collapse .i{transform:rotate(180deg)}
    </div>
    <section class="card pad mb">
     <div class="row"><div><h2 class="h2">Pesquisas que formam a média</h2><div class="sub" id="wSub">—</div></div><button class="btn" data-go="metodologia">Como calculamos<svg class="i"><use href="#right"/></svg></button></div>
-    <div class="tw"><table class="table wtab"><thead><tr><th>Instituto</th><th>Campo</th><th class="n">Idade</th><th class="n">Amostra</th><th class="n">Lula</th><th class="n">Flávio</th><th class="n">Peso na média</th></tr></thead><tbody id="wTab"></tbody></table></div>
+    <div class="tw"><table class="table wtab"><thead><tr><th>Instituto</th><th>Período de campo</th><th>Divulgação</th><th class="n">Amostra</th><th class="n">Lula</th><th class="n">Flávio</th><th class="n">Peso na média</th></tr></thead><tbody id="wTab"></tbody></table></div>
     <div class="wsum" id="wSum"></div>
     <details class="excl" id="wExcl"></details>
    </section>
@@ -533,7 +554,7 @@ const RES='registro,uf_recorte,turno,cenario_id,instituto,data_campo,entrevistas
 const Q={
  resultados:['resultados','uf_recorte=eq.BR&select='+RES],
  cenarios:['cenarios','uf_recorte=eq.BR&cenario_principal=is.true&select=registro,uf_recorte,turno,cenario_id'],
- pesquisas:['pesquisas','p_presidente=is.true&select=registro,cnpj,fim_campo,modo_coleta,contratante'],
+ pesquisas:['pesquisas','p_presidente=is.true&select=registro,cnpj,inicio_campo,fim_campo,divulgacao,modo_coleta,contratante'],
  institutos:['institutos','select=instituto,cnpj,modo_principal'],
  oficial:['resultado_oficial','ds_cargo=eq.Presidente&select=abrangencia,nr_turno,nome_pesquisa,pct_validos'],
  resUF:['resultados','uf_recorte=neq.BR&select='+RES],
@@ -577,6 +598,7 @@ function build(){
  const st=new Map();for(const p of D.polls){let s=st.get(p.inst);if(!s){s={name:p.inst,regs:new Set(),last:p};st.set(p.inst,s)}s.regs.add(p.reg);if(p.date>=s.last.date)s.last=p}
  D.insts=[...st.values()].sort((a,b)=>b.regs.size-a.regs.size||a.name.localeCompare(b.name,'pt'));
  const byCnpj=new Map(D.institutos.map(r=>[String(r.cnpj),r]));
+ D.meta=new Map(D.pesquisas.map(r=>[r.registro,r]));
  for(const r of D.pesquisas){const i=byCnpj.get(String(r.cnpj));r.inst=i?inst(i.instituto):null;r.modo_principal=i?.modo_principal}
  // controle de qualidade: só entra na média o cenário com os votos válidos somando ~100%
  D.ok=[];D.excl=[];for(const p of D.polls){const sm=Object.values(p.vals).reduce((a,b)=>a+b,0);(sm>=97&&sm<=103?D.ok:D.excl).push(p);p.soma=sm}
@@ -617,6 +639,54 @@ function drawChart(el,ser,opt={}){
  const move=e=>{const r=svg.getBoundingClientRect(),px=(e.clientX-r.left)*W/r.width;let best=dates[0],bd=1e9;for(const d of dates){const dd=Math.abs(x(d)-px);if(dd<bd){bd=dd;best=d}}const lines=ser.map((s,i)=>{const v=idx[i].get(best);return Number.isFinite(v)?`<div><span style="color:${s.color}">● ${esc(s.label||s.name)}</span><strong>${fmt(v)}%</strong></div>`:''}).join('');if(!lines){tip.style.display='none';return}const xx=x(best);cross.setAttribute('x1',xx);cross.setAttribute('x2',xx);cross.setAttribute('visibility','visible');tip.innerHTML=`<b>${dshort(best)}</b>${lines}`;tip.style.display='block';const sx=xx*r.width/W,tw=tip.offsetWidth;tip.style.left=Math.max(0,sx+14+tw>r.width?sx-tw-14:sx+14)+'px';tip.style.top='6px'};
  svg.addEventListener('pointermove',move);svg.addEventListener('pointerdown',move);svg.addEventListener('pointerleave',()=>{tip.style.display='none';cross.setAttribute('visibility','hidden')});
 }
+// eixo X compartilhado entre os gráficos da evolução (mesmas margens = datas alinhadas)
+function escalaX(start,end,W,PL,PR){const t0=Date.parse(start),t1=Date.parse(end);return d=>PL+(t1===t0?.5:(Date.parse(d)-t0)/(t1-t0))*(W-PL-PR)}
+function marcasX(start,end,W){const span=ndias(start,end),out=[];if(span>120){const m=new Date(start.slice(0,7)+'-01T00:00:00Z');m.setUTCMonth(m.getUTCMonth()+1);const all=[];while(m.toISOString().slice(0,10)<=end){all.push(m.toISOString().slice(0,10));m.setUTCMonth(m.getUTCMonth()+1)}const k=Math.ceil(all.length/(W<560?4:8));all.forEach((d,i)=>{if(!(i%k))out.push([d,`${MES3[+d.slice(5,7)-1]}/${d.slice(2,4)}`])});return out}
+ const k=[1,2,3,7,14,21,30].find(k=>span/k<=(W<560?4:9))||30;for(let i=0;i<=span;i+=k){const d=addDays(start,i);out.push([d,`${d.slice(8,10)}/${d.slice(5,7)}`])}return out}
+function dica(el,svg,W,dates,x,html){const tip=el.querySelector('.tip'),cross=svg.querySelector('.cross');
+ const mv=e=>{const r=svg.getBoundingClientRect(),px=(e.clientX-r.left)*W/r.width;let best=dates[0],bd=1e9;for(const d of dates){const dd=Math.abs(x(d)-px);if(dd<bd){bd=dd;best=d}}const h=html(best);if(!h){tip.style.display='none';return}const xx=x(best);cross.setAttribute('x1',xx);cross.setAttribute('x2',xx);cross.setAttribute('visibility','visible');tip.innerHTML=h;tip.style.display='block';const sx=xx*r.width/W,tw=tip.offsetWidth;tip.style.left=Math.max(0,sx+14+tw>r.width?sx-tw-14:sx+14)+'px';tip.style.top='4px'};
+ svg.addEventListener('pointermove',mv);svg.addEventListener('pointerdown',mv);svg.addEventListener('pointerleave',()=>{tip.style.display='none';cross.setAttribute('visibility','hidden')})}
+const PLE=44,PRE=w=>w<560?66:104;
+function evolucao(el,o){
+ const W=Math.max(300,el.clientWidth||700),H=el.clientHeight||330,mob=W<560,PT=24,PB=28,PR=PRE(W),x=escalaX(o.start,o.end,W,PLE,PR);
+ const vals=o.ser.flatMap(s=>s.points.map(p=>p.value)).concat(o.polls.flatMap(p=>o.ser.map(s=>p.vals[s.name]).filter(Number.isFinite)));
+ if(!vals.length){el.innerHTML='<div class="empty">Sem pesquisas neste período.</div>';return}
+ const mn=Math.min(...vals),mx=Math.max(...vals),span=mx-mn,step=span<=6?1:span<=14?2:span<=35?5:10;
+ const lo=Math.max(0,Math.floor((mn-step*.5)/step)*step),hi=Math.min(100,Math.ceil((mx+step*.5)/step)*step),y=v=>PT+(hi-v)/(hi-lo)*(H-PT-PB);
+ const gs=(hi-lo)/step>9?step*2:step;let g='';
+ for(let v=lo;v<=hi+1e-9;v+=gs)g+=`<line x1="${PLE}" x2="${W-PR}" y1="${y(v)}" y2="${y(v)}" stroke="${v===50?'#b8c2ce':'#edf0f4'}"${v===50?' stroke-dasharray="4 4"':''}/><text x="${PLE-8}" y="${y(v)+4}" text-anchor="end" font-size="11" fill="#8a97a8">${v}%</text>`;
+ for(const [d,t] of marcasX(o.start,o.end,W))g+=`<line x1="${x(d)}" x2="${x(d)}" y1="${H-PB}" y2="${H-PB+4}" stroke="#cfd6df"/><text x="${x(d)}" y="${H-8}" text-anchor="middle" font-size="11" fill="#8a97a8">${t}</text>`;
+ g+=`<line x1="${PLE}" x2="${W-PR}" y1="${H-PB}" y2="${H-PB}" stroke="#d5dce5"/>`;
+ for(const ev of o.events||[])if(ev.date>=o.start&&ev.date<=o.end)g+=`<line x1="${x(ev.date)}" x2="${x(ev.date)}" y1="${PT-6}" y2="${H-PB}" stroke="#14243a" stroke-opacity=".35" stroke-dasharray="2 3"/><text x="${x(ev.date)+4}" y="${PT-10}" font-size="10.5" font-weight="700" fill="#4a5b70">${esc(ev.label)}</text>`;
+ for(const p of o.polls)for(const s of o.ser){const v=p.vals[s.name];if(Number.isFinite(v))g+=`<circle cx="${x(p.date).toFixed(1)}" cy="${y(v).toFixed(1)}" r="${mob?2.2:2.8}" fill="${s.color}" fill-opacity=".28"/>`}
+ for(const s of o.ser){if(!s.points.length)continue;g+=`<polyline points="${s.points.map(p=>`${x(p.date).toFixed(1)},${y(p.value).toFixed(1)}`).join(' ')}" fill="none" stroke="${s.color}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`}
+ // rótulos do valor final à direita, sem se sobrepor
+ const ends=o.ser.filter(s=>s.points.length).map(s=>({s,p:s.points.at(-1),yy:y(s.points.at(-1).value)})).sort((a,b)=>a.yy-b.yy);
+ for(let i=1;i<ends.length;i++)if(ends[i].yy-ends[i-1].yy<26)ends[i].yy=ends[i-1].yy+26;
+ for(const e of ends){const xx=x(e.p.date);g+=`<circle cx="${xx}" cy="${y(e.p.value)}" r="5" fill="${e.s.color}" stroke="#fff" stroke-width="2"/><text x="${xx+10}" y="${e.yy+1}" font-size="${mob?13:15}" font-weight="800" fill="${e.s.color}">${fmt(e.p.value)}%</text><text x="${xx+10}" y="${e.yy+14}" font-size="10.5" fill="#6b7a8c">${esc(e.s.short||e.s.name)}</text>`}
+ el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Evolução da média das pesquisas">${g}<line class="cross" y1="${PT}" y2="${H-PB}" stroke="#93a1b3" stroke-dasharray="3 3" visibility="hidden"/></svg><div class="tip"></div>`;
+ const svg=el.querySelector('svg'),idx=o.ser.map(s=>new Map(s.points.map(p=>[p.date,p]))),byDay=new Map();o.polls.forEach(p=>{if(!byDay.has(p.date))byDay.set(p.date,[]);byDay.get(p.date).push(p)});
+ const dates=[...new Set(o.ser.flatMap(s=>s.points.map(p=>p.date)))].sort();
+ dica(el,svg,W,dates,x,d=>{const rows=o.ser.map((s,i)=>{const p=idx[i].get(d);return p?`<div><span style="color:${s.color}">● ${esc(s.short||s.name)}</span><strong>${fmt(p.value)}%</strong></div>`:''}).join('');if(!rows)return '';const a=idx[0].get(d),b=idx[1]?.get(d);let h=`<b>${dlong(d)} · média</b>${rows}`;if(a&&b&&o.ser.length===2){const df=b.value-a.value;h+=`<div style="border-top:1px solid #edf0f4;margin-top:4px;padding-top:4px"><span>Diferença</span><strong>${fmt(Math.abs(df))} pp ${Math.abs(df)<.05?'':df>0?'(Flávio)':'(Lula)'}</strong></div>`}h+=`<div><span style="color:#6b7a8c">Institutos na média</span><strong>${a?.n??'—'}</strong></div>`;const ps=byDay.get(d);if(ps)h+=`<div style="border-top:1px solid #edf0f4;margin-top:4px;padding-top:4px;display:block"><span style="color:#6b7a8c;font-size:11px">Pesquisas encerradas no dia</span>${ps.slice(0,5).map(p=>`<div style="font-size:11.5px"><span>${esc(p.inst)}</span><span><b class="red">${fmt(p.vals[L])}</b> × <b class="blue">${fmt(p.vals[F])}</b></span></div>`).join('')}</div>`;return h});
+}
+function vantagem(el,o){
+ const W=Math.max(300,el.clientWidth||700),H=el.clientHeight||128,PT=8,PB=22,PR=PRE(W),x=escalaX(o.start,o.end,W,PLE,PR);
+ if(!o.pts.length){el.innerHTML='';return}
+ const m=Math.max(1,Math.ceil(Math.max(...o.pts.map(p=>Math.abs(p.v))))),y=v=>PT+(m-v)/(2*m)*(H-PT-PB),bw=Math.max(1.2,(W-PLE-PR)/Math.max(1,ndias(o.start,o.end))*.78);
+ let g=`<line x1="${PLE}" x2="${W-PR}" y1="${y(0)}" y2="${y(0)}" stroke="#9aa8b8"/><text x="${PLE-8}" y="${y(m)+8}" text-anchor="end" font-size="10.5" fill="#8a97a8">+${m}</text><text x="${PLE-8}" y="${y(0)+4}" text-anchor="end" font-size="10.5" fill="#8a97a8">0</text><text x="${PLE-8}" y="${y(-m)}" text-anchor="end" font-size="10.5" fill="#8a97a8">−${m}</text>`;
+ // legenda na margem direita, fora das barras
+ g+=`<text x="${W-PR+10}" y="${y(m/2)+4}" font-size="10.5" font-weight="700" fill="#1d6fd6">▲ Flávio</text><text x="${W-PR+10}" y="${y(-m/2)+4}" font-size="10.5" font-weight="700" fill="#d7302f">▼ Lula</text>`;
+ for(const p of o.pts){const y0=y(0),y1=y(p.v);g+=`<rect x="${(x(p.date)-bw/2).toFixed(1)}" y="${Math.min(y0,y1).toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(.8,Math.abs(y1-y0)).toFixed(1)}" fill="${p.v>=0?'#1d6fd6':'#d7302f'}" fill-opacity=".8"/>`}
+ // viradas: quando o líder da média muda
+ const vir=[];for(let i=1;i<o.pts.length;i++)if(Math.sign(o.pts[i].v)!==Math.sign(o.pts[i-1].v)&&o.pts[i].v!==0)vir.push(o.pts[i]);
+ // só a virada mais recente ganha rótulo (viradas seguidas se sobreporiam)
+ const uv=vir.at(-1);if(uv){const xx=x(uv.date),dir=xx>W-PR-90;g+=`<line x1="${xx}" x2="${xx}" y1="${PT}" y2="${H-PB}" stroke="#14243a" stroke-opacity=".35" stroke-dasharray="2 3"/><text x="${dir?xx-4:xx+4}" y="${H-PB+14}" text-anchor="${dir?'end':'start'}" font-size="10.5" font-weight="600" fill="#4a5b70">última virada: ${dshort(uv.date)}</text>`}
+ el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Vantagem na média ao longo do tempo">${g}<line class="cross" y1="${PT}" y2="${H-PB}" stroke="#93a1b3" stroke-dasharray="3 3" visibility="hidden"/></svg><div class="tip"></div>`;
+ const svg=el.querySelector('svg'),mp=new Map(o.pts.map(p=>[p.date,p.v]));
+ dica(el,svg,W,o.pts.map(p=>p.date),x,d=>{const v=mp.get(d);return `<b>${dlong(d)}</b><div><span>${Math.abs(v)<.05?'Empate na média':v>0?'Flávio à frente':'Lula à frente'}</span><strong>${fmt(Math.abs(v))} pp</strong></div>`});
+}
+const seta=v=>!Number.isFinite(v)?'—':Math.abs(v)<.05?'= 0,0':(v>0?'▲ +':'▼ −')+fmt(Math.abs(v));
+function desde(l,f){let last=null,prev=null;const fm=new Map(f.map(p=>[p.date,p.value]));for(const p of l){const v=fm.get(p.date);if(!Number.isFinite(v))continue;const s=Math.sign(v-p.value);if(prev!==null&&s!==prev&&s!==0)last=p.date;if(s!==0)prev=s}return last}
 const legend=(el,items)=>{el.innerHTML=items.map(s=>`<span><i class="${s.cls||''}" style="${s.cls==='dash'?`border-color:${s.color};color:${s.color}`:`background:${s.color}`}"></i>${esc(s.label||s.name)}</span>`).join('')};
 
 // ---------- estado da interface
@@ -642,25 +712,33 @@ function renderHome(){
   const n=Math.max(a.n,b.n),prev=at(l,addDays(d,-7));$('k1').textContent=$('fN').textContent=int(n);delta('d1',prev?n-prev.n:NaN)}
  const regs=new Set(D.polls.map(p=>p.reg)),first=new Map();D.polls.forEach(p=>{if(!first.has(p.reg)||p.date<first.get(p.reg))first.set(p.reg,p.date)});
  $('k2').textContent=int(regs.size);delta('d2',[...first.values()].filter(x=>x>addDays(d,-7)).length);
- segSet('homeTurn',S.homeTurn);$('homePeriod').value=S.homePeriod;
+ segSet('homeTurn',S.homeTurn);segSet('homePeriod',S.homePeriod);
  const by=S.homeTurn===2?D.media2:D.media1,end=[...by.values()].flat().map(p=>p.date).sort().at(-1);
  // 1º turno: os 5 primeiros na média do último dia (quem saiu da disputa não entra)
  let names=S.homeTurn===2?[L,F]:[...by.entries()].filter(([,pts])=>pts.at(-1)?.date===end).map(([n,pts])=>[n,pts.at(-1).value]).sort((x,y)=>y[1]-x[1]).slice(0,5).map(x=>x[0]);
  const start=S.homePeriod&&end?addDays(end,-S.homePeriod):'0000';
- const ser=names.map((n,i)=>({name:n,color:COL[n]||EXTRA[i%EXTRA.length],points:(by.get(n)||[]).filter(p=>p.date>=start)}));
- const dates=[...new Set(ser.flatMap(s=>s.points.map(p=>p.date)))].sort(),bd=bands(S.homeTurn,names,dates);ser.forEach(s=>s.band=bd[s.name]);
- drawChart($('homeChart'),ser,{label:'Evolução da média das pesquisas'});
- legend($('homeLegend'),ser);
- $('homeChartSub').textContent=S.homeTurn===2?'Média nacional · Votos válidos':'Média nacional · Votos válidos · até a eleição de 04/10';
+ const ser=names.map((n,i)=>({name:n,short:n===F?'Flávio':n,color:COL[n]||EXTRA[i%EXTRA.length],points:(by.get(n)||[]).filter(p=>p.date>=start)}));
+ const s0=ser[0]?.points[0]?.date||start,polls=D.ok.filter(p=>p.turno===S.homeTurn&&p.date>=s0&&p.date<=end);
+ evolucao($('homeChart'),{ser,polls,start:s0,end,events:[{date:ELEICAO1,label:'1º turno'}]});
+ $('homeLegend').innerHTML=ser.map(s=>`<span><i style="background:${s.color}"></i>${esc(s.name)}</span>`).join('')+`<span><span class="dotkey" style="background:#14243a"></span>Pesquisas individuais (cada ponto)</span>`;
+ const lser=by.get(L)||[],fser=by.get(F)||[],fm=new Map(fser.map(p=>[p.date,p.value]));
+ vantagem($('homeDiff'),{pts:lser.filter(p=>p.date>=s0&&fm.has(p.date)).map(p=>({date:p.date,v:fm.get(p.date)-p.value})),start:s0,end});
+ const ch=(pts,k)=>{const a=at(pts,end),b=at(pts,addDays(end,-k));return a&&b?a.value-b.value:NaN},lead=desde(lser,fser),lv=at(lser,end),fv=at(fser,end);
+ $('homeMoves').innerHTML=[[7,'Últimos 7 dias'],[30,'Últimos 30 dias']].map(([k,t])=>`<div class="mv"><div class="lbl">${t}</div><div><span class="red">Lula ${seta(ch(lser,k))}</span><span class="blue">Flávio ${seta(ch(fser,k))}</span></div></div>`).join('')
+  +`<div class="mv"><div class="lbl">Quem está à frente</div><div>${lv&&fv?`<span class="${fv.value>lv.value?'blue':'red'}">${fv.value>lv.value?'Flávio':'Lula'} +${fmt(Math.abs(fv.value-lv.value))} pp</span><small>${lead?'desde '+dshort(lead):'durante todo o período'}</small>`:'—'}</div></div>`;
+ if(S.homeTurn===2){$('fMove').innerHTML=`<span class="red">Lula ${seta(ch(lser,7))}</span> · <span class="blue">Flávio ${seta(ch(fser,7))}</span>`;$('fSince').textContent=lead?dshort(lead):'—'}
+ $('homeChartSub').textContent=(S.homeTurn===2?'Média nacional · votos válidos · ':'Média nacional · votos válidos · até a véspera da eleição de 04/10 · ')+'linha = média, pontos = pesquisas';
  $('homeTiles').innerHTML=D.insts.slice(0,8).map(tile).join('');
  renderFeed();renderWeights();
 }
+// período de campo pelo registro no TSE (início e fim); sem registro, só a data final
+function campo(p){const m=D.meta.get(p.reg),i=m?.inicio_campo,f=m?.fim_campo||p.date;return i&&i!==f?`${i.slice(8,10)}/${i.slice(5,7)} a ${dshort(f)}`:dshort(f)}
 function renderWeights(){
  const a=mediaEm(2,D.lastDate);if(!a){$('wTab').innerHTML='';return}
  const rows=a.sel.slice().sort((x,y)=>y.w-x.w),mx=rows[0].w;
  $('wSub').textContent=`2º turno · média de ${dshort(D.lastDate)} · ${rows.length} institutos · a pesquisa mais recente de cada um nos últimos ${JANELA} dias`;
- $('wTab').innerHTML=rows.map(({p,w})=>`<tr><td><span class="who">${icon(p.inst,24)}<span><b style="color:var(--ink)">${esc(p.inst)}</b><br><small style="color:var(--soft)">${esc(p.reg)}</small></span></span></td><td>${dshort(p.date)}</td><td class="n">${ndias(p.date,D.lastDate)} d</td><td class="n">${int(p.n)}</td><td class="n red">${fmt(p.vals[L])}%</td><td class="n blue">${fmt(p.vals[F])}%</td><td class="n"><span class="bw"><i style="width:${Math.max(4,w/mx*90)}px"></i>${fmt(w*100)}%</span></td></tr>`).join('');
- $('wSum').innerHTML=`<span>Média ponderada: <b class="red">Lula ${fmt(a.avg[L])}%</b> · <b class="blue">Flávio ${fmt(a.avg[F])}%</b></span><span>Peso = √amostra (teto ${int(TETO_N)}) × recência (cai pela metade a cada ${MEIA_VIDA} dias)</span>`;
+ $('wTab').innerHTML=rows.map(({p,w})=>`<tr><td><span class="who">${icon(p.inst,24)}<span><b style="color:var(--ink)">${esc(p.inst)}</b><br><small style="color:var(--soft)">${esc(p.reg)}</small></span></span></td><td>${campo(p)}</td><td>${dshort(D.meta.get(p.reg)?.divulgacao)}</td><td class="n">${int(p.n)}</td><td class="n red">${fmt(p.vals[L])}%</td><td class="n blue">${fmt(p.vals[F])}%</td><td class="n"><span class="bw"><i style="width:${Math.max(4,w/mx*90)}px"></i>${fmt(w*100)}%</span></td></tr>`).join('');
+ $('wSum').innerHTML=`<span>Média ponderada: <b class="red">Lula ${fmt(a.avg[L])}%</b> · <b class="blue">Flávio ${fmt(a.avg[F])}%</b></span><span>Peso = √amostra (teto ${int(TETO_N)}) × recência: a pesquisa perde metade do peso a cada ${MEIA_VIDA} dias desde o fim do campo</span>`;
  const ex=D.excl.filter(p=>p.turno===2&&p.date>=addDays(D.lastDate,-60));
  $('wExcl').innerHTML=D.excl.length?`<summary>${D.excl.length} cenário(s) fora da média por dados incompletos (soma dos válidos fora de 97–103%)</summary><ul>${(ex.length?ex:D.excl.slice(-6)).slice(-8).reverse().map(p=>`<li>${esc(p.inst)} · ${esc(p.reg)} · ${p.turno}º turno · ${dshort(p.date)} · soma ${fmt(p.soma)}%</li>`).join('')}</ul>`:'<summary>Nenhum cenário excluído por dados incompletos</summary>';
 }
@@ -772,9 +850,8 @@ document.addEventListener('click',e=>{
  if(b.dataset.go)go(b.dataset.go);
  if(b.dataset.inst)go('institutos/'+b.dataset.inst);
  if(b.dataset.uf)go('estados/'+b.dataset.uf);
- const seg=b.closest('.seg');if(seg&&b.dataset.v){const v=+b.dataset.v;if(seg.id==='homeTurn'){S.homeTurn=v;renderHome()}if(seg.id==='instTurn'){S.instTurn=v;renderInstitutes(S.inst)}if(seg.id==='ufTurn'){S.ufTurn=v;renderStates()}}
+ const seg=b.closest('.seg');if(seg&&b.dataset.v!==undefined){const v=+b.dataset.v;if(seg.id==='homeTurn'){S.homeTurn=v;renderHome()}if(seg.id==='homePeriod'){S.homePeriod=v;renderHome()}if(seg.id==='instTurn'){S.instTurn=v;renderInstitutes(S.inst)}if(seg.id==='ufTurn'){S.ufTurn=v;renderStates()}}
 });
-$('homePeriod').addEventListener('change',e=>{S.homePeriod=+e.target.value;renderHome()});
 $('instPeriod').addEventListener('change',e=>{S.instPeriod=+e.target.value;renderInstitutes(S.inst)});
 ['cA','cB','cT'].forEach(id=>$(id).addEventListener('change',renderCompare));
 $('instFilter').addEventListener('input',renderSidebar);

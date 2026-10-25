@@ -1102,7 +1102,13 @@ async function renderPrevisao(){
 // ---------- apuração ao vivo (divulgação oficial do TSE, 2º turno = eleição 6258)
 const TSE='https://resultados.tse.jus.br/oficial/ele2026/6258/dados',LIVE={br:null,uf:{},err:null,next:0,ufAt:0,busy:false,busyUF:false};
 // o TSE só aceita a sigla em minúsculas no endereço (/sp/sp-c0001...)
-async function lerTSE(uf){const u=uf.toLowerCase(),r=await fetch(`${TSE}/${u}/${u}-c0001-e006258-u.json`,{cache:'no-store'});if(!r.ok)throw new Error('TSE '+r.status);const d=await r.json(),cs={};
+// O site oficial do TSE lê o arquivo assinado (.jws, JSON dentro de uma assinatura JWS
+// "cabeçalho.dados.assinatura") com ?nocache; seguimos o mesmo caminho e caímos no .json se falhar.
+const b64url=s=>{s=s.replace(/-/g,'+').replace(/_/g,'/');s+='='.repeat((4-s.length%4)%4);return new TextDecoder().decode(Uint8Array.from(atob(s),c=>c.charCodeAt(0)))};
+async function baixarTSE(u){const base=`${TSE}/${u}/${u}-c0001-e006258-u`;
+ try{const r=await fetch(`${base}.jws?nocache=${Date.now()}`,{cache:'no-store'});if(r.ok){const t=(await r.text()).trim().replace(/^"|"$/g,''),p=t.split('.');if(p.length===3)return JSON.parse(b64url(p[1]))}}catch(e){}
+ const r=await fetch(`${base}.json`,{cache:'no-store'});if(!r.ok)throw new Error('TSE '+r.status);return r.json()}
+async function lerTSE(uf){const u=uf.toLowerCase(),d=await baixarTSE(u),cs={};
  for(const a of d.carg?.[0]?.agr||[])for(const p of a.par||[])for(const c of p.cand||[])cs[cand(c.nmu||c.nm)]={vap:num(c.vap),pvap:num(c.pvap),eleito:/eleito/i.test(c.st||'')&&!/não/i.test(c.st||'')};
  return{uf,pst:num(d.s?.pst)||0,vv:num(d.v?.vv)||0,pvb:num(d.v?.pvb),pvn:num(d.v?.ptvn),pa:num(d.e?.pa),hora:`${d.dg||''} ${d.hg||''}`.trim(),final:d.tf==='s',cs}}
 async function atualizaBR(){if(LIVE.busy)return;LIVE.busy=true;try{LIVE.br=await lerTSE('br');LIVE.err=null}catch(e){LIVE.err=e}LIVE.busy=false;LIVE.next=Date.now()+60000;renderLive()}

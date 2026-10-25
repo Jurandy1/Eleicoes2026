@@ -64,7 +64,6 @@ a{color:var(--blue)}
 .fbox .i{position:absolute;left:10px;top:9px;width:15px;height:15px;color:var(--soft)}
 .ilist button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:none;padding:6px 10px 6px 14px;font-size:13px;color:var(--text);border-radius:6px;white-space:nowrap}
 .ilist button span{overflow:hidden;text-overflow:ellipsis}
-.ilist .lgi,.ilist .bdg{box-shadow:0 0 0 1px var(--line)}
 .ilist button:hover{background:#f4f6f9;color:var(--navy)}
 .ilist button.on{color:var(--navy);font-weight:700;background:var(--active)}
 .ilist .none{padding:6px 12px 6px 32px;color:var(--soft);font-size:12px}
@@ -72,7 +71,7 @@ a{color:var(--blue)}
 body.mini .layout{grid-template-columns:70px minmax(0,1fr)}
 body.mini .side .txt,body.mini .side .count,body.mini .side .chev,body.mini .side .gbody{display:none}
 body.mini .collapse .i{transform:rotate(180deg)}
-.main{min-width:0;padding:20px 22px 40px;width:100%;max-width:1260px;margin:0 auto}
+.main{min-width:0;padding:22px clamp(16px,2vw,32px) 40px;width:100%;max-width:1720px;margin:0 auto}
 .screen{display:none}.screen.show{display:block}
 
 /* blocos */
@@ -150,12 +149,12 @@ body.mini .collapse .i{transform:rotate(180deg)}
 .note{font-size:11.5px;color:var(--soft);margin-top:12px;line-height:1.55}
 
 /* institutos */
-.igrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:16px}
+.igrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-top:16px}
 .itile{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:8px;background:#fff;padding:12px;text-align:left;min-width:0;transition:border-color .15s,box-shadow .15s}
 .itile:hover{border-color:#b9c9de;box-shadow:0 2px 10px #0f24430f}
 .wm{width:108px;flex:none;display:flex;align-items:center;justify-content:center;height:44px}
-.lgi{border-radius:7px;object-fit:contain;background:#fff;flex:none;display:block}
-.bdg{display:inline-grid;place-items:center;border-radius:7px;color:#fff;font-weight:800;flex:none;letter-spacing:-.2px;line-height:1}
+.lgi{border-radius:8px;object-fit:contain;background:#fff;flex:none;display:block;box-shadow:0 0 0 1px #e3e8ef}
+.bdg{display:inline-grid;place-items:center;border-radius:8px;color:#fff;font-weight:800;flex:none;letter-spacing:-.2px;line-height:1}
 .lgw{display:flex;align-items:center;justify-content:center;width:100%;height:100%}
 .lgw img{max-width:100%;max-height:36px;object-fit:contain;display:block}
 .lgw.dark{background:var(--navy);border-radius:7px;padding:5px 8px}
@@ -194,6 +193,16 @@ body.mini .collapse .i{transform:rotate(180deg)}
 .prow>.i{color:#9aa8b8;width:16px;height:16px}
 .lead{font-size:10.5px;font-weight:700;border-radius:4px;padding:2px 6px;margin-left:6px;vertical-align:1px}
 .lead.l{background:#fdecec;color:var(--red)}.lead.f{background:#e8f0fc;color:var(--blue)}.lead.e{background:#f1f4f8;color:var(--soft)}
+
+/* pesquisas que formam a média */
+.wtab td .bw{display:flex;align-items:center;gap:8px;justify-content:flex-end}
+.wtab td .bw i{display:block;height:6px;border-radius:4px;background:var(--navy);opacity:.75}
+.wtab .who{display:inline-flex;align-items:center;gap:9px}
+.wsum{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:12px;font-size:12.5px;color:var(--text)}
+.wsum b{color:var(--ink)}
+.excl{margin-top:10px;font-size:11.5px;color:var(--soft)}
+.excl summary{cursor:pointer;color:var(--blue);font-weight:600}
+.excl ul{margin:8px 0 0;padding-left:18px;line-height:1.7}
 
 /* páginas internas */
 .phead{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:16px}
@@ -241,7 +250,7 @@ body.mini .collapse .i{transform:rotate(180deg)}
 .bnav,.scrim{display:none}
 
 /* responsivo */
-@media(max-width:1200px){.updated{display:none}.igrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:1200px){.updated{display:none}}
 @media(max-width:1060px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.two,.ufwrap{grid-template-columns:1fr}.topnav{margin-left:10px}.topnav button{padding:0 9px}.search{width:210px}}
 @media(max-width:860px){
  .hdr{height:56px;padding:0 16px}
@@ -372,7 +381,7 @@ body.mini .collapse .i{transform:rotate(180deg)}
     <div class="card kpi"><div class="ic"><svg class="i"><use href="#chart"/></svg></div><div><strong id="k1">—</strong><div class="k1 long">Institutos na média</div><div class="k1 short">Institutos</div><div class="k2">em relação à semana anterior</div></div><span class="delta" id="d1"></span></div>
     <div class="card kpi"><div class="ic"><svg class="i"><use href="#file"/></svg></div><div><strong id="k2">—</strong><div class="k1 long">Pesquisas com resultado</div><div class="k1 short">Pesquisas</div><div class="k2">na base nacional</div></div><span class="delta" id="d2"></span></div>
     <div class="card kpi"><div class="ic"><svg class="i"><use href="#trend"/></svg></div><div><strong id="k3">—</strong><div class="k1 long">Vantagem na média</div><div class="k1 short">Vantagem</div><div class="k2" id="k3s">—</div></div></div>
-    <div class="card kpi"><div class="ic"><svg class="i"><use href="#cal"/></svg></div><div><strong>14 dias</strong><div class="k1 long">Período da média</div><div class="k1 short">Período</div><div class="k2">Janela móvel</div></div></div>
+    <div class="card kpi"><div class="ic"><svg class="i"><use href="#cal"/></svg></div><div><strong>14 dias</strong><div class="k1 long">Período da média</div><div class="k1 short">Período</div><div class="k2">1 pesquisa por instituto</div></div></div>
    </div>
    <div class="two">
     <section class="card pad">
@@ -394,6 +403,12 @@ body.mini .collapse .i{transform:rotate(180deg)}
      <div class="note">Uma vantagem pequena na média não garante vitória. Os resultados são estimativas sujeitas a erro e viés.</div>
     </section>
    </div>
+   <section class="card pad mb">
+    <div class="row"><div><h2 class="h2">Pesquisas que formam a média</h2><div class="sub" id="wSub">—</div></div><button class="btn" data-go="metodologia">Como calculamos<svg class="i"><use href="#right"/></svg></button></div>
+    <div class="tw"><table class="table wtab"><thead><tr><th>Instituto</th><th>Campo</th><th class="n">Idade</th><th class="n">Amostra</th><th class="n">Lula</th><th class="n">Flávio</th><th class="n">Peso na média</th></tr></thead><tbody id="wTab"></tbody></table></div>
+    <div class="wsum" id="wSum"></div>
+    <details class="excl" id="wExcl"></details>
+   </section>
    <section class="card pad mb">
     <div class="row"><div><h2 class="h2">Últimas pesquisas</h2><div class="sub">2º turno · votos válidos · resultados nacionais mais recentes</div></div><button class="btn" data-go="comparar">Comparar pesquisas<svg class="i"><use href="#right"/></svg></button></div>
     <div class="feed" id="feed"></div>
@@ -473,8 +488,15 @@ body.mini .collapse .i{transform:rotate(180deg)}
   <section class="screen" id="s-metodologia">
    <div class="phead"><div><div class="eyebrow">Transparência dos dados</div><h1>Metodologia e fontes</h1><div class="sub">Critérios do agregador e limitações da projeção</div></div></div>
    <section class="card pad method">
+    <h2>Quais pesquisas entram</h2>
+    <p>Só pesquisas <b>registradas no TSE</b> (cada uma tem número de registro, como BR-09540/2026) e com resultado divulgado por candidato. De cada pesquisa usamos um único cenário, o <b>cenário principal</b> (o mais completo). Sem isso, uma pesquisa que testou 7 cenários de 1º turno contaria 7 vezes.</p>
+    <p><b>Controle de qualidade:</b> o cenário só entra se os votos válidos dos candidatos somarem 100%, com tolerância de 3 pontos para arredondamento (entre 97% e 103%). Fora disso, o dado está incompleto na fonte e fica fora da média. A lista dos excluídos aparece na página inicial.</p>
     <h2>Como a média é calculada</h2>
-    <p>Para cada dia, usamos a pesquisa mais recente de cada instituto feita nos 14 dias anteriores, só o <b>cenário principal</b> (o mais completo de cada pesquisa) e votos válidos. Cada pesquisa pesa pela raiz quadrada do número de entrevistas, para que amostras grandes contem mais sem dominar a média.</p>
+    <p>Para cada dia, usamos <b>uma pesquisa por instituto</b>: a mais recente com campo encerrado nos últimos <b>14 dias</b>. Assim, um instituto que publica toda semana não pesa mais que um que publica de 15 em 15 dias.</p>
+    <p>Cada pesquisa recebe um peso: <code>peso = √entrevistas × 0,5^(dias desde o campo ÷ 7)</code>.</p>
+    <p>A raiz quadrada da amostra (com teto de 5.000 entrevistas) acompanha a precisão estatística, que cresce com √n, sem deixar amostras gigantes dominarem. O fator de recência faz uma pesquisa de 7 dias atrás valer metade de uma de hoje. A média é a média ponderada dos votos válidos. Na página inicial, a tabela "Pesquisas que formam a média" mostra cada pesquisa usada e o peso dela.</p>
+    <h2>Votos válidos e empate técnico</h2>
+    <p>Votos válidos excluem brancos, nulos e indecisos: <code>válido = voto ÷ (100 − não válidos) × 100</code>. "Empate técnico" segue o critério usual: a diferença entre os dois candidatos, em <b>votos totais</b> (sobre os quais vale a margem de erro), é menor ou igual a duas vezes a margem de erro da pesquisa.</p>
     <h2>Faixa sombreada no gráfico</h2>
     <p>A área clara em volta de cada linha mostra a faixa intermediária das pesquisas da janela (do 25º ao 75º percentil entre os institutos). Ela indica o quanto os institutos concordam entre si, não a margem de erro de uma pesquisa.</p>
     <h2>Média não é previsão</h2>
@@ -484,7 +506,9 @@ body.mini .collapse .i{transform:rotate(180deg)}
     <h2>Estados</h2>
     <p>Pesquisas presidenciais feitas dentro de cada estado. A cor do mapa usa a média da pesquisa mais recente de cada instituto nos 30 dias anteriores à última pesquisa do estado.</p>
     <h2>Fontes</h2>
-    <p>Registros e resultados oficiais: <b>TSE</b> (dados abertos). Percentuais por candidato: <b>PollingData</b>, complementado pelo <b>Poder360</b> nos dias mais recentes. O registro no TSE não é chancela da metodologia ou dos resultados de uma pesquisa.</p>
+    <p>Registros e resultados oficiais: <b>TSE</b> (dados abertos). Percentuais por candidato: <b>PollingData</b>, complementado pelo <b>Poder360</b> nos dias mais recentes. Quando a mesma pesquisa aparece nas duas fontes, fica a do PollingData, que traz decimais e voto total. O registro no TSE não é chancela da metodologia ou dos resultados de uma pesquisa.</p>
+    <h2>Limitações</h2>
+    <p>Pesquisas medem intenção de voto no período de campo, não preveem o resultado. Os institutos diferem em método (presencial, telefone, online) e na forma de ponderar a amostra, e isso gera diferenças sistemáticas entre eles. A média reduz o ruído de cada pesquisa isolada, mas não elimina um erro que seja comum a todos os institutos.</p>
    </section>
   </section>
 
@@ -505,9 +529,8 @@ body.mini .collapse .i{transform:rotate(180deg)}
 // Supabase: so leitura. A chave publishable e publica por design (as tabelas
 // so tem policy de SELECT); a chave secreta nunca vai para o site.
 const SB_URL='https://jlmhmdudgalrqnqyqyee.supabase.co',SB_KEY='sb_publishable_ykLyqi5lVdNz0CHEdgoFAw_mRwOKifd';
-const RES='registro,uf_recorte,turno,cenario_id,instituto,data_campo,entrevistas,erro_pp,candidato,voto_valido,fonte';
+const RES='registro,uf_recorte,turno,cenario_id,instituto,data_campo,entrevistas,erro_pp,candidato,voto_valido,voto_total,fonte';
 const Q={
- media:['media','select=turno,data,candidato,media_validos,n_institutos'],
  resultados:['resultados','uf_recorte=eq.BR&select='+RES],
  cenarios:['cenarios','uf_recorte=eq.BR&cenario_principal=is.true&select=registro,uf_recorte,turno,cenario_id'],
  pesquisas:['pesquisas','p_presidente=is.true&select=registro,cnpj,fim_campo,modo_coleta,contratante'],
@@ -547,7 +570,7 @@ const logo=name=>{const l=LG[name];return l&&l[1]?`<span class="lgw${l[2]?' dark
 
 // ---------- dados
 const D={ready:false};
-function groupPolls(rows){const m=new Map();for(const r of rows){if(!r.data_campo)continue;const k=`${r.uf_recorte}|${r.registro}|${r.turno}|${r.cenario_id??''}`;let p=m.get(k);if(!p){p={uf:r.uf_recorte,reg:r.registro,turno:+r.turno,inst:inst(r.instituto),date:r.data_campo,n:num(r.entrevistas),erro:num(r.erro_pp),fonte:r.fonte,vals:{}};m.set(k,p)}const v=num(r.voto_valido);if(Number.isFinite(v)&&norm(r.candidato)!=='naovalido')p.vals[cand(r.candidato)]=v}return [...m.values()].filter(p=>Object.keys(p.vals).length).sort((a,b)=>a.date.localeCompare(b.date)||a.reg.localeCompare(b.reg))}
+function groupPolls(rows){const m=new Map();for(const r of rows){if(!r.data_campo)continue;const k=`${r.uf_recorte}|${r.registro}|${r.turno}|${r.cenario_id??''}`;let p=m.get(k);if(!p){p={uf:r.uf_recorte,reg:r.registro,turno:+r.turno,inst:inst(r.instituto),date:r.data_campo,n:num(r.entrevistas),erro:num(r.erro_pp),fonte:r.fonte,vals:{},tot:{}};m.set(k,p)}const v=num(r.voto_valido),t=num(r.voto_total);if(norm(r.candidato)==='naovalido'){p.nv=t;continue}if(Number.isFinite(v))p.vals[cand(r.candidato)]=v;if(Number.isFinite(t))p.tot[cand(r.candidato)]=t}return [...m.values()].filter(p=>Object.keys(p.vals).length).sort((a,b)=>a.date.localeCompare(b.date)||a.reg.localeCompare(b.reg))}
 const principal=(res,cen)=>{const k=new Set(cen.map(r=>`${r.uf_recorte}|${r.registro}|${r.turno}|${r.cenario_id??''}`));return res.filter(r=>k.has(`${r.uf_recorte}|${r.registro}|${r.turno}|${r.cenario_id??''}`))};
 function build(){
  D.polls=groupPolls(principal(D.resultados,D.cenarios));
@@ -555,13 +578,23 @@ function build(){
  D.insts=[...st.values()].sort((a,b)=>b.regs.size-a.regs.size||a.name.localeCompare(b.name,'pt'));
  const byCnpj=new Map(D.institutos.map(r=>[String(r.cnpj),r]));
  for(const r of D.pesquisas){const i=byCnpj.get(String(r.cnpj));r.inst=i?inst(i.instituto):null;r.modo_principal=i?.modo_principal}
- D.media2=series(2);D.media1=series(1);
+ // controle de qualidade: só entra na média o cenário com os votos válidos somando ~100%
+ D.ok=[];D.excl=[];for(const p of D.polls){const sm=Object.values(p.vals).reduce((a,b)=>a+b,0);(sm>=97&&sm<=103?D.ok:D.excl).push(p);p.soma=sm}
+ D.media2=mediaSeries(2);D.media1=mediaSeries(1);
  D.lastDate=[...D.media2.values()].flat().map(p=>p.date).sort().at(-1)||null;
  $('updTop').textContent=dlong(D.lastDate);
 }
-function series(t){const by=new Map();for(const r of D.media)if(+r.turno===t){const c=cand(r.candidato);if(!by.has(c))by.set(c,[]);by.get(c).push({date:r.data,value:num(r.media_validos),n:+r.n_institutos})}for(const a of by.values())a.sort((x,y)=>x.date.localeCompare(y.date));return by}
+// ---------- média das pesquisas (mesma regra do gerar_base.py; ver Metodologia)
+// 1 pesquisa por instituto: a mais recente nos últimos JANELA dias, só cenário principal.
+// peso = raiz(amostra, com teto) x meia-vida de MEIA_VIDA dias desde o fim do campo.
+const JANELA=14,MEIA_VIDA=7,TETO_N=5000;
+const ndias=(a,b)=>Math.round((Date.parse(b)-Date.parse(a))/864e5);
+const peso=(p,dia)=>Math.sqrt(Math.min(Number.isFinite(p.n)?p.n:1000,TETO_N))*Math.pow(.5,ndias(p.date,dia)/MEIA_VIDA);
+function janela(t,dia){const lo=addDays(dia,-(JANELA-1)),m=new Map();for(const p of D.ok){if(p.turno!==t||p.date<lo)continue;if(p.date>dia)break;m.set(p.inst,p)}return [...m.values()]}
+function mediaEm(t,dia){const sel=janela(t,dia);if(!sel.length)return null;const ws=sel.map(p=>peso(p,dia)),tw=ws.reduce((a,b)=>a+b,0),avg={};for(const c of new Set(sel.flatMap(p=>Object.keys(p.vals)))){let sw=0,sv=0;sel.forEach((p,i)=>{const v=p.vals[c];if(Number.isFinite(v)){sw+=ws[i];sv+=ws[i]*v}});if(sw)avg[c]=sv/sw}return{avg,sel:sel.map((p,i)=>({p,w:ws[i]/tw}))}}
+function mediaSeries(t){const by=new Map(),ps=D.ok.filter(p=>p.turno===t);if(!ps.length)return by;for(let d=ps[0].date,end=ps.at(-1).date;d<=end;d=addDays(d,1)){const a=mediaEm(t,d);if(!a)continue;for(const [c,v] of Object.entries(a.avg)){if(!by.has(c))by.set(c,[]);by.get(c).push({date:d,value:v,n:a.sel.length})}}return by}
 const at=(pts,d)=>{let best=null;for(const p of pts)if(p.date<=d)best=p;return best};
-function bands(t,names,dates){const ps=D.polls.filter(p=>p.turno===t),out=Object.fromEntries(names.map(n=>[n,[]]));for(const d of dates){const lo=addDays(d,-13),latest=new Map();for(const p of ps){if(p.date<lo)continue;if(p.date>d)break;latest.set(p.inst,p)}for(const n of names){const vs=[...latest.values()].map(p=>p.vals[n]).filter(Number.isFinite);if(vs.length>=2)out[n].push({date:d,lo:quant(vs,.25),hi:quant(vs,.75)})}}return out}
+function bands(t,names,dates){const out=Object.fromEntries(names.map(n=>[n,[]]));for(const d of dates){const sel=janela(t,d);for(const n of names){const vs=sel.map(p=>p.vals[n]).filter(Number.isFinite);if(vs.length>=2)out[n].push({date:d,lo:quant(vs,.25),hi:quant(vs,.75)})}}return out}
 
 // ---------- gráfico
 function drawChart(el,ser,opt={}){
@@ -592,7 +625,7 @@ const segSet=(id,v)=>$(id).querySelectorAll('button').forEach(b=>b.classList.tog
 const tile=s=>`<button class="itile" data-inst="${esc(s.name)}"><div class="wm">${logo(s.name)}</div><div class="meta"><b>${esc(s.name)}</b>Última: ${dshort(s.last.date)}<br>${s.last.turno}º turno</div>${ic('right')}</button>`;
 
 const split=p=>{const l=p.vals[L],f=p.vals[F];if(!Number.isFinite(l)||!Number.isFinite(f))return '<div class="sub">Sem Lula × Flávio neste cenário</div>';const t=l+f;return `<div class="split"><i class="bg-red" style="width:${l/t*100}%"></i><i class="bg-blue" style="width:${f/t*100}%"></i></div><div class="splitlbl"><span class="red">${fmt(l)}%<small>Lula</small></span><span class="blue"><small>Flávio</small>${fmt(f)}%</span></div>`};
-const leadTag=p=>{const l=p.vals[L],f=p.vals[F];if(!Number.isFinite(l)||!Number.isFinite(f))return '';const d=f-l,e=Number.isFinite(p.erro)&&Math.abs(d)<=2*p.erro;return e?'<span class="lead e">empate técnico</span>':d>0?'<span class="lead f">Flávio à frente</span>':'<span class="lead l">Lula à frente</span>'};
+const leadTag=p=>{const tl=p.tot[L],tf=p.tot[F],l=Number.isFinite(tl)?tl:p.vals[L],f=Number.isFinite(tf)?tf:p.vals[F];if(!Number.isFinite(l)||!Number.isFinite(f))return '';const d=f-l,e=Number.isFinite(p.erro)&&Math.abs(d)<=2*p.erro;return e?'<span class="lead e">empate técnico</span>':d>0?'<span class="lead f">Flávio à frente</span>':'<span class="lead l">Lula à frente</span>'};
 function card(s){const ps=D.polls.filter(p=>p.inst===s.name),p=ps.filter(q=>q.turno===2).at(-1)||ps.at(-1);return `<button class="icard" data-inst="${esc(s.name)}"><div class="top"><div class="wm">${logo(s.name)}</div>${ic('right')}</div><div><b>${esc(s.name)}</b><div class="sub">${s.regs.size} pesquisa(s) · última em ${dshort(s.last.date)}</div></div><div class="chips"><span class="chip">${p.turno}º turno</span>${Number.isFinite(p.n)?`<span class="chip">${int(p.n)} entrevistas</span>`:''}${Number.isFinite(p.erro)?`<span class="chip">±${fmt(p.erro)} pp</span>`:''}</div>${split(p)}</button>`}
 function renderFeed(){const seen=new Set(),rows=[];for(const p of [...D.polls].reverse()){if(p.turno!==2||seen.has(p.reg))continue;seen.add(p.reg);rows.push(p);if(rows.length>=8)break}
  $('feed').innerHTML=rows.map(p=>`<button class="prow" data-inst="${esc(p.inst)}"><div class="who">${icon(p.inst,36)}<div style="min-width:0"><b>${esc(p.inst)}${leadTag(p)}</b><small>${esc(p.reg)} · campo em ${dshort(p.date)}</small></div></div><div class="res">${split(p)}</div><div class="mt">${int(p.n)} entrevistas<br>margem ${Number.isFinite(p.erro)?'±'+fmt(p.erro)+' pp':'—'}</div>${ic('right')}</button>`).join('')}
@@ -611,7 +644,8 @@ function renderHome(){
  $('k2').textContent=int(regs.size);delta('d2',[...first.values()].filter(x=>x>addDays(d,-7)).length);
  segSet('homeTurn',S.homeTurn);$('homePeriod').value=S.homePeriod;
  const by=S.homeTurn===2?D.media2:D.media1,end=[...by.values()].flat().map(p=>p.date).sort().at(-1);
- let names=S.homeTurn===2?[L,F]:[...by.entries()].map(([n,pts])=>[n,pts.at(-1)?.value??0]).sort((x,y)=>y[1]-x[1]).slice(0,5).map(x=>x[0]);
+ // 1º turno: os 5 primeiros na média do último dia (quem saiu da disputa não entra)
+ let names=S.homeTurn===2?[L,F]:[...by.entries()].filter(([,pts])=>pts.at(-1)?.date===end).map(([n,pts])=>[n,pts.at(-1).value]).sort((x,y)=>y[1]-x[1]).slice(0,5).map(x=>x[0]);
  const start=S.homePeriod&&end?addDays(end,-S.homePeriod):'0000';
  const ser=names.map((n,i)=>({name:n,color:COL[n]||EXTRA[i%EXTRA.length],points:(by.get(n)||[]).filter(p=>p.date>=start)}));
  const dates=[...new Set(ser.flatMap(s=>s.points.map(p=>p.date)))].sort(),bd=bands(S.homeTurn,names,dates);ser.forEach(s=>s.band=bd[s.name]);
@@ -619,7 +653,16 @@ function renderHome(){
  legend($('homeLegend'),ser);
  $('homeChartSub').textContent=S.homeTurn===2?'Média nacional · Votos válidos':'Média nacional · Votos válidos · até a eleição de 04/10';
  $('homeTiles').innerHTML=D.insts.slice(0,8).map(tile).join('');
- renderFeed();
+ renderFeed();renderWeights();
+}
+function renderWeights(){
+ const a=mediaEm(2,D.lastDate);if(!a){$('wTab').innerHTML='';return}
+ const rows=a.sel.slice().sort((x,y)=>y.w-x.w),mx=rows[0].w;
+ $('wSub').textContent=`2º turno · média de ${dshort(D.lastDate)} · ${rows.length} institutos · a pesquisa mais recente de cada um nos últimos ${JANELA} dias`;
+ $('wTab').innerHTML=rows.map(({p,w})=>`<tr><td><span class="who">${icon(p.inst,24)}<span><b style="color:var(--ink)">${esc(p.inst)}</b><br><small style="color:var(--soft)">${esc(p.reg)}</small></span></span></td><td>${dshort(p.date)}</td><td class="n">${ndias(p.date,D.lastDate)} d</td><td class="n">${int(p.n)}</td><td class="n red">${fmt(p.vals[L])}%</td><td class="n blue">${fmt(p.vals[F])}%</td><td class="n"><span class="bw"><i style="width:${Math.max(4,w/mx*90)}px"></i>${fmt(w*100)}%</span></td></tr>`).join('');
+ $('wSum').innerHTML=`<span>Média ponderada: <b class="red">Lula ${fmt(a.avg[L])}%</b> · <b class="blue">Flávio ${fmt(a.avg[F])}%</b></span><span>Peso = √amostra (teto ${int(TETO_N)}) × recência (cai pela metade a cada ${MEIA_VIDA} dias)</span>`;
+ const ex=D.excl.filter(p=>p.turno===2&&p.date>=addDays(D.lastDate,-60));
+ $('wExcl').innerHTML=D.excl.length?`<summary>${D.excl.length} cenário(s) fora da média por dados incompletos (soma dos válidos fora de 97–103%)</summary><ul>${(ex.length?ex:D.excl.slice(-6)).slice(-8).reverse().map(p=>`<li>${esc(p.inst)} · ${esc(p.reg)} · ${p.turno}º turno · ${dshort(p.date)} · soma ${fmt(p.soma)}%</li>`).join('')}</ul>`:'<summary>Nenhum cenário excluído por dados incompletos</summary>';
 }
 function delta(id,v){const el=$(id);if(!Number.isFinite(v)||v===0){el.textContent='';return}el.textContent=(v>0?'+':'')+v;el.classList.toggle('neg',v<0)}
 
@@ -745,7 +788,7 @@ let rz,lastW=innerWidth;window.addEventListener('resize',()=>{if(innerWidth===la
 
 // ---------- início
 route();renderSidebar();
-(async()=>{try{const keys=['media','resultados','cenarios','pesquisas','institutos','oficial'],res=await Promise.all(keys.map(fetchAll));keys.forEach((k,i)=>D[k]=res[i]);build();D.ready=true}catch(e){console.error(e);const n=$('notice');n.textContent='Não foi possível carregar os dados agora. Verifique a conexão e recarregue a página.';n.classList.add('show')}renderSidebar();route()})();
+(async()=>{try{const keys=['resultados','cenarios','pesquisas','institutos','oficial'],res=await Promise.all(keys.map(fetchAll));keys.forEach((k,i)=>D[k]=res[i]);build();D.ready=true}catch(e){console.error(e);const n=$('notice');n.textContent='Não foi possível carregar os dados agora. Verifique a conexão e recarregue a página.';n.classList.add('show')}renderSidebar();route()})();
 })();
 </script>
 </body>

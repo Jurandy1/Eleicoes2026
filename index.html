@@ -1031,7 +1031,6 @@ body{background:var(--bg);font-family:Inter,"Source Sans 3",system-ui,-apple-sys
       <article class="hm-c"><img src="img/flavio.jpg" alt="Flávio Bolsonaro" width="64" height="72"><div class="hm-cinfo"><div class="hm-cn">Flávio Bolsonaro (PL)</div><div class="hm-pct blue" id="pF">—</div></div><div class="hm-bar"><i class="bg-blue" id="bF"></i></div><div class="hm-delta" id="dF"></div></article>
       <article class="hm-c nv"><div class="hm-cinfo"><div class="hm-cn">Indecisos / Branco / Nulo</div><div class="hm-pct" id="pN">—</div></div><div class="hm-bar"><i class="bg-gray" id="bN"></i></div><div class="hm-delta" id="dN"></div></article>
      </div>
-     <div class="hm-fontes" id="hmFontes"></div>
      <div class="hm-note" id="cenNote"></div>
      <div class="hm-1t" id="hm1t"></div>
     </section>
@@ -1514,7 +1513,6 @@ function renderHome(){
   $('pL').textContent=fmt(a)+'%';$('pF').textContent=fmt(b)+'%';$('bL').style.width=a+'%';$('bF').style.width=b+'%';
   deltaPeriodo('dL',prev?a-prev.avg[L]:NaN,txt);deltaPeriodo('dF',prev?b-prev.avg[F]:NaN,txt);
   $('pN').textContent=Number.isFinite(nv)?fmt(nv)+'%':'—';$('bN').style.width=(Number.isFinite(nv)?Math.min(100,nv*2):0)+'%';deltaPeriodo('dN',prev?nv-nvDe(prev):NaN,txt);
-  $('hmFontes').innerHTML=`<span class="lbl">Institutos na média atual (${med.sel.length}):</span>`+med.sel.slice().sort((x,y)=>y.p.date.localeCompare(x.p.date)||y.w-x.w).map(({p})=>`<button type="button" data-inst="${esc(p.inst)}" title="Campo até ${dshort(p.date)}">${icon(p.inst,16)}${esc(p.inst)}<small>${p.date.slice(8,10)}/${p.date.slice(5,7)}</small></button>`).join('');
   $('cenNote').textContent=`Lula e Flávio: média ponderada dos votos válidos de ${pl(med.sel.length,'instituto','institutos')}, até ${dshort(dia)}. Indecisos, brancos e nulos: média dos votos totais das mesmas pesquisas. A variação compara com a média de ${dshort(ref)}.`;
   const er=med.sel.map(x=>x.p.erro).filter(Number.isFinite),erm=er.length?er.reduce((x,y)=>x+y,0)/er.length:NaN,vl=ld?`Vantagem (${ld})`:'Vantagem';
   $('iVl').textContent=$('tVl').textContent=vl;$('iV').textContent=$('tV').textContent=ld?pp(Math.abs(df)):'Empate';$('tV').className=ld==='Flávio'?'blue':ld==='Lula'?'red':'';
@@ -1660,12 +1658,11 @@ async function renderStates(uf){
  const recentes=rec.length?`<h3 class="h3" style="margin-top:20px">Pesquisas estaduais mais recentes</h3><div class="sub">${t}º turno. Fundo cinza: última pesquisa há mais de 21 dias. Clique para ver o estado.</div><div class="ufrec">${rec.map(u=>{const s=sums[u],d=s.f-s.l;return `<button data-uf="${u}" class="${s.lastD<addDays(ref,-21)?'old':''}${u===S.uf?' on':''}" title="${esc(UFS[u])}"><b>${u}</b><span>${dshort(s.lastD)}</span>${Number.isFinite(d)?`<span class="${d>0?'blue':'red'}">${d>0?'Flávio':'Lula'} +${fmt(Math.abs(d))}</span>`:''}</button>`}).join('')}</div>`:'';
  let h;
  if(S.uf==='BR'){
-  const dia=diaDoTurno(t),med=mediaEm(t,dia),of=D.oficial?oficialPorUF().BR:null,seen=new Set(),ult=[];
-  for(const p of [...D.polls].reverse()){if(p.turno!==t||seen.has(p.reg)||!Number.isFinite(p.vals[L])||!Number.isFinite(p.vals[F]))continue;seen.add(p.reg);ult.push(p);if(ult.length>=12)break}
+  const dia=diaDoTurno(t),med=mediaEm(t,dia),of=D.oficial?oficialPorUF().BR:null,ult=med?med.sel.map(x=>x.p).sort((x,y)=>y.date.localeCompare(x.date)||x.inst.localeCompare(y.inst,'pt')):[];
   h=`<div class="row"><div><div class="eyebrow">${t}º turno</div><h2 class="h2" style="font-size:22px;margin-top:4px">Brasil</h2><div class="sub">${med?`Média nacional até ${dshort(dia)}, com ${pl(med.sel.length,'instituto','institutos')}. É a mesma da página inicial.`:'Sem média nacional neste turno.'}</div></div></div>`;
   if(med)h+=vs(med.avg[L],med.avg[F],'média nacional');
   h+=urna(of?.l,of?.f);
-  if(ult.length)h+=`<h3 class="h3" style="margin-top:20px">Pesquisas nacionais mais recentes</h3>`+tabela(ult);
+  if(ult.length)h+=`<h3 class="h3" style="margin-top:20px">Pesquisas nacionais mais recentes</h3><div class="sub">A pesquisa mais recente de cada instituto nos últimos ${JANELA} dias: ${pl(ult.length,'instituto','institutos')}, as mesmas que formam a média.</div>`+tabela(ult);
   h+=recentes;
  }else{
   const s=sums[S.uf],off=D.oficial.filter(r=>r.abrangencia===S.uf&&+r.nr_turno===1),oL=off.find(r=>cand(r.nome_pesquisa)===L),oF=off.find(r=>cand(r.nome_pesquisa)===F);

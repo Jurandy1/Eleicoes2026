@@ -62,7 +62,9 @@ a{color:var(--blue)}
 .fbox input{width:100%;height:34px;border:1px solid var(--line);border-radius:7px;padding:0 10px 0 32px;font-size:12.5px;outline:none;background:#fff}
 .fbox input:focus{border-color:#9cb9e0}
 .fbox .i{position:absolute;left:10px;top:9px;width:15px;height:15px;color:var(--soft)}
-.ilist button{display:block;width:100%;text-align:left;border:0;background:none;padding:6px 12px 6px 32px;font-size:13px;color:var(--text);border-radius:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ilist button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:none;padding:6px 10px 6px 14px;font-size:13px;color:var(--text);border-radius:6px;white-space:nowrap}
+.ilist button span{overflow:hidden;text-overflow:ellipsis}
+.ilist .lgi,.ilist .bdg{box-shadow:0 0 0 1px var(--line)}
 .ilist button:hover{background:#f4f6f9;color:var(--navy)}
 .ilist button.on{color:var(--navy);font-weight:700;background:var(--active)}
 .ilist .none{padding:6px 12px 6px 32px;color:var(--soft);font-size:12px}
@@ -151,8 +153,13 @@ body.mini .collapse .i{transform:rotate(180deg)}
 .igrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:16px}
 .itile{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:8px;background:#fff;padding:12px;text-align:left;min-width:0;transition:border-color .15s,box-shadow .15s}
 .itile:hover{border-color:#b9c9de;box-shadow:0 2px 10px #0f24430f}
-.wm{--wm:21px;width:104px;flex:none;display:flex;align-items:center;justify-content:center;height:38px;overflow:hidden}
-.wm>span{font-size:var(--wm);font-weight:800;letter-spacing:-.5px;white-space:nowrap;line-height:1}
+.wm{width:108px;flex:none;display:flex;align-items:center;justify-content:center;height:44px}
+.lgi{border-radius:7px;object-fit:contain;background:#fff;flex:none;display:block}
+.bdg{display:inline-grid;place-items:center;border-radius:7px;color:#fff;font-weight:800;flex:none;letter-spacing:-.2px;line-height:1}
+.lgw{display:flex;align-items:center;justify-content:center;width:100%;height:100%}
+.lgw img{max-width:100%;max-height:36px;object-fit:contain;display:block}
+.lgw.dark{background:var(--navy);border-radius:7px;padding:5px 8px}
+.lgw.dark img{max-height:30px}
 .itile .meta{flex:1;min-width:0;font-size:11.5px;color:var(--soft);line-height:1.45;white-space:nowrap}
 .itile .meta b{display:block;font-size:12.5px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .itile>.i{color:#9aa8b8;width:16px;height:16px}
@@ -160,11 +167,40 @@ body.mini .collapse .i{transform:rotate(180deg)}
 .btn:hover{border-color:#b9c9de}
 .btn .i{width:15px;height:15px}
 
+/* cartões de instituto */
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.icard{display:flex;flex-direction:column;gap:10px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:16px;text-align:left;min-width:0;transition:border-color .15s,box-shadow .15s,transform .15s}
+.icard:hover{border-color:#b9c9de;box-shadow:0 6px 18px #0f24431a;transform:translateY(-1px)}
+.icard .top{display:flex;align-items:center;justify-content:space-between;gap:10px;height:48px}
+.icard .top .wm{justify-content:flex-start;width:auto;max-width:170px}
+.icard .top>.i{color:#9aa8b8}
+.icard b{font-size:14px;color:var(--ink)}
+.split{display:flex;height:8px;border-radius:5px;overflow:hidden;background:#edf0f4;gap:2px}
+.split i{display:block;height:100%}
+.splitlbl{display:flex;justify-content:space-between;font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}
+.splitlbl small{font-weight:500;color:var(--soft);margin:0 3px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{background:var(--chip);color:var(--text);border-radius:20px;padding:3px 9px;font-size:11px;font-weight:600}
+/* últimas pesquisas */
+.feed{margin-top:12px}
+.prow{display:grid;grid-template-columns:minmax(190px,1.2fr) minmax(220px,2fr) 110px 18px;align-items:center;gap:18px;padding:12px 6px;border:0;border-bottom:1px solid #edf0f4;width:100%;background:none;text-align:left}
+.prow:last-child{border-bottom:0}
+.prow:hover{background:#f8fafc}
+.prow .who{display:flex;align-items:center;gap:12px;min-width:0}
+.prow .who b{display:block;font-size:13.5px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prow .who small{color:var(--soft);font-size:11.5px}
+.prow .res{display:flex;flex-direction:column;gap:6px}
+.prow .mt{font-size:11.5px;color:var(--soft);text-align:right;line-height:1.4}
+.prow>.i{color:#9aa8b8;width:16px;height:16px}
+.lead{font-size:10.5px;font-weight:700;border-radius:4px;padding:2px 6px;margin-left:6px;vertical-align:1px}
+.lead.l{background:#fdecec;color:var(--red)}.lead.f{background:#e8f0fc;color:var(--blue)}.lead.e{background:#f1f4f8;color:var(--soft)}
+
 /* páginas internas */
 .phead{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:16px}
 .phead h1{font-family:"Source Serif 4",Georgia,serif;font-size:31px;margin:6px 0 4px;color:var(--navy);letter-spacing:-.4px;line-height:1.1;font-weight:700}
 .ihead{display:flex;align-items:center;gap:16px}
-.ihead .wm{--wm:26px;width:auto;min-width:64px;height:64px;padding:0 14px;background:#fff;border:1px solid var(--line);border-radius:10px}
+.ihead .wm{width:auto;min-width:72px;max-width:220px;height:72px;padding:10px 14px;background:#fff;border:1px solid var(--line);border-radius:12px}
+.ihead .wm .lgw img{max-height:44px}
 .back{display:inline-flex;align-items:center;gap:5px;background:none;border:0;color:var(--blue);font-weight:600;font-size:12.5px;padding:0;margin-bottom:10px}
 .back .i{width:15px;height:15px}
 .tw{overflow-x:auto;margin-top:12px;-webkit-overflow-scrolling:touch}
@@ -238,12 +274,18 @@ body.mini .collapse .i{transform:rotate(180deg)}
  .mb{margin-bottom:12px}
  .pad{padding:16px}
  .igrid{grid-template-columns:1fr 1fr;gap:8px}
- .wm{width:80px;--wm:16px}
+ .prow{grid-template-columns:1fr;gap:8px;padding:12px 2px}
+ .prow .mt{text-align:left}
+ .prow>.i{display:none}
+ .cgrid{grid-template-columns:1fr 1fr;gap:8px}
+ .icard{padding:12px}
+ .wm{width:84px}
+ .lgw img{max-height:30px}
  .chart{height:224px}
  .fields{grid-template-columns:1fr}
  .phead{padding-top:20px;margin-bottom:12px}
  .phead h1{font-size:25px}
- .ihead .wm{height:54px;min-width:54px;--wm:20px}
+ .ihead .wm{height:58px;min-width:58px;padding:8px 10px}
  .kpis.small{grid-template-columns:repeat(2,minmax(0,1fr))}
  .kpis.small .kpi{align-items:flex-start;text-align:left;padding:12px 14px}
  .foot{margin-top:22px}
@@ -253,7 +295,7 @@ body.mini .collapse .i{transform:rotate(180deg)}
  .bnav .i{width:23px;height:23px}
  .notice{margin:12px 0}
 }
-@media(max-width:480px){.igrid{grid-template-columns:1fr}.kpi strong{font-size:16px}.kpi .k1{font-size:10px}.cand img{width:76px;height:92px}.pct{font-size:28px}.seg button{padding:7px 11px}.vs strong{font-size:22px}}
+@media(max-width:480px){.igrid,.cgrid{grid-template-columns:1fr}.kpi strong{font-size:16px}.kpi .k1{font-size:10px}.cand img{width:76px;height:92px}.pct{font-size:28px}.seg button{padding:7px 11px}.vs strong{font-size:22px}}
 </style>
 </head>
 <body>
@@ -352,6 +394,10 @@ body.mini .collapse .i{transform:rotate(180deg)}
      <div class="note">Uma vantagem pequena na média não garante vitória. Os resultados são estimativas sujeitas a erro e viés.</div>
     </section>
    </div>
+   <section class="card pad mb">
+    <div class="row"><div><h2 class="h2">Últimas pesquisas</h2><div class="sub">2º turno · votos válidos · resultados nacionais mais recentes</div></div><button class="btn" data-go="comparar">Comparar pesquisas<svg class="i"><use href="#right"/></svg></button></div>
+    <div class="feed" id="feed"></div>
+   </section>
    <section class="card pad">
     <div class="row"><div><h2 class="h2">Institutos de pesquisa</h2><div class="sub">Acompanhe o histórico, amostras, cenários e metodologia</div></div><button class="btn" data-go="institutos">Ver todos os institutos<svg class="i"><use href="#right"/></svg></button></div>
     <div class="igrid" id="homeTiles"></div>
@@ -362,7 +408,7 @@ body.mini .collapse .i{transform:rotate(180deg)}
   <section class="screen" id="s-institutos">
    <div id="instAll">
     <div class="phead"><div><div class="eyebrow">Análise por instituto</div><h1>Institutos de pesquisa</h1><div class="sub">Pesquisas presidenciais nacionais com resultado por candidato</div></div></div>
-    <section class="card pad"><div class="igrid" id="allTiles" style="margin-top:0"></div></section>
+    <div class="cgrid" id="allTiles"></div>
    </div>
    <div id="instOne">
     <div class="phead"><div><button class="back" data-go="institutos"><svg class="i"><use href="#left"/></svg>Todos os institutos</button>
@@ -492,21 +538,12 @@ const L='Lula',F='Flávio Bolsonaro',COL={[L]:'#d7302f',[F]:'#1d6fd6'},EXTRA=['#
 const ELEICAO1='2026-10-04';
 const ic=(id,cls='i')=>`<svg class="${cls}"><use href="#${id}"/></svg>`;
 
-// "logos" em texto estilizado (sem usar as marcas oficiais)
-const WM={
- 'Quaest':['Quaest','#1c3d8f','font-style:italic;letter-spacing:-1px'],
- 'Nexus':['NEXUS','#1a56b0','letter-spacing:.5px;font-size:calc(var(--wm) * .92)'],
- 'Futura':['FUTURA','#121a24','font-weight:900;letter-spacing:.3px;font-size:calc(var(--wm) * .9)'],
- 'GERP':['GERP','#20365f','font-weight:900;letter-spacing:.5px'],
- 'Datafolha':['Datafolha','#1d4fa8','font-family:"Source Serif 4",Georgia,serif;font-weight:700;letter-spacing:-.6px;font-size:calc(var(--wm) * .92)'],
- 'AtlasIntel':['AtlasIntel','#1b1f27','font-weight:700;font-size:calc(var(--wm) * .74);letter-spacing:-.3px','#f2a20c'],
- 'PoderData':['PODERDATA','#1b4fa0','font-weight:900;font-size:calc(var(--wm) * .72);letter-spacing:-.2px'],
- 'Ideia Inteligência':['IDEIA','#0d7a4c','font-weight:900;font-size:calc(var(--wm) * .82);letter-spacing:.5px','#0d7a4c'],
- 'Vox Brasil':['VOX','#c2410c','font-weight:900;letter-spacing:1px;font-size:calc(var(--wm) * .9)'],
- 'Palver':['palver','#4338ca','font-weight:800;letter-spacing:-.5px;font-size:calc(var(--wm) * .92)'],
- 'Veritá':['Veritá','#7c2d12','font-family:"Source Serif 4",Georgia,serif;font-weight:700;font-size:calc(var(--wm) * .92)'],
-};
-function wordmark(name){const w=WM[name];if(w)return `<span style="color:${w[1]};${w[2]}">${w[3]?`<i style="display:inline-block;width:.78em;height:.78em;border-radius:50%;border:.17em solid ${w[3]};margin-right:.18em;vertical-align:-.06em"></i>`:''}${esc(w[0])}</span>`;const ini=name.replace(/\(.*?\)/g,'').split(/\s+/).filter(w=>w.length>2||/^[A-Z]/.test(w)).map(w=>w[0]).join('').slice(0,3).toUpperCase();return `<span style="display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#eef2f8;color:#0f2443;font-size:13px;font-weight:800;letter-spacing:0">${esc(ini||'?')}</span>`}
+// logos oficiais (baixados dos sites dos institutos): [ícone quadrado, logo horizontal, fundo escuro]
+const LG={'Quaest':['quaest'],'Nexus':['nexus','nexus-logo.png'],'Futura':['futura'],'GERP':['gerp'],'Datafolha':['datafolha','datafolha-logo.svg'],'PoderData':['poderdata'],'AtlasIntel':['atlas'],'Real Time Big Data':['realtime','realtime-logo.png'],'Vox Brasil':['vox'],'Palver':['palver'],'Indexa':['indexa'],'Veritá':[null,'verita-logo.svg'],'Alfa Inteligência':['alfa','alfa-logo.svg'],'MDA Pesquisas':[null,'mda-logo.svg',1],'IPESPE':['ipespe','ipespe-logo.png'],'Paraná Pesquisas':['parana','parana-logo.png'],'Vetor Arrow':['vetor'],'Colectta':['colectta'],'Instituto Opinião (PI)':['opiniao'],'Instituto Ranking':['ranking','ranking-logo.png']};
+const LGP='img/institutos/',BDG=['#0f2443','#1d6fd6','#0f9b6c','#7c4ddb','#c2417a','#e08a00','#0891b2','#475569'];
+function badge(name,sz){const ws=name.replace(/\(.*?\)/g,'').split(/\s+/).filter(w=>w.length>2&&!/^instituto$/i.test(w));let ini=ws.map(w=>w[0]).join('').slice(0,2).toUpperCase();if(ini.length<2||ini[0]===ini[1])ini=(ws[0]||name).slice(0,2).toUpperCase();let h=0;for(const c of name)h=(h*31+c.charCodeAt(0))>>>0;return `<span class="bdg" style="width:${sz}px;height:${sz}px;font-size:${Math.round(sz*.4)}px;background:${BDG[h%BDG.length]}" aria-hidden="true">${esc(ini)}</span>`}
+const icon=(name,sz=20)=>{const l=LG[name];return l&&l[0]?`<img class="lgi" src="${LGP}${l[0]}-icon.png" alt="" width="${sz}" height="${sz}" loading="lazy">`:badge(name,sz)};
+const logo=name=>{const l=LG[name];return l&&l[1]?`<span class="lgw${l[2]?' dark':''}"><img src="${LGP}${l[1]}" alt="${esc(name)}" loading="lazy"></span>`:icon(name,40)};
 
 // ---------- dados
 const D={ready:false};
@@ -552,7 +589,13 @@ const legend=(el,items)=>{el.innerHTML=items.map(s=>`<span><i class="${s.cls||''
 // ---------- estado da interface
 const S={homeTurn:2,homePeriod:90,instTurn:2,instPeriod:0,ufTurn:2,uf:'SP',inst:null};
 const segSet=(id,v)=>$(id).querySelectorAll('button').forEach(b=>b.classList.toggle('on',+b.dataset.v===v));
-const tile=s=>`<button class="itile" data-inst="${esc(s.name)}"><div class="wm">${wordmark(s.name)}</div><div class="meta"><b>${esc(s.name)}</b>Última: ${dshort(s.last.date)}<br>${s.last.turno}º turno</div>${ic('right')}</button>`;
+const tile=s=>`<button class="itile" data-inst="${esc(s.name)}"><div class="wm">${logo(s.name)}</div><div class="meta"><b>${esc(s.name)}</b>Última: ${dshort(s.last.date)}<br>${s.last.turno}º turno</div>${ic('right')}</button>`;
+
+const split=p=>{const l=p.vals[L],f=p.vals[F];if(!Number.isFinite(l)||!Number.isFinite(f))return '<div class="sub">Sem Lula × Flávio neste cenário</div>';const t=l+f;return `<div class="split"><i class="bg-red" style="width:${l/t*100}%"></i><i class="bg-blue" style="width:${f/t*100}%"></i></div><div class="splitlbl"><span class="red">${fmt(l)}%<small>Lula</small></span><span class="blue"><small>Flávio</small>${fmt(f)}%</span></div>`};
+const leadTag=p=>{const l=p.vals[L],f=p.vals[F];if(!Number.isFinite(l)||!Number.isFinite(f))return '';const d=f-l,e=Number.isFinite(p.erro)&&Math.abs(d)<=2*p.erro;return e?'<span class="lead e">empate técnico</span>':d>0?'<span class="lead f">Flávio à frente</span>':'<span class="lead l">Lula à frente</span>'};
+function card(s){const ps=D.polls.filter(p=>p.inst===s.name),p=ps.filter(q=>q.turno===2).at(-1)||ps.at(-1);return `<button class="icard" data-inst="${esc(s.name)}"><div class="top"><div class="wm">${logo(s.name)}</div>${ic('right')}</div><div><b>${esc(s.name)}</b><div class="sub">${s.regs.size} pesquisa(s) · última em ${dshort(s.last.date)}</div></div><div class="chips"><span class="chip">${p.turno}º turno</span>${Number.isFinite(p.n)?`<span class="chip">${int(p.n)} entrevistas</span>`:''}${Number.isFinite(p.erro)?`<span class="chip">±${fmt(p.erro)} pp</span>`:''}</div>${split(p)}</button>`}
+function renderFeed(){const seen=new Set(),rows=[];for(const p of [...D.polls].reverse()){if(p.turno!==2||seen.has(p.reg))continue;seen.add(p.reg);rows.push(p);if(rows.length>=8)break}
+ $('feed').innerHTML=rows.map(p=>`<button class="prow" data-inst="${esc(p.inst)}"><div class="who">${icon(p.inst,36)}<div style="min-width:0"><b>${esc(p.inst)}${leadTag(p)}</b><small>${esc(p.reg)} · campo em ${dshort(p.date)}</small></div></div><div class="res">${split(p)}</div><div class="mt">${int(p.n)} entrevistas<br>margem ${Number.isFinite(p.erro)?'±'+fmt(p.erro)+' pp':'—'}</div>${ic('right')}</button>`).join('')}
 
 // ---------- visão geral
 function renderHome(){
@@ -576,6 +619,7 @@ function renderHome(){
  legend($('homeLegend'),ser);
  $('homeChartSub').textContent=S.homeTurn===2?'Média nacional · Votos válidos':'Média nacional · Votos válidos · até a eleição de 04/10';
  $('homeTiles').innerHTML=D.insts.slice(0,8).map(tile).join('');
+ renderFeed();
 }
 function delta(id,v){const el=$(id);if(!Number.isFinite(v)||v===0){el.textContent='';return}el.textContent=(v>0?'+':'')+v;el.classList.toggle('neg',v<0)}
 
@@ -584,9 +628,9 @@ function renderInstitutes(name){
  if(!D.ready)return;
  const s=name&&D.insts.find(i=>i.name===name);
  $('instAll').hidden=!!s;$('instOne').hidden=!s;
- if(!s){$('allTiles').innerHTML=D.insts.map(tile).join('');return}
+ if(!s){$('allTiles').innerHTML=D.insts.map(card).join('');return}
  const ps=D.polls.filter(p=>p.inst===name),last=ps.at(-1);
- $('iWm').innerHTML=wordmark(name);$('iName').textContent=name;
+ $('iWm').innerHTML=logo(name);$('iName').textContent=name;
  $('iK1').textContent=int(s.regs.size);$('iK2').textContent=dshort(last.date);$('iK3').textContent=int(last.n);$('iK4').textContent=Number.isFinite(last.erro)?fmt(last.erro)+' pp':'—';
  segSet('instTurn',S.instTurn);
  const pt=ps.filter(p=>p.turno===S.instTurn);
@@ -617,7 +661,7 @@ function renderCompare(){
  const A=$('cA').value,B=$('cB').value,t=+$('cT').value,ser=[],items=[];
  for(const [nm,dash] of [[A,false],[B,true]]){const ps=D.polls.filter(p=>p.inst===nm&&p.turno===t);for(const c of [L,F]){const s={name:c,label:`${c==F?'Flávio':'Lula'} · ${nm}`,color:COL[c],dash,w:dash?2:2.6,dots:!dash,points:ps.filter(p=>Number.isFinite(p.vals[c])).map(p=>({date:p.date,value:p.vals[c]}))};ser.push(s);items.push({...s,cls:dash?'dash':''})}}
  drawChart($('cmpChart'),ser,{empty:'Sem pesquisas destes institutos no turno escolhido.',label:'Comparação de institutos'});legend($('cmpLegend'),items);
- $('cmpFacts').innerHTML=[A,B].map((nm,i)=>{const p=D.polls.filter(q=>q.inst===nm&&q.turno===t).at(-1);return `${i?'<div class="sep"></div>':''}<div class="fact"><span><b style="color:var(--ink)">${esc(nm)}</b></span><b>${p?dshort(p.date):'Sem dados'}</b></div><div class="fact"><span>Lula</span><b class="red">${p?fmt(p.vals[L])+'%':'—'}</b></div><div class="fact"><span>Flávio Bolsonaro</span><b class="blue">${p?fmt(p.vals[F])+'%':'—'}</b></div><div class="fact"><span>Amostra · margem</span><b>${p?int(p.n)+' · '+(Number.isFinite(p.erro)?fmt(p.erro)+' pp':'—'):'—'}</b></div>`}).join('');
+ $('cmpFacts').innerHTML=[A,B].map((nm,i)=>{const p=D.polls.filter(q=>q.inst===nm&&q.turno===t).at(-1);return `${i?'<div class="sep"></div>':''}<div class="fact"><span style="display:inline-flex;align-items:center;gap:8px">${icon(nm,22)}<b style="color:var(--ink)">${esc(nm)}</b></span><b>${p?dshort(p.date):'Sem dados'}</b></div><div class="fact"><span>Lula</span><b class="red">${p?fmt(p.vals[L])+'%':'—'}</b></div><div class="fact"><span>Flávio Bolsonaro</span><b class="blue">${p?fmt(p.vals[F])+'%':'—'}</b></div><div class="fact"><span>Amostra · margem</span><b>${p?int(p.n)+' · '+(Number.isFinite(p.erro)?fmt(p.erro)+' pp':'—'):'—'}</b></div>`}).join('');
 }
 
 // ---------- estados
@@ -638,7 +682,7 @@ async function renderStates(uf){
  let h=`<div class="row"><div><div class="eyebrow">${S.ufTurn}º turno</div><h2 class="h2" style="font-size:22px;margin-top:4px">${UFS[S.uf]}</h2><div class="sub">${s?`${s.ps.length} cenário(s) · última pesquisa em ${dshort(s.lastD)}`:'Nenhuma pesquisa presidencial neste estado e turno'}</div></div></div>`;
  if(s)h+=`<div class="vs"><div><div class="lbl">Lula · PT</div><strong class="red">${fmt(s.l)}%</strong><div class="sub">média · ${s.sel.length} instituto(s)</div></div><div><div class="lbl">Flávio Bolsonaro · PL</div><strong class="blue">${fmt(s.f)}%</strong><div class="sub">média · ${s.sel.length} instituto(s)</div></div></div>`;
  if(oL||oF)h+=`<div class="facts" style="margin-top:14px"><div class="fact"><span>Urna, 1º turno · Lula</span><b class="red">${fmt(num(oL?.pct_validos))}%</b></div><div class="fact"><span>Urna, 1º turno · Flávio Bolsonaro</span><b class="blue">${fmt(num(oF?.pct_validos))}%</b></div></div>`;
- if(s)h+=`<div class="tw"><table class="table"><thead><tr><th>Instituto</th><th>Campo</th><th class="n">Lula</th><th class="n">Flávio</th><th class="n">Amostra</th></tr></thead><tbody>${s.ps.slice().reverse().slice(0,12).map(p=>`<tr><td>${esc(p.inst)}</td><td>${dshort(p.date)}</td><td class="n red">${fmt(p.vals[L])}%</td><td class="n blue">${fmt(p.vals[F])}%</td><td class="n">${int(p.n)}</td></tr>`).join('')}</tbody></table></div>`;
+ if(s)h+=`<div class="tw"><table class="table"><thead><tr><th>Instituto</th><th>Campo</th><th class="n">Lula</th><th class="n">Flávio</th><th class="n">Amostra</th></tr></thead><tbody>${s.ps.slice().reverse().slice(0,12).map(p=>`<tr><td><span style="display:inline-flex;align-items:center;gap:8px">${icon(p.inst,18)}${esc(p.inst)}</span></td><td>${dshort(p.date)}</td><td class="n red">${fmt(p.vals[L])}%</td><td class="n blue">${fmt(p.vals[F])}%</td><td class="n">${int(p.n)}</td></tr>`).join('')}</tbody></table></div>`;
  $('ufDetail').innerHTML=h;
 }
 
@@ -662,7 +706,7 @@ const go=h=>{if(location.hash==='#'+h)route();else location.hash=h;window.scroll
 function renderSidebar(){
  const f=norm($('instFilter').value),list=D.ready?D.insts.filter(i=>!f||norm(i.name).includes(f)):[];
  $('instCount').textContent=D.ready?D.insts.length:'—';
- $('ilist').innerHTML=list.length?list.map(i=>`<button data-inst="${esc(i.name)}" class="${i.name===S.inst?'on':''}">${esc(i.name)}</button>`).join(''):`<div class="none">${D.ready?'Nenhum instituto':'Carregando...'}</div>`;
+ $('ilist').innerHTML=list.length?list.map(i=>`<button data-inst="${esc(i.name)}" class="${i.name===S.inst?'on':''}">${icon(i.name,20)}<span>${esc(i.name)}</span></button>`).join(''):`<div class="none">${D.ready?'Nenhum instituto':'Carregando...'}</div>`;
  const opts=D.ready?D.insts.map(i=>`<option>${esc(i.name)}</option>`).join(''):'';
  for(const [id,def] of [['cA',D.insts?.[0]?.name],['cB','Datafolha']]){const el=$(id),v=el.value;el.innerHTML=opts;el.value=v||def}
 }

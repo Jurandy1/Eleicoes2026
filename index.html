@@ -1431,7 +1431,7 @@ function lado(p){const l=totOuVal(p,L),f=totOuVal(p,F);if(!Number.isFinite(l)||!
 function hmTop(t){const c=new Map();for(const p of D.polls)if(p.turno===t)c.set(p.inst,(c.get(p.inst)||0)+1);return [...c.entries()].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],'pt')).map(x=>x[0])}
 function hmPolls(t,start,end){const top=hmTop(t).slice(0,9);return D.polls.filter(p=>p.turno===t&&p.date>=start&&p.date<=end&&Number.isFinite(p.vals[L])&&Number.isFinite(p.vals[F])&&(!HM.inst||(HM.inst==='__outros'?!top.includes(p.inst):p.inst===HM.inst)))}
 function campoCurto(p){const m=D.meta.get(p.reg),i=m?.inicio_campo,f=m?.fim_campo||p.date,mm=d=>MES3m[+d.slice(5,7)-1];if(!i||i===f)return `${+f.slice(8,10)}/${mm(f)}`;return i.slice(5,7)===f.slice(5,7)?`${+i.slice(8,10)}–${+f.slice(8,10)}/${mm(f)}`:`${+i.slice(8,10)}/${mm(i)}–${+f.slice(8,10)}/${mm(f)}`}
-function deltaSemana(id,v){const el=$(id);if(!Number.isFinite(v)){el.innerHTML='';return}const up=v>=.05,dn=v<=-.05;el.innerHTML=`<b class="${up?'up':dn?'dn':''}">${up?ic('aup'):dn?ic('adn'):''}${up?'+':dn?'−':''}${fmt(Math.abs(v))} p.p.</b><span>em relação à semana anterior</span>`}
+function deltaPeriodo(id,v,txt){const el=$(id);if(!Number.isFinite(v)){el.innerHTML='';return}const up=v>=.05,dn=v<=-.05;el.innerHTML=`<b class="${up?'up':dn?'dn':''}">${up?ic('aup'):dn?ic('adn'):''}${up?'+':dn?'−':''}${fmt(Math.abs(v))} p.p.</b><span>${txt}</span>`}
 function distrib(el,ps,start,end){
  const W=Math.max(260,el.clientWidth||420),H=el.clientHeight||210,PL=30,PR=6,PT=8,PB=24;
  if(!ps.length){el.innerHTML='<div class="empty">Sem pesquisas neste recorte.</div>';return}
@@ -1458,12 +1458,15 @@ function renderHome(){
  $('kP').textContent=int(regs.length);$('kI').textContent=int(new Set(regs.map(r=>r.cnpj)).size);$('kPer').textContent=`${mes(ini[0])} – ${mes(fim.at(-1))}`;$('kA').textContent=ns.length?int(ns.reduce((a,b)=>a+b,0)/ns.length):'—';
  // cenário atual: média ponderada dos votos válidos; indecisos/brancos/nulos pela média dos votos totais
  $('cenTit').textContent=`Cenário atual – ${t}º turno`;
- const med=mediaEm(t,dia),prev=mediaEm(t,addDays(dia,-7)),nvDe=m=>{let sw=0,sv=0;for(const {p,w} of m.sel)if(Number.isFinite(p.nv)){sw+=w;sv+=w*p.nv}return sw?sv/sw:NaN};
+ // a média do card é sempre a atual (janela de 14 dias); o período escolhido muda a data de comparação
+ const iniM=((t===2?D.media2:D.media1).get(L)||[])[0]?.date,alvo=per?addDays(dia,-per):iniM,ref=iniM&&alvo<iniM?iniM:alvo;
+ const txt=ref===iniM&&ref!==alvo||!per?`desde ${dshort(iniM)}, início da média`:per===7?'em relação à semana anterior':per===180?'em relação a 6 meses atrás':`em relação a ${per} dias atrás`;
+ const med=mediaEm(t,dia),prev=ref?mediaEm(t,ref):null,nvDe=m=>{let sw=0,sv=0;for(const {p,w} of m.sel)if(Number.isFinite(p.nv)){sw+=w;sv+=w*p.nv}return sw?sv/sw:NaN};
  if(med&&Number.isFinite(med.avg[L])&&Number.isFinite(med.avg[F])){const a=med.avg[L],b=med.avg[F],df=b-a,ld=Math.abs(df)<.05?null:df>0?'Flávio':'Lula',nv=nvDe(med);
   $('pL').textContent=fmt(a)+'%';$('pF').textContent=fmt(b)+'%';$('bL').style.width=a+'%';$('bF').style.width=b+'%';
-  deltaSemana('dL',prev?a-prev.avg[L]:NaN);deltaSemana('dF',prev?b-prev.avg[F]:NaN);
-  $('pN').textContent=Number.isFinite(nv)?fmt(nv)+'%':'—';$('bN').style.width=(Number.isFinite(nv)?Math.min(100,nv*2):0)+'%';deltaSemana('dN',prev?nv-nvDe(prev):NaN);
-  $('cenNote').textContent=`Lula e Flávio: média ponderada dos votos válidos de ${pl(med.sel.length,'instituto','institutos')}, até ${dshort(dia)}. Indecisos, brancos e nulos: média dos votos totais das mesmas pesquisas.`;
+  deltaPeriodo('dL',prev?a-prev.avg[L]:NaN,txt);deltaPeriodo('dF',prev?b-prev.avg[F]:NaN,txt);
+  $('pN').textContent=Number.isFinite(nv)?fmt(nv)+'%':'—';$('bN').style.width=(Number.isFinite(nv)?Math.min(100,nv*2):0)+'%';deltaPeriodo('dN',prev?nv-nvDe(prev):NaN,txt);
+  $('cenNote').textContent=`Lula e Flávio: média ponderada dos votos válidos de ${pl(med.sel.length,'instituto','institutos')}, até ${dshort(dia)}. Indecisos, brancos e nulos: média dos votos totais das mesmas pesquisas. A variação compara com a média de ${dshort(ref)}.`;
   const er=med.sel.map(x=>x.p.erro).filter(Number.isFinite),erm=er.length?er.reduce((x,y)=>x+y,0)/er.length:NaN,vl=ld?`Vantagem (${ld})`:'Vantagem';
   $('iVl').textContent=$('tVl').textContent=vl;$('iV').textContent=$('tV').textContent=ld?pp(Math.abs(df)):'Empate';$('tV').className=ld==='Flávio'?'blue':ld==='Lula'?'red':'';
   $('iE').textContent=Number.isFinite(erm)?(Math.abs(df)<=erm?'Sim':'Não'):'—';

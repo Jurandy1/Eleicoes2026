@@ -1273,7 +1273,7 @@ body{background:var(--bg);font-family:Inter,"Source Sans 3",system-ui,-apple-sys
        <label for="chatNome">Seu nome</label>
        <input id="chatNome" maxlength="24" placeholder="Como você quer aparecer" autocomplete="nickname" enterkeyhint="done">
        <button class="btn send" id="chatEntrar" type="button">Entrar no chat</button>
-       <p class="note">Só o nome. Sem e-mail, sem senha e sem cadastro. Ele fica salvo neste navegador.</p>
+       <p class="note">Só o nome. Sem email, sem senha e sem cadastro. Fechar o navegador não apaga o nome.</p>
       </div>
       <div id="chatEscreve" hidden>
        <div class="chatwho"><span>Você aparece como <b id="chatEu"></b></span><button type="button" id="chatTrocar">Trocar nome</button></div>
@@ -2036,17 +2036,21 @@ function chatPinta(rows,reset){const log=$('chatLog');if(!log)return;const perto
 function chatAgendar(ms){clearTimeout(chatTimer);chatTimer=0;if(!chatAberto||ROTA!=='apuracao'||document.visibilityState!=='visible')return;chatTimer=setTimeout(chatLer,ms)}
 async function chatLer(){if(!chatAberto||ROTA!=='apuracao'||document.visibilityState!=='visible')return;const q=chatPronto?`select=id,nome,texto,criado_em&order=id.asc&id=gt.${chatUltimo}&limit=60`:'select=id,nome,texto,criado_em&order=id.desc&limit=60';
  try{const r=await fetch(`${SB_URL}/rest/v1/chat_apuracao?${q}`,{headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY}});if(!r.ok){const t=await r.text();if(/PGRST205|chat_apuracao/.test(t))chatAviso('O chat ainda não está ligado no banco.');throw new Error('chat '+r.status)}let rows=await r.json();if(!Array.isArray(rows))throw new Error('chat inválido');if(!chatPronto){rows=rows.reverse();chatPinta(rows,true);chatPronto=true}else chatPinta(rows,false);chatFalhas=0}catch(e){chatFalhas=Math.min(chatFalhas+1,4)}finally{chatAgendar(Math.min(60000,12000*2**chatFalhas))}}
-function chatIniciar(){try{chatNome=chatLimpa(localStorage.getItem('re-chat-nome')||'',24)}catch(e){chatNome=''}if(chatNome.length<2)chatNome='';chatMostrarNome();chatAviso('');if(chatAberto)chatAgendar(chatPronto?1000:0)}
+function chatCookieSeg(){return location.protocol==='https:'?'; Secure':''}
+function chatNomeLer(){let n='';try{n=localStorage.getItem('re-chat-nome')||''}catch(e){}if(!n){const m=document.cookie.match(/(?:^|; )re-chat-nome=([^;]*)/);if(m)try{n=decodeURIComponent(m[1])}catch(e){n=''}}n=chatLimpa(n,24);return n.length>=2?n:''}
+function chatNomeGravar(n){try{localStorage.setItem('re-chat-nome',n)}catch(e){}document.cookie=`re-chat-nome=${encodeURIComponent(n)}; Max-Age=34560000; Path=/; SameSite=Lax${chatCookieSeg()}`}
+function chatNomeApagar(){try{localStorage.removeItem('re-chat-nome')}catch(e){}document.cookie=`re-chat-nome=; Max-Age=0; Path=/; SameSite=Lax${chatCookieSeg()}`}
+function chatIniciar(){chatNome=chatNomeLer();if(chatNome)chatNomeGravar(chatNome);chatMostrarNome();chatAviso('');if(chatAberto)chatAgendar(chatPronto?1000:0)}
 function chatParar(){clearTimeout(chatTimer);chatTimer=0}
 function chatAlternar(forcar){chatAberto=typeof forcar==='boolean'?forcar:!chatAberto;const box=$('chatBox'),panel=$('chatPanel'),intro=$('chatIntro'),toggle=$('chatToggle');box?.classList.toggle('is-closed',!chatAberto);if(panel)panel.hidden=!chatAberto;if(intro)intro.hidden=chatAberto;if(toggle){toggle.textContent=chatAberto?'Fechar':'Abrir';toggle.setAttribute('aria-expanded',String(chatAberto))}if(chatAberto){chatIniciar();chatAgendar(0);setTimeout(()=>$('chatLog')?.scrollTo(0,$('chatLog').scrollHeight),0)}else chatParar()}
-function chatGuardarNome(){const n=chatLimpa($('chatNome').value,24);if(n.length<2){chatAviso('O nome precisa de pelo menos 2 letras.');return}chatNome=n;try{localStorage.setItem('re-chat-nome',n)}catch(e){}chatAviso('');chatMostrarNome();$('chatTexto')?.focus()}
+function chatGuardarNome(){const n=chatLimpa($('chatNome').value,24);if(n.length<2){chatAviso('O nome precisa de pelo menos 2 letras.');return}chatNome=n;chatNomeGravar(n);chatAviso('');chatMostrarNome();$('chatTexto')?.focus()}
 async function chatEnviar(ev){ev.preventDefault();if(chatNome.length<2){chatGuardarNome();return}const texto=chatLimpa($('chatTexto').value,400);if(!texto)return;const agora=Date.now();if(agora-chatEspera<4000){chatAviso('Espere alguns segundos para enviar de novo.');return}chatEspera=agora;$('chatTexto').value='';
  try{const r=await fetch(`${SB_URL}/rest/v1/chat_apuracao`,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=representation'},body:JSON.stringify({nome:chatNome,texto})});if(!r.ok){chatEspera=0;chatAviso('Não foi possível enviar agora. Tente de novo.');return}chatAviso('');const rows=await r.json();if(Array.isArray(rows))chatPinta(rows,false);chatAgendar(12000)}catch(e){chatEspera=0;chatAviso('Não foi possível enviar agora. Tente de novo.')}}
 $('chatForm')?.addEventListener('submit',chatEnviar);
 $('chatEntrar')?.addEventListener('click',chatGuardarNome);
 $('chatAbrir')?.addEventListener('click',()=>chatAlternar(true));
 $('chatToggle')?.addEventListener('click',()=>chatAlternar());
-$('chatTrocar')?.addEventListener('click',()=>{chatNome='';try{localStorage.removeItem('re-chat-nome')}catch(e){}chatMostrarNome();chatAviso('');$('chatNome')?.focus()});
+$('chatTrocar')?.addEventListener('click',()=>{chatNome='';chatNomeApagar();chatMostrarNome();chatAviso('');$('chatNome')?.focus()});
 
 // ---------- navegação
 const ROUTES=['inicio','previsao','apuracao','institutos','comparar','estados','metodologia'];let ROTA='inicio';

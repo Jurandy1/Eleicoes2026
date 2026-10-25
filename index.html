@@ -795,6 +795,15 @@ body{background:var(--bg);font-family:Inter,"Source Sans 3",system-ui,-apple-sys
 .ufrec button.on{border-color:var(--blue);box-shadow:inset 0 0 0 1px var(--blue)}
 .ufnote{margin-top:12px;padding:10px 12px;border-radius:10px;background:#fff8ec;border:1px solid #f6dfb5;font-size:12.5px;color:#344054}
 @media(max-width:860px){.ufctrl{width:100%}.ufctrl .hm-sel{flex:1;min-width:0}.ufctrl .hm-sel select{padding:11px 30px 11px 12px;font-size:14px}}
+.hm-pscroll{max-height:340px;overflow:auto;margin-top:14px}
+.hm-pscroll .hm-table{margin-top:0}
+.hm-pscroll thead th{position:sticky;top:0;z-index:1}
+.hm-fontes{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:16px}
+.hm-fontes .lbl{font-size:11.5px;color:#344054;font-weight:500;margin-right:2px}
+.hm-fontes button{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:3px 9px 3px 4px;font:500 11px Inter,sans-serif;color:var(--ink)}
+.hm-fontes button:hover{border-color:#c5cedb}
+.hm-fontes .lgi,.hm-fontes .bdg{border-radius:50%}
+.hm-fontes small{color:var(--soft);font-weight:400}
 .hm-1t{margin-top:12px;padding:12px 14px;border-radius:10px;background:#fff8ec;border:1px solid #f6dfb5;font-size:12px;line-height:1.55;color:#344054}
 .hm-1t b{color:var(--ink)}
 .hm-1t .hm-link{font-size:12px;padding:0;margin-left:2px}
@@ -1022,6 +1031,7 @@ body{background:var(--bg);font-family:Inter,"Source Sans 3",system-ui,-apple-sys
       <article class="hm-c"><img src="img/flavio.jpg" alt="Flávio Bolsonaro" width="64" height="72"><div class="hm-cinfo"><div class="hm-cn">Flávio Bolsonaro (PL)</div><div class="hm-pct blue" id="pF">—</div></div><div class="hm-bar"><i class="bg-blue" id="bF"></i></div><div class="hm-delta" id="dF"></div></article>
       <article class="hm-c nv"><div class="hm-cinfo"><div class="hm-cn">Indecisos / Branco / Nulo</div><div class="hm-pct" id="pN">—</div></div><div class="hm-bar"><i class="bg-gray" id="bN"></i></div><div class="hm-delta" id="dN"></div></article>
      </div>
+     <div class="hm-fontes" id="hmFontes"></div>
      <div class="hm-note" id="cenNote"></div>
      <div class="hm-1t" id="hm1t"></div>
     </section>
@@ -1068,7 +1078,7 @@ body{background:var(--bg);font-family:Inter,"Source Sans 3",system-ui,-apple-sys
 
     <section class="hc hm-perf">
      <div class="hm-head"><h2><b>Desempenho por instituto</b> <span>(média)</span></h2><button class="hm-link dk-only" data-go="institutos">Ver todos <svg class="i"><use href="#arrow"/></svg></button><button class="hm-chev mb-only" data-go="institutos" aria-label="Ver todos os institutos"><svg class="i"><use href="#right"/></svg></button></div>
-     <table class="hm-table hm-ptab"><thead><tr><th>Instituto</th><th>Lula</th><th>Flávio</th><th class="n"><span class="dk-only">Nº de pesquisas</span><span class="mb-only">Nº</span></th></tr></thead><tbody id="perfTab"></tbody></table>
+     <div class="hm-pscroll"><table class="hm-table hm-ptab"><thead><tr><th>Instituto</th><th>Lula</th><th>Flávio</th><th class="n"><span class="dk-only">Nº de pesquisas</span><span class="mb-only">Nº</span></th></tr></thead><tbody id="perfTab"></tbody></table></div><div class="hm-note" id="perfNote"></div>
     </section>
 
     <section class="hc hm-cens">
@@ -1466,7 +1476,7 @@ const pv=v=>!Number.isFinite(v)?'—':(Math.abs(v-Math.round(v))<.05?fmt(v,0):fm
 const totOuVal=(p,c)=>Number.isFinite(p.tot[c])?p.tot[c]:p.vals[c];
 // mesma regra do leadTag: empate técnico quando a diferença nos votos totais cabe em duas margens de erro
 function lado(p){const l=totOuVal(p,L),f=totOuVal(p,F);if(!Number.isFinite(l)||!Number.isFinite(f))return null;const d=f-l;return Number.isFinite(p.erro)&&Math.abs(d)<=2*p.erro?'e':d>0?'f':'l'}
-function hmTop(t){const c=new Map();for(const p of D.polls)if(p.turno===t)c.set(p.inst,(c.get(p.inst)||0)+1);return [...c.entries()].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],'pt')).map(x=>x[0])}
+function hmTop(t){const dia=diaDoTurno(t),ini=S.homePeriod?addDays(dia,-S.homePeriod):'0000',c=new Map();for(const p of D.polls)if(p.turno===t&&p.date>=ini&&p.date<=dia)c.set(p.inst,(c.get(p.inst)||0)+1);return [...c.entries()].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],'pt')).map(x=>x[0])}
 function hmPolls(t,start,end){const top=hmTop(t).slice(0,9);return D.polls.filter(p=>p.turno===t&&p.date>=start&&p.date<=end&&Number.isFinite(p.vals[L])&&Number.isFinite(p.vals[F])&&(!HM.inst||(HM.inst==='__outros'?!top.includes(p.inst):p.inst===HM.inst)))}
 function campoCurto(p){const m=D.meta.get(p.reg),i=m?.inicio_campo,f=m?.fim_campo||p.date,mm=d=>MES3m[+d.slice(5,7)-1];if(!i||i===f)return `${+f.slice(8,10)}/${mm(f)}`;return i.slice(5,7)===f.slice(5,7)?`${+i.slice(8,10)}–${+f.slice(8,10)}/${mm(f)}`:`${+i.slice(8,10)}/${mm(i)}–${+f.slice(8,10)}/${mm(f)}`}
 function deltaPeriodo(id,v,txt){const el=$(id);if(!Number.isFinite(v)){el.innerHTML='';return}const up=v>=.05,dn=v<=-.05;el.innerHTML=`<b class="${up?'up':dn?'dn':''}">${up?ic('aup'):dn?ic('adn'):''}${up?'+':dn?'−':''}${fmt(Math.abs(v))} p.p.</b><span>${txt}</span>`}
@@ -1504,6 +1514,7 @@ function renderHome(){
   $('pL').textContent=fmt(a)+'%';$('pF').textContent=fmt(b)+'%';$('bL').style.width=a+'%';$('bF').style.width=b+'%';
   deltaPeriodo('dL',prev?a-prev.avg[L]:NaN,txt);deltaPeriodo('dF',prev?b-prev.avg[F]:NaN,txt);
   $('pN').textContent=Number.isFinite(nv)?fmt(nv)+'%':'—';$('bN').style.width=(Number.isFinite(nv)?Math.min(100,nv*2):0)+'%';deltaPeriodo('dN',prev?nv-nvDe(prev):NaN,txt);
+  $('hmFontes').innerHTML=`<span class="lbl">Institutos na média atual (${med.sel.length}):</span>`+med.sel.slice().sort((x,y)=>y.p.date.localeCompare(x.p.date)||y.w-x.w).map(({p})=>`<button type="button" data-inst="${esc(p.inst)}" title="Campo até ${dshort(p.date)}">${icon(p.inst,16)}${esc(p.inst)}<small>${p.date.slice(8,10)}/${p.date.slice(5,7)}</small></button>`).join('');
   $('cenNote').textContent=`Lula e Flávio: média ponderada dos votos válidos de ${pl(med.sel.length,'instituto','institutos')}, até ${dshort(dia)}. Indecisos, brancos e nulos: média dos votos totais das mesmas pesquisas. A variação compara com a média de ${dshort(ref)}.`;
   const er=med.sel.map(x=>x.p.erro).filter(Number.isFinite),erm=er.length?er.reduce((x,y)=>x+y,0)/er.length:NaN,vl=ld?`Vantagem (${ld})`:'Vantagem';
   $('iVl').textContent=$('tVl').textContent=vl;$('iV').textContent=$('tV').textContent=ld?pp(Math.abs(df)):'Empate';$('tV').className=ld==='Flávio'?'blue':ld==='Lula'?'red':'';
@@ -1533,7 +1544,8 @@ function renderHome(){
  $('lastList').innerHTML=last.slice(0,5).map(p=>{const l=totOuVal(p,L),f=totOuVal(p,F);return `<button class="hm-li" data-inst="${esc(p.inst)}">${icon(p.inst,34)}<div style="min-width:0"><b>${esc(p.inst)}</b><small>${campoCurto(p)}/${p.date.slice(0,4)} · ${int(p.n)}</small></div><div class="pp"><span class="red">${pv(l)}<i class="bg-red"></i></span><span class="blue">${pv(f)}<i class="bg-blue"></i></span></div>${ic('right')}</button>`}).join('')||'<p class="hm-note">Nenhuma pesquisa neste recorte.</p>';
  // desempenho por instituto: média simples dos votos válidos no período
  const pm=new Map();for(const p of ps){let o=pm.get(p.inst);if(!o){o={n:0,l:0,f:0};pm.set(p.inst,o)}o.n++;o.l+=p.vals[L];o.f+=p.vals[F]}
- $('perfTab').innerHTML=[...pm.entries()].sort((a,b)=>b[1].n-a[1].n||a[0].localeCompare(b[0],'pt')).slice(0,8).map(([n,o])=>{const l=o.l/o.n,f=o.f/o.n;return `<tr data-inst="${esc(n)}"><td><span class="hm-who">${icon(n,18)}${esc(n)}</span></td><td><span class="hm-pv"><b class="red">${pv(l)}</b><i class="bg-red" style="width:${l}%"></i></span></td><td><span class="hm-pv"><b class="blue">${pv(f)}</b><i class="bg-blue" style="width:${f}%"></i></span></td><td class="n">${o.n}</td></tr>`}).join('')||'<tr><td colspan="4" class="hm-note">Nenhuma pesquisa neste recorte.</td></tr>';
+ $('perfNote').textContent=pm.size?`${pl(pm.size,'instituto','institutos')} com pesquisa no período${pm.size>8?'. Role a tabela para ver todos':''}.`:'';
+ $('perfTab').innerHTML=[...pm.entries()].sort((a,b)=>b[1].n-a[1].n||a[0].localeCompare(b[0],'pt')).map(([n,o])=>{const l=o.l/o.n,f=o.f/o.n;return `<tr data-inst="${esc(n)}"><td><span class="hm-who">${icon(n,18)}${esc(n)}</span></td><td><span class="hm-pv"><b class="red">${pv(l)}</b><i class="bg-red" style="width:${l}%"></i></span></td><td><span class="hm-pv"><b class="blue">${pv(f)}</b><i class="bg-blue" style="width:${f}%"></i></span></td><td class="n">${o.n}</td></tr>`}).join('')||'<tr><td colspan="4" class="hm-note">Nenhuma pesquisa neste recorte.</td></tr>';
  // cenários e registros
  const ca=D.cenAll||[],tipo=k=>ca.filter(c=>norm(c.cenario).includes(k)).length,est=tipo('estimul'),esp=tipo('espont'),cens=[['2º turno',ca.filter(c=>+c.turno===2).length],['1º turno',ca.filter(c=>+c.turno===1).length],...(esp?[['Espontânea',esp]]:[]),['Estimulada',est],['Outros cenários',ca.length-est-esp]],cm=Math.max(1,...cens.map(c=>c[1]));
  $('censBars').innerHTML=cens.map(([n,v])=>`<span>${n}</span><div class="bt"><i style="width:${v/cm*78}%"></i><span>${int(v)}</span></div><span class="v mb-only">${int(v)}</span>`).join('');
@@ -1830,7 +1842,7 @@ function route(opts){
 }
 const go=h=>{const root=document.documentElement,prev=root.style.scrollBehavior;root.style.scrollBehavior='auto';if(location.hash==='#'+h)route();else location.hash=h;if(!String(h).startsWith('inicio'))window.scrollTo(0,0);root.style.scrollBehavior=prev};
 function renderSidebar(){
- const f=norm($('instFilter').value),list=D.ready?D.insts.filter(i=>!f||norm(i.name).includes(f)):[];
+ const f=norm($('instFilter').value),list=D.ready?D.insts.filter(i=>!f||norm(i.name).includes(f)).sort((a,b)=>b.last.date.localeCompare(a.last.date)||b.regs.size-a.regs.size):[];
  $('instCount').textContent=D.ready?D.insts.length:'—';
  const lim=f||S.sideAll||innerWidth<=860?Infinity:9;
  $('ilist').innerHTML=list.length?list.slice(0,lim).map(i=>`<button data-inst="${esc(i.name)}" class="${i.name===S.inst?'on':''}">${icon(i.name,20)}<span>${esc(i.name)}</span></button>`).join('')+(list.length>lim?`<button class="more" id="sideMore">Outros institutos (${list.length-lim})</button>`:''):`<div class="none">${D.ready?'Nenhum instituto':'Carregando...'}</div>`;

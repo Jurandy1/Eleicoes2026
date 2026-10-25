@@ -1022,7 +1022,8 @@ function route(){
  if(r==='comparar')renderCompare();
  if(r==='estados')renderStates(arg);
  if(r==='previsao')renderPrevisao();
- if(r==='apuracao'){renderLive();if(!LIVE.ufAt)atualizaUFs()}
+ // a projeção da apuração precisa do modelo (pesquisas estaduais), mesmo vindo direto para esta página
+ if(r==='apuracao'){renderLive();if(!LIVE.ufAt)atualizaUFs();if(D.ready)prepModelo().then(renderLive).catch(()=>{})}
  ROTA=r;
  const titles={previsao:'Previsão do 2º turno',apuracao:'Apuração ao vivo',inicio:'Painel Presidencial',institutos:S.inst||'Institutos',comparar:'Comparar pesquisas',estados:'Estados',metodologia:'Metodologia'};
  document.title=`Pesquisas Eleitorais 2026 | ${titles[r]}`;

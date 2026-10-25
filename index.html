@@ -1104,9 +1104,9 @@ const TSE='https://resultados.tse.jus.br/oficial/ele2026/6258/dados',LIVE={br:nu
 // o TSE só aceita a sigla em minúsculas no endereço (/sp/sp-c0001...)
 async function lerTSE(uf){const u=uf.toLowerCase(),r=await fetch(`${TSE}/${u}/${u}-c0001-e006258-u.json`,{cache:'no-store'});if(!r.ok)throw new Error('TSE '+r.status);const d=await r.json(),cs={};
  for(const a of d.carg?.[0]?.agr||[])for(const p of a.par||[])for(const c of p.cand||[])cs[cand(c.nmu||c.nm)]={vap:num(c.vap),pvap:num(c.pvap),eleito:/eleito/i.test(c.st||'')&&!/não/i.test(c.st||'')};
- return{uf,pst:num(d.s?.pst)||0,vv:num(d.v?.vv)||0,pvb:num(d.v?.pvb),pvn:num(d.v?.pvn),pa:num(d.e?.pa),hora:`${d.dg||''} ${d.hg||''}`.trim(),final:d.tf==='s',cs}}
+ return{uf,pst:num(d.s?.pst)||0,vv:num(d.v?.vv)||0,pvb:num(d.v?.pvb),pvn:num(d.v?.ptvn),pa:num(d.e?.pa),hora:`${d.dg||''} ${d.hg||''}`.trim(),final:d.tf==='s',cs}}
 async function atualizaBR(){if(LIVE.busy)return;LIVE.busy=true;try{LIVE.br=await lerTSE('br');LIVE.err=null}catch(e){LIVE.err=e}LIVE.busy=false;LIVE.next=Date.now()+60000;renderLive()}
-async function atualizaUFs(){if(LIVE.busyUF)return;LIVE.busyUF=true;const ufs=Object.keys(POS),rs=await Promise.allSettled(ufs.map(lerTSE));rs.forEach((r,i)=>{if(r.status==='fulfilled')LIVE.uf[ufs[i]]=r.value});LIVE.busyUF=false;LIVE.ufAt=Date.now();renderLive()}
+async function atualizaUFs(){if(LIVE.busyUF)return;LIVE.busyUF=true;const ufs=[...Object.keys(POS),'ZZ'],rs=await Promise.allSettled(ufs.map(lerTSE));/* ZZ = voto no exterior: entra na projeção, não no mapa */rs.forEach((r,i)=>{if(r.status==='fulfilled')LIVE.uf[ufs[i]]=r.value});LIVE.busyUF=false;LIVE.ufAt=Date.now();renderLive()}
 // projeção: votos contados em cada estado + previsão do modelo para o que falta apurar
 function projecao(){const m=D.sim&&modelo(1);if(!m)return null;let any=false;const R=rng(PV.SEED+9),gauss=()=>{let u=0;while(!u)u=R();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*R())};
  const S2=m.E.map(e=>{const lv=LIVE.uf[e.uf],fr=lv?Math.min(1,lv.pst/100):0,f=lv?.cs[F]?.vap||0,l=lv?.cs[L]?.vap||0;if(fr>0)any=true;const resto=fr>0&&fr<1?(f+l)*(1-fr)/fr:fr>=1?0:e.V;return{e,f,l,resto,c:m.est(e,.5)+(m.centro-m.agg)}});
